@@ -1,0 +1,10 @@
+# Ignorer les fichiers compilés
+*.class
+*.o
+*.log
+
+# Ignorer les répertoires
+/bin
+
+# Ignorer les fichiers de configuration locaux
+.vscode/
