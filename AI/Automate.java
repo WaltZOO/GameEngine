@@ -13,7 +13,16 @@ public class Automate {
 
     void step(Entity e) // generique a tous les automates (<30 lignes)
     {
-        System.out.print("NYI");
+        int i = 0;
+        // on cherche la transition qui correspond a l'etat courant et qui a une moto
+        // | pas depasser taille ! | bon etat de depart ! | condition respectée ! |
+        while (i < instructions.size() && (instructions.get(i).getSource() != e.getState()
+                || !instructions.get(i).getCondition().eval(e))) {
+            i++;
+        }
+        instructions.get(i).getAction().exec(e);
+        e.setState(instructions.get(i).getTarget());
+
     }
 
 }

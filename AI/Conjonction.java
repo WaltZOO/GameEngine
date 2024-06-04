@@ -8,7 +8,7 @@ public class Conjonction implements Condition {
 		this.c2 = c2;
 	}
 
-	boolean eval(Entity e) {
+	public boolean eval(Entity e) {
 		return c1.eval(e) && c2.eval(e);
 	}
 }

@@ -5,7 +5,7 @@ public interface Action {
 class Move implements Action {
 
     @Override
-    void exec(Entity e) {
+    public void exec(Entity e) {
         e.do_move();
     }
 }
@@ -13,7 +13,7 @@ class Move implements Action {
 class Pick implements Action {
 
     @Override
-    void exec(Entity e) {
+    public void exec(Entity e) {
         e.do_pick();
     }
 }
@@ -21,7 +21,7 @@ class Pick implements Action {
 class Egg implements Action {
 
     @Override
-    void exec(Entity e) {
+    public void exec(Entity e) {
         e.do_egg();
     }
 }
