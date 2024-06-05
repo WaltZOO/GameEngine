@@ -1,3 +1,7 @@
+package ai;
+
+import model.Entity;
+
 public interface Action {
     public void exec(Entity e);
 }
@@ -5,7 +9,7 @@ public interface Action {
 class Move implements Action {
 
     @Override
-    public void exec(Entity e) {
+	public void exec(Entity e) {
         e.do_move();
     }
 }
