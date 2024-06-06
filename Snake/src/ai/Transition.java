@@ -1,14 +1,37 @@
 package ai;
 
-public class Transition {
-    State source, cible;
-    Condition c;
-    Action a;
+import java.util.ArrayList;
+// import model.Entity;
 
-    public Transition(State source, State cible, Condition c, Action a) {
+public class Transition {
+    State source, target;
+    Condition c;
+    ArrayList<Action> a;
+
+    public Transition(State source, State target, Condition c, Action a) {
         this.source = source;
-        this.cible = cible;
+        this.target = target;
         this.c = c;
-        this.a = a;
+        this.a.set(0, a);
     }
+
+    public Condition getCondition() {
+        return c;
+    }
+
+    public State getSource() {
+        return source;
+    }
+
+    public State getTarget() {
+        return target;
+    }
+
+    public ArrayList<Action> getAction() {
+        return a;
+    }
+    
+
+
+
 }

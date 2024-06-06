@@ -1,21 +1,23 @@
 package ai;
 
 import java.util.ArrayList;
-
 import model.Entity;
 
-public class Automate {
-	ArrayList<Transition> instructions;
 
-	public Automate() {
-		instructions = new ArrayList<Transition>();
+interface StepByStep{
+	public void step(Entity e);
+}
+
+public class FSM implements StepByStep{
+	ArrayList<Transition>  instructions;
+	
+	public FSM() {
+		this.instructions = new ArrayList<Transition>();	
 	}
-
 	public void add_transition(Transition t) {
 		instructions.add(t);
 	}
-
-	void step(Entity e) // generique a tous les automates (<30 lignes)
+	public void step(Entity e) // generique a tous les automates (<30 lignes)
     {
         int i = 0;
 	
@@ -24,8 +26,11 @@ public class Automate {
                 || !instructions.get(i).getCondition().eval(e))) {
             i++;
         }
-        instructions.get(i).getAction().exec(e);
-        e.setState(instructions.get(i).getTarget());
+		e.setState(instructions.get(i).getTarget());
+        for (Action act: instructions.get(i).getAction()) {
+			act.exec(e);
+		}
+        
 
     }
 
