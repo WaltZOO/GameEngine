@@ -14,11 +14,11 @@ public abstract class Entity {
         this.model=m;
         this.x=x;
         this.y=y;
-        direction=Direction.W;
+        this.direction=Direction.W;
     }
 
     public boolean eval_cell(int dir, int category) {
-    	Entity e=null;;   
+    	Entity e=null;   
         switch (dir) {
             case Direction.N:
                 e=model.getEntity(x,y-1);
@@ -125,7 +125,10 @@ public abstract class Entity {
                 }
                 return false;
             case Category.ME:
-                
+                if (e.x==x && e.y==y) {
+                    return true;
+                }
+                return false;
             default:
                 break;
         }
@@ -142,6 +145,7 @@ public abstract class Entity {
     public void setState(State s) {
         this.current=s;
     }
+    
 
 public abstract void do_move(int direction);
 public abstract void do_pick();

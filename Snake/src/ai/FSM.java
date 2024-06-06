@@ -19,15 +19,18 @@ public class FSM implements StepByStep{
 	}
 	public void step(Entity e) // generique a tous les automates (<30 lignes)
     {
-        int i = 0;
+		if (instructions.isEmpty()) return;
+        int i = 0;		
 	
         // | pas depasser taille ! | bon etat de depart ! | condition respectée ! |
-        while (i < instructions.size() && (instructions.get(i).getSource() != e.getState()
-                || !instructions.get(i).getCondition().eval(e))) {
+		Transition current = instructions.get(i);
+        while (i < instructions.size() -1  && (current.getSource() != e.getState()
+                || !current.getCondition().eval(e))) {
             i++;
+			current = instructions.get(i);
         }
-		e.setState(instructions.get(i).getTarget());
-        for (Action act: instructions.get(i).getAction()) {
+		e.setState(current.getTarget());
+        for (Action act: current.getAction()) {
 			act.exec(e);
 		}
         

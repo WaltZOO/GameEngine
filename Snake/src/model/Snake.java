@@ -14,94 +14,161 @@ public class Snake extends Entity {
 		this.bodies = new ArrayList<SnakeBody>();
 
 		// Si libre devant, avancer
-		State src = new State("src");
-		Action move = new Move(Direction.F);
+		State src = new State(1);
+		ArrayList<Action> move = new ArrayList<Action>();
+		move.add(new Move(Direction.F));
 		Condition cond = new Cell(Direction.F, Category.V); // Si libre devant
-		fsm.add_transition(new Transition(src, src, move, cond));
+		fsm.add_transition(new Transition(src, src, cond, move));
 
 		// Si libre droite, tourner droite
-		Condition cond = new Cell(Direction.R, Category.V);
-		Action move = new Action("move");
+		cond = new Cell(Direction.R, Category.V);
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.R));
 
-		fsm.add_transition(new Transition(src, src, move, cond));
+		fsm.add_transition(new Transition(src, src, cond, move));
 
 		// Si libre gauche, tourner gauche
-		Condition cond = new Cell(Direction.L, Category.V);
-		Action move = new Action("move");
-		fsm.add_transition(new Transition(src, src, move, cond));
+		cond = new Cell(Direction.L, Category.V);
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.L));
+		fsm.add_transition(new Transition(src, src, cond, move));
 	}
 
-	public Snake(SnakeHead head, ArrayList<SnakeBody> bodies) {
-        this.head = head;
-        this.bodies = bodies;
-        super.fsm = new FSM();
-        fsm.add_transition(new Transition())
-    }
+	// public Snake(SnakeHead head, ArrayList<SnakeBody> bodies) {
+	// this.head = head;
+	// this.bodies = bodies;
+	// super.fsm = new FSM();
+	// //fsm.add_transition(new Transition())
+	// }
 
 	@Override
 	public void do_move(int dir) {
-		switch (dir) {
+		bodies.add(new SnakeBody(head.getX(), head.getY(), model, bodies.size()));
+		model.set(head.getX(), head.getY(), bodies.get(bodies.size() - 1));
+		head.do_move(dir);
+		for (int i = 0; i < bodies.size(); i++)
+			bodies.get(i).do_move(dir);
+	}
 
-			// absolute
+	@Override
+	public void do_pick() {
+		return;
+	}
+
+	@Override
+	public void do_egg() {
+		return;
+	}
+
+	@Override
+	public void do_turn(int dir) {
+		head.do_turn(dir);
+	}
+
+	void setX(int x) {
+		this.x = x;
+	}
+
+	void setY(int y) {
+		this.y = y;
+	}
+}
+
+class SnakeHead extends Entity {
+
+	public SnakeHead(int x, int y, Model m) {
+		super(x, y, m);
+
+	}
+
+	@Override
+	public void do_move(int dir) {
+		this.do_turn(dir);
+		switch (super.direction) {
+			case Direction.N:
+				y--;
+				break;
 			case Direction.E:
 				x++;
+				break;
+			case Direction.S:
+				y++;
 				break;
 			case Direction.W:
 				x--;
 				break;
+			default:
+				break;
+		}
+		model.set(x, y, this);
+
+	}
+	int getX(){
+		return x;
+	}
+	int getY(){
+		return y;
+	}
+
+	public void do_pick() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void do_egg() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void do_turn(int dir) {
+		switch (dir) {
+
+			// absolute
+			case Direction.E:
+				super.direction = Direction.E;
+				break;
+			case Direction.W:
+				super.direction = Direction.W;
+				break;
 			case Direction.N:
-				y++;
+				super.direction = Direction.N;
 				break;
 			case Direction.S:
-				y--;
+				super.direction = Direction.S;
 				break;
 
-			// relative
-			case Direction.F:
-				switch (head.direction) {
-					case Direction.E:
-						x++;
-						break;
-					case Direction.W:
-						x--;
-						break;
-					case Direction.N:
-						y++;
-						break;
-					case Direction.S:
-						y--;
-						break;
-				}
-				break;
+			
 			case Direction.R:
-				switch (head.direction) {
+				switch (super.direction) {
 					case Direction.E:
-						y++;
+						super.direction = Direction.S;
 						break;
 					case Direction.W:
-						y--;
+						super.direction = Direction.N;
 						break;
 					case Direction.N:
-						x--;
+						super.direction = Direction.E;
 						break;
 					case Direction.S:
-						x++;
+						super.direction = Direction.W;
 						break;
 				}
 				break;
 			case Direction.L:
-				switch (head.direction) {
+				switch (super.direction) {
 					case Direction.E:
-						y--;
+						super.direction = Direction.N;
 						break;
 					case Direction.W:
-						y++;
+						super.direction = Direction.S;
 						break;
 					case Direction.N:
-						x++;
+						super.direction = Direction.W;
 						break;
 					case Direction.S:
-						x--;
+						super.direction = Direction.E;
 						break;
 				}
 				break;
@@ -111,72 +178,37 @@ public class Snake extends Entity {
 		}
 	}
 
-	@Override
-	public void do_pick() {
-		return;
-	}
-
-	@Override
-	public void do_egg() {
-		return;
-	}
-
-	@Override
-	public void do_turn(int direction) {
-		this.do_move(direction);
-	}
-
-}
-
-class SnakeHead extends Entity {
-
-	public SnakeHead(int x, int y, Model m) {
-		super(x, y, m);
-		
-	}
-
-	@Override
-	public void do_move(int direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void do_pick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_egg() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_turn(int direction) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'do_turn'");
-	}
-
-	@Override
 	public String toString() {
-		return "@";
+		switch (direction) {
+			case Direction.E:
+				return "►";
+			case Direction.W:
+				return "◄";
+			case Direction.N:
+				return "▲";
+			case Direction.S:
+				return "▼";
+			default:
+				return " ";
+		}
 	}
-
 }
 
 class SnakeBody extends Entity {
 	int duration;
 
-	public SnakeBody(int x, int y, Model m) {
+	public SnakeBody(int x, int y, Model m, int duration) {
 		super(x, y, m);
-		
-	}
+		this.duration = duration;
 
+	}
 
 	@Override
 	public void do_move(int direction) {
 		duration--;
+		if (duration == 0) {
+			model.set(x, y, new Vide(x, y, model));
+		}
 	}
 
 	@Override

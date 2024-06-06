@@ -6,20 +6,6 @@ public interface Action {
     public void exec(Entity e);
 }
 
-class Move implements Action {
-
-    int direction;
-
-    Move(int direction) {
-        this.direction = direction;
-    }
-
-    @Override
-	public void exec(Entity e) {
-        e.do_move(direction);
-    }
-}
-
 class Pick implements Action {
 
     @Override

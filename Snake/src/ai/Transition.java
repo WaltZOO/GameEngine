@@ -8,11 +8,11 @@ public class Transition {
     Condition c;
     ArrayList<Action> a;
 
-    public Transition(State source, State target, Condition c, Action a) {
+    public Transition(State source, State target, Condition c, ArrayList<Action> act) {
         this.source = source;
         this.target = target;
         this.c = c;
-        this.a.set(0, a);
+        this.a = act;
     }
 
     public Condition getCondition() {

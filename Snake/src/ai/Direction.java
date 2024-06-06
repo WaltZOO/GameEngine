@@ -15,9 +15,4 @@ public class Direction {
     public static final int SE = 11; // South East
     public static final int NE = 12; // North East
     public Direction() {}
-}  
-/*
-public enum Direction {
-    H, F, B, L, R, N, S, E, W, SW, NW, SE, NE
-}
-*
+} 
