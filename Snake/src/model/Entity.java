@@ -115,11 +115,11 @@ public abstract class Entity {
                     return true;
                 }
                 return false;
-            /*case Category.P :
+            case Category.P :
                 if (e instanceof Apple) {
                     return true;
                 }
-                return false;*/
+                return false;
             case Category.V :
                 if (e instanceof Vide) {
                     return true;

@@ -12,7 +12,7 @@ public class Snake extends Entity {
 		this.bodies = new ArrayList<SnakeBody>();
 		this.head = new SnakeHead(0, 0, model,this);
 		model.getEntity(x, y).replace(head);
-		for (int i=0;i<10;i++) {
+		for (int i=0;i<1;i++) {
 			addBody();
 		}
 		
@@ -49,6 +49,7 @@ public class Snake extends Entity {
 
 	@Override
 	public void do_pick() {
+		addBody();
 		return;
 	}
 
@@ -82,6 +83,13 @@ class SnakeHead extends Entity {
 		ArrayList<Action> move = new ArrayList<Action>();
 		move.add(new Move(Direction.F));
 		Condition cond = new Cell(Direction.F, Category.V); // Si libre devant
+		fsm.add_transition(new Transition(current, current, cond, move));
+
+		// Si pomme devant, Avancer et Pick
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.F));
+		move.add(new Pick());
+		cond = new Cell(Direction.F, Category.P); // Une pomme est Pickable
 		fsm.add_transition(new Transition(current, current, cond, move));
 
 		// Si libre droite, tourner droite
@@ -130,8 +138,8 @@ class SnakeHead extends Entity {
 	}
 
 	public void do_pick() {
-		// TODO Auto-generated method stub
-
+		snk.do_pick();
+		
 	}
 
 	@Override

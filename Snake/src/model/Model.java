@@ -16,7 +16,11 @@ public class Model {
             }
         }
         new Snake(0, 0, this);
-        Apple a = new Apple(19, 19, this);
+        new Apple(0, 3, this);
+        new Apple(0, 6, this);
+        new Apple(9, 3, this);
+        new Apple(9, 9, this);
+        new Apple(9, 6, this);
     }
 
     public void update() {
