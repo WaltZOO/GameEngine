@@ -61,7 +61,7 @@ public class Snake extends Entity {
 class SnakeHead extends Entity {
 	Snake snk;
 
-	
+
 	public SnakeHead(int x, int y, Model m, Snake snk) {
 		super(x, y, m);
 		this.snk = snk;

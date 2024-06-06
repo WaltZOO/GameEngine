@@ -122,6 +122,8 @@ public abstract class Entity {
             case Category.V :
                 if (e instanceof Vide) {
                     return true;
+
+                    
                 }
                 return false;
             case Category.ME:

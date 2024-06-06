@@ -4,7 +4,7 @@ import model.Model;
 
 public class View {
     public static void main(String[] args) {
-        Model model = new Model(20);
+        Model model = new Model(3);
         
         while(true) {
             model.update();

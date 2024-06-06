@@ -26,14 +26,12 @@ public class FSM implements StepByStep{
         int i = 0;		
 	
         // | pas depasser taille ! | bon etat de depart ! | condition respectée ! |
-		Transition current = instructions.get(i);
-        while (i < instructions.size() -1  && (current.getSource() != e.getState()
-                || !current.getCondition().eval(e))) {
+        while (i < instructions.size()  && (instructions.get(i).getSource() != e.getState()
+                || !instructions.get(i).getCondition().eval(e))) {
             i++;
-			current = instructions.get(i);
         }
-		e.setState(current.getTarget());
-        for (Action act: current.getAction()) {
+		e.setState(instructions.get(i).getTarget());
+        for (Action act: instructions.get(i).getAction()) {
 			act.exec(e);
 		}
         
