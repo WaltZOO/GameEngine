@@ -15,6 +15,7 @@ public abstract class Entity {
         this.x=x;
         this.y=y;
         this.direction=Direction.W;
+        this.current = new State(1);
     }
 
     public boolean eval_cell(int dir, int category) {
@@ -147,6 +148,12 @@ public abstract class Entity {
     public void setState(State s) {
         this.current=s;
     }
+    
+    // Replace Entity e1 by Entity e2 in grid
+ 	public void replace(Entity e2) {
+ 		model.grid.remove(this);
+ 		model.grid.add(e2);
+ 	}
     
 
 public abstract void do_move(int direction);
