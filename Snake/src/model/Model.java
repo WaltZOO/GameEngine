@@ -16,6 +16,7 @@ public class Model {
             }
         }
         new Snake(0, 0, this);
+        Apple a = new Apple(19, 19, this);
     }
 
     public void update() {

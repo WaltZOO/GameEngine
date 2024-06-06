@@ -7,19 +7,24 @@ import ai.*;
 public class Snake extends Entity {
 	SnakeHead head;
 	ArrayList<SnakeBody> bodies;
-
 	public Snake(int x, int y, Model model) {
 		super(x, y, model);
 		this.bodies = new ArrayList<SnakeBody>();
 		this.head = new SnakeHead(0, 0, model,this);
 		model.getEntity(x, y).replace(head);
-		SnakeBody body2 = new SnakeBody(x+1, y, model, 2,this);
-		bodies.add(body2);
-		model.getEntity(x+1, y).replace(body2);
-		SnakeBody body1 = new SnakeBody(x+2, y, model, 1,this);
-		bodies.add(body1);
-		model.getEntity(x+2, y).replace(body1);
-
+		for (int i=0;i<10;i++) {
+			addBody();
+		}
+		
+	}
+	public void addBody() {
+		SnakeBody body= new SnakeBody(x+bodies.size()+1, y, model, 1,this);
+		for (int i=0;i<bodies.size();i++) {
+			bodies.get(i).duration++;
+		}
+		
+		model.getEntity(x+bodies.size()+1, y).replace(body);
+		bodies.add(0,body);
 	}
 
 	// public Snake(SnakeHead head, ArrayList<SnakeBody> bodies) {
@@ -36,8 +41,9 @@ public class Snake extends Entity {
 		Entity e2 = bodies.get(bodies.size()-1);
 		e1.replace(e2);
 		//head.do_move(dir);
-		for (int i = 0; i < bodies.size(); i++)
+		for (int i = 0; i < bodies.size()-1; i++)
 			bodies.get(i).do_move(dir);
+		bodies.remove(0);
 	}
 	
 
@@ -222,7 +228,7 @@ class SnakeBody extends Entity {
 		duration--;
 		if (duration == 0) {
 			this.replace(new Vide(x,y,model));
-			snk.bodies.remove(this);
+			//snk.bodies.remove(this);
 		}
 	}
 
