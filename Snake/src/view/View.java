@@ -7,9 +7,13 @@ public class View {
         Model model = new Model(20);
         
         while(true) {
-            System.out.println(model.toString());
             model.update();
             model.display();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

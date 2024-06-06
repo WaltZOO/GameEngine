@@ -19,7 +19,10 @@ public class FSM implements StepByStep{
 	}
 	public void step(Entity e) // generique a tous les automates (<30 lignes)
     {
-		if (instructions.isEmpty()) return;
+		if (instructions.isEmpty()){
+			return;
+		}
+
         int i = 0;		
 	
         // | pas depasser taille ! | bon etat de depart ! | condition respectée ! |

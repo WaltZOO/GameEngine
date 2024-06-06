@@ -8,30 +8,13 @@ public class Snake extends Entity {
 	SnakeHead head;
 	ArrayList<SnakeBody> bodies;
 
-	public Snake(SnakeHead head, int x, int y, Model model) {
+	public Snake(int x, int y, Model model) {
 		super(x, y, model);
-		this.head = head;
 		this.bodies = new ArrayList<SnakeBody>();
-
-		// Si libre devant, avancer
-		State src = new State(1);
-		ArrayList<Action> move = new ArrayList<Action>();
-		move.add(new Move(Direction.F));
-		Condition cond = new Cell(Direction.F, Category.V); // Si libre devant
-		fsm.add_transition(new Transition(src, src, cond, move));
-
-		// Si libre droite, tourner droite
-		cond = new Cell(Direction.R, Category.V);
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.R));
-
-		fsm.add_transition(new Transition(src, src, cond, move));
-
-		// Si libre gauche, tourner gauche
-		cond = new Cell(Direction.L, Category.V);
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.L));
-		fsm.add_transition(new Transition(src, src, cond, move));
+		this.head = new SnakeHead(0, 0, model,this);
+		model.set(x, y, head);
+		SnakeBody body = new SnakeBody(x+1, y, model, 1,this);
+		bodies.add(body);
 	}
 
 	// public Snake(SnakeHead head, ArrayList<SnakeBody> bodies) {
@@ -43,12 +26,13 @@ public class Snake extends Entity {
 
 	@Override
 	public void do_move(int dir) {
-		bodies.add(new SnakeBody(head.getX(), head.getY(), model, bodies.size()));
+		bodies.add(new SnakeBody(head.getX(), head.getY(), model, bodies.size(),this));
 		model.set(head.getX(), head.getY(), bodies.get(bodies.size() - 1));
-		head.do_move(dir);
+		//head.do_move(dir);
 		for (int i = 0; i < bodies.size(); i++)
 			bodies.get(i).do_move(dir);
 	}
+	
 
 	@Override
 	public void do_pick() {
@@ -75,27 +59,49 @@ public class Snake extends Entity {
 }
 
 class SnakeHead extends Entity {
+	Snake snk;
 
-	public SnakeHead(int x, int y, Model m) {
+	
+	public SnakeHead(int x, int y, Model m, Snake snk) {
 		super(x, y, m);
+		this.snk = snk;
+		// Si libre devant, avancer
+		State src = new State(1);
+		ArrayList<Action> move = new ArrayList<Action>();
+		move.add(new Move(Direction.F));
+		Condition cond = new Cell(Direction.F, Category.V); // Si libre devant
+		fsm.add_transition(new Transition(src, src, cond, move));
 
+		// Si libre droite, tourner droite
+		cond = new Cell(Direction.R, Category.V);
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.R));
+		fsm.add_transition(new Transition(src, src, cond, move));
+
+		// Si libre gauche, tourner gauche
+		cond = new Cell(Direction.L, Category.V);
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.L));
+		fsm.add_transition(new Transition(src, src, cond, move));
 	}
 
 	@Override
 	public void do_move(int dir) {
+		snk.do_move(dir);
 		this.do_turn(dir);
+		
 		switch (super.direction) {
 			case Direction.N:
-				y--;
+				y = (y-1)%model.getSize();
 				break;
 			case Direction.E:
-				x++;
+				x = (x+1)%model.getSize();
 				break;
 			case Direction.S:
-				y++;
+				y = (y+1)%model.getSize();
 				break;
 			case Direction.W:
-				x--;
+				x = (x-1)%model.getSize();
 				break;
 			default:
 				break;
@@ -195,12 +201,13 @@ class SnakeHead extends Entity {
 }
 
 class SnakeBody extends Entity {
+	Snake snk;
 	int duration;
 
-	public SnakeBody(int x, int y, Model m, int duration) {
+	public SnakeBody(int x, int y, Model m, int duration, Snake snk) {
 		super(x, y, m);
 		this.duration = duration;
-
+		this.snk = snk;
 	}
 
 	@Override
@@ -208,6 +215,7 @@ class SnakeBody extends Entity {
 		duration--;
 		if (duration == 0) {
 			model.set(x, y, new Vide(x, y, model));
+			snk.bodies.remove(this);
 		}
 	}
 

@@ -22,4 +22,7 @@ public class Vide extends Entity {
 	public void do_turn(int direction) {
         return;
 	}
+    public String toString() {
+        return ".";
+    }
 }

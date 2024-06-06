@@ -2,12 +2,18 @@ package model;
 
 public class Model {
     Entity[][] grid;
+    int size;
 
-    public Model(int taille) {
-        grid = new Entity[taille][taille];
-
-        SnakeHead snakeHead = new SnakeHead(0, 0, this);
-        grid[0][0] = new Snake(snakeHead,0,0,this);
+    public Model(int size) {
+        grid = new Entity[size][size];
+        this.size = size;
+        
+        for (int i=0;i<size;i++) {
+            for (int j=0;j<size;j++) {
+                grid[i][j] = new Vide(i,j,this);
+            }
+        }
+        new Snake(0,0,this);
     }
 
     public void update() {
@@ -28,19 +34,26 @@ public class Model {
     }
 
     public void display() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
                 if (grid[i][j] == null) {
                     System.out.print(".");
                 } else {
-                    System.out.print(grid[i][j].toString());
+                    System.out.print(grid[j][i].toString());
                 }
             }
             System.out.println();
-        }           
+        }
+        System.out.println("\n\n");   
     }
+    
     public void set(int x, int y, Entity t) {
         grid[x][y]=t;
     }
 
+    public int getSize() {
+        return size;
+    }
 }
