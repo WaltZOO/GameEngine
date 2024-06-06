@@ -152,7 +152,7 @@ public abstract class Entity {
     // Replace Entity e1 by Entity e2 in grid
  	public void replace(Entity e2) {
  		model.grid.remove(this);
- 		model.grid.add(e2);
+ 		model.grid.add(0, e2);
  	}
     
 

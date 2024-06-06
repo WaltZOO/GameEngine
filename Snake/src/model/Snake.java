@@ -13,9 +13,12 @@ public class Snake extends Entity {
 		this.bodies = new ArrayList<SnakeBody>();
 		this.head = new SnakeHead(0, 0, model,this);
 		model.getEntity(x, y).replace(head);
-		SnakeBody body = new SnakeBody(x+1, y, model, 1,this);
-		bodies.add(body);
-		model.getEntity(x+1, y).replace(body);
+		SnakeBody body2 = new SnakeBody(x+1, y, model, 2,this);
+		bodies.add(body2);
+		model.getEntity(x+1, y).replace(body2);
+		SnakeBody body1 = new SnakeBody(x+2, y, model, 1,this);
+		bodies.add(body1);
+		model.getEntity(x+2, y).replace(body1);
 
 	}
 
@@ -30,7 +33,7 @@ public class Snake extends Entity {
 	public void do_move(int dir) {
 		bodies.add(new SnakeBody(head.getX(), head.getY(), model, bodies.size(),this));
 		Entity e1 = model.getEntity(head.getX(), head.getY());
-		Entity e2 = bodies.get(bodies.size() - 1);
+		Entity e2 = bodies.get(bodies.size()-1);
 		e1.replace(e2);
 		//head.do_move(dir);
 		for (int i = 0; i < bodies.size(); i++)
@@ -90,9 +93,9 @@ class SnakeHead extends Entity {
 
 	@Override
 	public void do_move(int dir) {
-		snk.do_move(dir);
 		this.do_turn(dir);
-		
+		snk.do_move(dir);
+
 		switch (super.direction) {
 			case Direction.N:
 				y = (y-1)%model.getSize();
@@ -109,6 +112,7 @@ class SnakeHead extends Entity {
 			default:
 				break;
 		}
+		
 		model.getEntity(x,y).replace(this);
 
 	}

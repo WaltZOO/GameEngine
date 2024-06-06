@@ -4,8 +4,8 @@ import model.Model;
 
 public class View {
     public static void main(String[] args) {
-        Model model = new Model(3);
-        
+        Model model = new Model(5);
+        model.display();
         while(true) {
             model.update();
             model.display();
