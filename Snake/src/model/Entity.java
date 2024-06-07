@@ -154,7 +154,7 @@ public abstract class Entity {
  		model.grid.remove(this);
  		model.grid.add(0, e2);
  	}
-    
+    public abstract void die();
 
 public abstract void do_move(int direction);
 public abstract void do_pick();

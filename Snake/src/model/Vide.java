@@ -25,4 +25,7 @@ public class Vide extends Entity {
     public String toString() {
         return ".";
     }
+	public void die() {
+		
+	}
 }

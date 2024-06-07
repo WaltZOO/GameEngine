@@ -17,9 +17,12 @@ public class Model {
 		}
 		new Snake(0, 0, this);
 		new Apple(1, 3, this);
-		new Apple(0, 6, this);
-		new Apple(9, 3, this);
-		new Apple(9, 9, this);
+		new Apple(0, 3, this);
+		new Apple(2, 3, this);
+		new Apple(5, 5, this);
+		new Apple(8, 4, this);
+		new Apple(2, 2, this);
+		new Apple(4, 1, this);
 		new Apple(9, 6, this);
 	}
 

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Transition {
     State source, target;
     Condition c;
-    ArrayList<Action> a;
+    ArrayList<ActionProba> a;
 
-    public Transition(State source, State target, Condition c, ArrayList<Action> act) {
+    public Transition(State source, State target, Condition c, ArrayList<ActionProba> act) {
         this.source = source;
         this.target = target;
         this.c = c;
@@ -27,7 +27,7 @@ public class Transition {
         return target;
     }
 
-    public ArrayList<Action> getAction() {
+    public ArrayList<ActionProba> getAction() {
         return a;
     }
     

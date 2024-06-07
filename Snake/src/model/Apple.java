@@ -33,7 +33,9 @@ public class Apple extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-	
+	public void die() {
+		
+	}
 	@Override
 	public String toString() {
 		return "@";

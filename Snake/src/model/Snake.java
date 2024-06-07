@@ -33,7 +33,9 @@ public class Snake extends Entity {
 	// super.fsm = new FSM();
 	// //fsm.add_transition(new Transition())
 	// }
-
+public void die() {
+		
+	}
 	@Override
 	public void do_move(int dir) {
 		bodies.add(new SnakeBody(head.getX(), head.getY(), model, bodies.size(),this));
@@ -66,7 +68,7 @@ public class Snake extends Entity {
 	void setX(int x) {
 		this.x = x;
 	}
-
+	
 	void setY(int y) {
 		this.y = y;
 	}
@@ -79,50 +81,124 @@ class SnakeHead extends Entity {
 	public SnakeHead(int x, int y, Model m, Snake snk) {
 		super(x, y, m);
 		this.snk = snk;
-		ArrayList<Action> move;
+		ArrayList<ActionProba> move;
+		ArrayList<Action> act;
 		Condition cond;
 
 		// Si pomme devant, Avancer et Pick
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.F));
-		move.add(new Pick());
+		move = new ArrayList<ActionProba>();
+		act= new ArrayList<Action>();
+		act.add(new Move(Direction.F));
+		move.add(new ActionProba(act));
+		act= new ArrayList<Action>();
+		act.add(new Pick());
+		move.add(new ActionProba(act));
 		cond = new Cell(Direction.F, Category.P); // Une pomme est Pickable
 		fsm.add_transition(new Transition(current, current, cond, move));
-		
-		// Si pomme gauche, Avancer et Pick
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.L));
-		move.add(new Pick());
+
+		// Si pomme left, gauche et Pick
+		move = new ArrayList<ActionProba>();
+		act = new ArrayList<Action>();
+		act.add(new Move(Direction.L));
+		move.add(new ActionProba(act));
+		act= new ArrayList<Action>();
+		act.add(new Pick());
+		move.add(new ActionProba(act));
 		cond = new Cell(Direction.L, Category.P); // Une pomme est Pickable
 		fsm.add_transition(new Transition(current, current, cond, move));
-				
-		// Si pomme droite, Avancer et Pick
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.R));
-		move.add(new Pick());
+
+		// Si pomme right, Avancer et Pick
+		move = new ArrayList<ActionProba>();
+		act= new ArrayList<Action>();
+		act.add(new Move(Direction.R));
+		move.add(new ActionProba(act));
+		act= new ArrayList<Action>();
+		act.add(new Pick());
+		move.add(new ActionProba(act));
 		cond = new Cell(Direction.R, Category.P); // Une pomme est Pickable
 		fsm.add_transition(new Transition(current, current, cond, move));
+
+		// Si libre devant && libre à droite && libre à gauche, proba(f,l,r)
+		move = new ArrayList<ActionProba>();
+		act= new ArrayList<Action>();
+		act.add(new Move(Direction.F));
+		act.add(new Move(Direction.R));
+		act.add(new Move(Direction.L));
+		move.add(new ActionProba(act));
+		cond = new Cell(Direction.F, Category.V); // Si libre devant
+		Condition cond2 = new Cell(Direction.R, Category.V); // Si libre droite
+		Condition cond3 = new Cell(Direction.L, Category.V); // Si libre gauche
+		Condition cond_final = new Conjonction(cond, new Conjonction(cond2, cond3));
+		fsm.add_transition(new Transition(current, current, cond_final, move));
+
+		// Si libre devant && libre à droite, proba(f,r)
+
+		move = new ArrayList<ActionProba>();
+		act = new ArrayList<Action>();
 		
+		act.add(new Move(Direction.F));
+		act.add(new Move(Direction.R));
+		move.add(new ActionProba(act));
+		cond = new Cell(Direction.F, Category.V); // Si libre devant
+		cond2 = new Cell(Direction.R, Category.V); // Si libre droite
+		cond_final = new Conjonction(cond, cond2);
+		fsm.add_transition(new Transition(current, current, cond_final, move));
+
+		// Si libre devant && libre à gauche, proba(f,l)
+		move = new ArrayList<ActionProba>();
+		act= new ArrayList<Action>();
+		act.add(new Move(Direction.F));
+		act.add(new Move(Direction.L));
+		move.add(new ActionProba(act));
+		cond = new Cell(Direction.F, Category.V); // Si libre devant
+		cond2 = new Cell(Direction.L, Category.V); // Si libre gauche
+		cond_final = new Conjonction(cond, cond2);
+		fsm.add_transition(new Transition(current, current, cond_final, move));
+
+		// Si libre à droite && libre à gauche, proba(l,r)
+		move = new ArrayList<ActionProba>();
+		act= new ArrayList<Action>();
+		act.add(new Move(Direction.R));
+		act.add(new Move(Direction.L));
+		move.add(new ActionProba(act));
+		cond = new Cell(Direction.R, Category.V); // Si libre droite
+		cond2 = new Cell(Direction.L, Category.V); // Si libre gauche
+		cond_final = new Conjonction(cond, cond2);
+		fsm.add_transition(new Transition(current, current, cond_final, move));
+
 		// Si libre devant, avancer
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.F));
+		move = new ArrayList<ActionProba>();
+		act = new ArrayList<Action>();
+		act.add(new Move(Direction.F));
+		move.add(new ActionProba(act));
 		cond = new Cell(Direction.F, Category.V); // Si libre devant
 		fsm.add_transition(new Transition(current, current, cond, move));
-		
 
 		// Si libre droite, tourner droite
-		cond = new Cell(Direction.R, Category.V);
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.R));
+		move = new ArrayList<ActionProba>();
+		act = new ArrayList<Action>();
+		act.add(new Move(Direction.R));
+		move.add(new ActionProba(act));
+		cond = new Cell(Direction.R, Category.V); // Si libre droite
 		fsm.add_transition(new Transition(current, current, cond, move));
 
 		// Si libre gauche, tourner gauche
-		cond = new Cell(Direction.L, Category.V);
-		move = new ArrayList<Action>();
-		move.add(new Move(Direction.L));
+		move = new ArrayList<ActionProba>();
+		act = new ArrayList<Action>();
+		act.add(new Move(Direction.L));
+		move.add(new ActionProba(act));
+		cond = new Cell(Direction.L, Category.V); // Si libre gauche
 		fsm.add_transition(new Transition(current, current, cond, move));
-	}
 
+		//True ? avancer (pas fini, faire cond = true)
+		cond = new True();
+		move = new ArrayList<ActionProba>();
+		fsm.add_transition(new Transition(current, null, cond, move));
+		
+	}
+	public void die() {
+		
+	}
 	@Override
 	public void do_move(int dir) {
 		this.do_turn(dir);
@@ -257,7 +333,9 @@ class SnakeBody extends Entity {
 			//snk.bodies.remove(this);
 		}
 	}
-
+	public void die() {
+		
+	}
 	@Override
 	public void do_pick() {
 

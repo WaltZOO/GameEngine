@@ -1,6 +1,8 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import model.Entity;
 
 
@@ -30,9 +32,23 @@ public class FSM implements StepByStep{
                 || !instructions.get(i).getCondition().eval(e))) {
             i++;
         }
+		if (instructions.get(i).getTarget()==null) {
+			e.die();
+			return;
+		}
 		e.setState(instructions.get(i).getTarget());
-        for (Action act: instructions.get(i).getAction()) {
-			act.exec(e);
+        for (ActionProba act: instructions.get(i).getAction()) {
+			Random rand = new Random();
+			int randomNum = rand.nextInt(100) + 1;
+			int proba_cumul=0;
+			for (int j=0;j<act.proba.size();j++) {
+				proba_cumul+=act.proba.get(j);
+				if (proba_cumul>randomNum) {
+					act.a.get(j).exec(e);
+					break;
+				}
+			}
+			
 		}
         
 
