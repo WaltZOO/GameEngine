@@ -79,11 +79,8 @@ class SnakeHead extends Entity {
 	public SnakeHead(int x, int y, Model m, Snake snk) {
 		super(x, y, m);
 		this.snk = snk;
-		// Si libre devant, avancer
-		ArrayList<Action> move = new ArrayList<Action>();
-		move.add(new Move(Direction.F));
-		Condition cond = new Cell(Direction.F, Category.V); // Si libre devant
-		fsm.add_transition(new Transition(current, current, cond, move));
+		ArrayList<Action> move;
+		Condition cond;
 
 		// Si pomme devant, Avancer et Pick
 		move = new ArrayList<Action>();
@@ -91,6 +88,27 @@ class SnakeHead extends Entity {
 		move.add(new Pick());
 		cond = new Cell(Direction.F, Category.P); // Une pomme est Pickable
 		fsm.add_transition(new Transition(current, current, cond, move));
+		
+		// Si pomme gauche, Avancer et Pick
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.L));
+		move.add(new Pick());
+		cond = new Cell(Direction.L, Category.P); // Une pomme est Pickable
+		fsm.add_transition(new Transition(current, current, cond, move));
+				
+		// Si pomme droite, Avancer et Pick
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.R));
+		move.add(new Pick());
+		cond = new Cell(Direction.R, Category.P); // Une pomme est Pickable
+		fsm.add_transition(new Transition(current, current, cond, move));
+		
+		// Si libre devant, avancer
+		move = new ArrayList<Action>();
+		move.add(new Move(Direction.F));
+		cond = new Cell(Direction.F, Category.V); // Si libre devant
+		fsm.add_transition(new Transition(current, current, cond, move));
+		
 
 		// Si libre droite, tourner droite
 		cond = new Cell(Direction.R, Category.V);
