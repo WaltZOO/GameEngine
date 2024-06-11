@@ -1,0 +1,26 @@
+Boss(Init){
+* Init:
+
+| Cell(N,A) ? Hit(N) ; Egg(T) :(Init)
+| Cell(E,A) ? Hit(E) ; Egg(T) :(Init)
+| Cell(S,A) ? Hit(S) ; Egg(T) :(Init)
+| Cell(W,A) ? Hit(W) ; Egg(T) :(Init)
+
+| Cell(NE,A) ? Hit(NE) ; Egg(T) :(Init)
+| Cell(SE,A) ? Hit(SE) ; Egg(T) :(Init)
+| Cell(SW,A) ? Hit(SW) ; Egg(T) :(Init)
+| Cell(NW,A) ? Hit(NW) ; Egg(T) :(Init)
+
+
+| Closest(A,N) ? Move(N) : (Init)
+| Closest(A,E) ? Move(E) : (Init)
+| Closest(A,S) ? Move(S) : (Init)
+| Closest(A,W) ? Move(W) : (Init)
+
+| Closest(A,NE) ? Move(NE) : (Init)
+| Closest(A,SE) ? Move(SE) : (Init)
+| Closest(A,SW) ? Move(SW) : (Init)
+| Closest(A,NW) ? Move(NW) : (Init)
+
+| True() ? Wait :(Init)
+

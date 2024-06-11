@@ -1,0 +1,383 @@
+{
+    // Germe
+    "seed": 0,
+    // liste des id des entité auquel il faut checker le monde pour la victoire
+    // ex : [0, 1, 2] --> le model va checker si les entités d'id 0, 1 et 2 respecte les listes d'objets à avoir et à ne pas avoir
+    //      [Tree, Rock, Zombie] --> le model va checker si les entités de type Tree, Rock et Zombie respecte les listes d'objets à avoir et à ne pas avoir
+    "Entity_to_check": ["Player1"],
+    // objets à ne pas avoir dans tous les mondes
+    "to_avoid": [],
+    // objets à avoir 
+    // l'union des mondes doit contenir
+    "to_have": ["Player2"],
+
+    // temps imparti pour finir le jeu   int ou infinite
+    // A la fin de ce timer on vérifie les coditions de victoires
+    "timer": 100000,
+
+    "Tree": {
+        "dest": null,
+        // id de groupe
+        "team" : "Tree", 
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "tree.gal",
+        // sprite de l'entité
+        "sprite": "spriteTree.png"
+    },
+
+    "Rock": {
+        // destination en cas de pick
+        "dest": null,
+        "team" : "Rock",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "rock.gal",
+        // sprite de l'entité
+        "sprite": "spriteRock.png"
+    },
+
+    "Sand": {
+        "dest": null,
+        "team": "Sand",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "Sand.gal",
+        // sprite de l'entité
+        "sprite": "spriteSand.png"
+    },
+
+    "Cat": {
+        "dest": null,
+        "team": "Cat",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "Cat.gal",
+        // sprite de l'entité
+        "sprite": "spriteCat.png"
+    },
+
+    "porte_toRock": {
+        // destination de la porte
+        "dest" : "RockWorld",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": ["Player1","Player2"],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "portal.gal",
+        // sprite de l'entité
+        "sprite": "spritePortal.png"
+    },
+
+    "porte_toTree": {
+        // destination de la porte
+        "dest" : "TreeWorld",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": ["Player1","Player2"],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "portal.gal",
+        // sprite de l'entité
+        "sprite": "spritePortal.png"
+    },
+
+    "porte_toCat": {
+        "dest" : "CatWorld",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": ["Player1","Player2"],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "portal.gal",
+        // sprite de l'entité
+        "sprite": "spritePortal.png"
+    },
+
+    "porte_toSand": {
+        "dest" : "SandWorld",
+        "position" : [0,0],
+        "angle" : 0,
+        // rayon d'interaction avec les autres entité
+        "reach" : 3,
+        // liste des entité qu'il peut prendre
+        "pickable": ["Player1","Player2"],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "portal.gal",
+        // sprite de l'entité
+        "sprite": "spritePortal.png"
+    },
+
+    "TreeWorld": {
+        // id du Type associé
+        "Parent": "Tree",
+        // image de fond
+        "background": "background_TreeWorld.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+
+        "entities": [
+            {
+                "type": "Tree", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "nb_pattern": 5, // Nombre de groupe de l'entité qui vont apparaitre
+                "radius": 5, // Taille du groupe
+                "density": 0.1, // Densité du groupe
+                "position" : "random" // Position du groupe "random" ou [x, y]
+            },
+            {
+                "type": "porte_toRock",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            },
+            {
+                "type": "porte_toSand",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            },
+            {
+                "type": "Player1",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            },
+            {
+                "type": "Player2",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            }
+        ]
+    },
+
+    "RockWorld": {
+        // id du Type associé
+        "Parent": "Rock",
+        // image de fond
+        "background": "background_RockWorld.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+
+        "entities": [
+            {
+                "type": "Rock", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "nb_pattern": 5, // Nombre de groupe de l'entité qui vont apparaitre
+                "radius": 5, // Taille du groupe
+                "density": 0.1, // Densité du groupe
+                "position" : "random" // Position du groupe "random" ou [x, y]
+            },
+            {
+                "type": "porte_toTree",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            },
+            {
+                "type": "porte_toCat",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            }
+        ]
+    },
+
+    "SandWorld": {
+        // id du Type associé
+        "Parent": "Sand",
+        // image de fond
+        "background": "background_SandWorld.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+
+        "entities": [
+            {
+                "type": "Sand", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "nb_pattern": 5, // Nombre de groupe de l'entité qui vont apparaitre
+                "radius": 5, // Taille du groupe
+                "density": 0.1, // Densité du groupe
+                "position" : "random" // Position du groupe "random" ou [x, y]
+            },
+            {
+                "type": "porte_toTree",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            },
+            {
+                "type": "porte_toCat",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            }
+        ]
+    },
+
+    "CatWorld": {
+        // id du Type associé
+        "Parent": "Cat",
+        // image de fond
+        "background": "background_CatWorld.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+
+        "entities": [
+            {
+                "type": "Sand", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "nb_pattern": 5, // Nombre de groupe de l'entité qui vont apparaitre
+                "radius": 5, // Taille du groupe
+                "density": 0.1, // Densité du groupe
+                "position" : "random" // Position du groupe "random" ou [x, y]
+            },
+            {
+                "type": "porte_cat->rock",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            },
+            {
+                "type": "porte_cat->sand",
+                "nb_pattern": 1,
+                "radius": 1,
+                "density": 1,
+                "position" : "random"
+            }
+        ]
+    },
+
+    "Bag1": {
+        // le type parent
+        // ex : "Parent" : "Tree"    (tous les arbres sont parent de ce monde)
+        "Parent": "Player1",
+        // image de fond
+        "background": null,
+        // taille du monde
+        "size": [
+            10,
+            10
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": []
+    },
+
+
+    "Player1": {
+        // Automate de l'entité
+        "FSM": "Player1.gal",
+        "name": "Player1", // nom du joueur
+        "hp": 100, // vie du joueur
+        "damage": 10, // dégats du joueur
+        "size": 1, // taille du joueur
+        // position du joueur
+        "position": [
+            0,
+            0
+        ],
+        "angle" : 0,
+        // Vitesse
+        "speed" : 3,
+        // direction du joueur
+        "direction": "N",
+        // sprite du joueur (4x5)
+        "sprite": "spritePlayer1.png",
+        // Visibilité taille de notre vue du monde
+        "fov" : 70,
+        // un joueur peut réaparaitre dans un monde
+        "CanRespawn": true
+
+        // un player à un sac mais le lien se fait dans le Monde Bag
+    },
+
+    "Player2": {
+        // Automate de l'entité
+        "FSM": "Player2.gal",
+        "name": "Player2", // nom du joueur
+        "hp": 100, // vie du joueur
+        "damage": 10, // dégats du joueur
+        "size": 1, // taille du joueur
+        // position du joueur
+        "position": [
+            0,
+            0
+        ],
+        "angle" : 0,
+        // Vitesse
+        "speed" : 2,
+        // direction du joueur
+        "direction": "N",
+        // sprite du joueur (4x5)
+        "sprite": "spritePlayer1.png",
+        // Visibilité taille de notre vue du monde
+        "fov" : 70,
+        // un joueur peut réaparaitre dans un monde
+        "CanRespawn": true
+    }
+}

@@ -1,0 +1,7 @@
+Boss(Init){
+* Init:
+
+| Cell(F,T) ? Pick(F) :(Init)
+
+| True() ? Wait :(Init)
+
