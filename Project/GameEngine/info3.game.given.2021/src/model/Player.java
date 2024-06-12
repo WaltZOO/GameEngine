@@ -1,5 +1,6 @@
 package model;
 
+
 public class Player extends Personnage{
 	boolean isPLayer1;
 

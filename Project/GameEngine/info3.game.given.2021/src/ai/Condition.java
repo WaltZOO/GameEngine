@@ -17,7 +17,8 @@ class Cell implements Condition {
 
 	@Override
 	public boolean eval(Entity e) {
-		return e.eval_cell(dir, cat);
+		return true;
+		//return e.eval_cell(dir, cat);
 	}
 	
 }
