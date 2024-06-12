@@ -31,4 +31,5 @@ Zombie(Init){
 | Cell(L,V) ? Move(L) / 80% Wait :(Init)
 | Cell(R,V) ? Move(R) / 80% Wait :(Init)
 
-| True() ? Wait :(Init)
+| True() ? :(Init)
+}

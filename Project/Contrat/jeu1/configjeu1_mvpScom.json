@@ -1,0 +1,236 @@
+{
+    "seed": 0,
+    "timer": 100000,
+    "Tree": {
+        "dest": "CatWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "tree.gal",
+        "sprite": "spriteTree.png"
+    },
+    "Rock": {
+        "dest": "CatWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "rock.gal",
+        "sprite": "spriteRock.png"
+    },
+    "Sand": {
+        "dest": "CatWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "Sand.gal",
+        "sprite": "spriteSand.png"
+    },
+    "Cat": {
+        "dest": "CatWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "Cat.gal",
+        "sprite": "spriteCat.png"
+    },
+    "PortaltoRock": {
+        "dest": "RockWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "Portal.gal",
+        "sprite": "spritePortal.png"
+    },
+    "PortaltoTree": {
+        "dest": "TreeWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "portal.gal",
+        "sprite": "spritePortal.png"
+    },
+    "PortaltoCat": {
+        "dest": "CatWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "portal.gal",
+        "sprite": "spritePortal.png"
+    },
+    "PortaltoSand": {
+        "dest": "SandWorld",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "reach": 3,
+        "size": 1,
+        "FSM": "portal.gal",
+        "sprite": "spritePortal.png"
+    },
+    "TreeWorld": {
+        "background": "background_TreeWorld.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Tree",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoRock",
+                "density": 0
+            },
+            {
+                "type": "PortaltoSand",
+                "density": 0
+            },
+            {
+                "type": "Player1",
+                "density": 1
+            },
+            {
+                "type": "Player2",
+                "density": 1
+            }
+        ]
+    },
+    "RockWorld": {
+        "Parent": "Rock",
+        "background": "background_RockWorld.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Rock",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoTree",
+                "density": 0
+            },
+            {
+                "type": "PortaltoSand",
+                "density": 0
+            }
+        ]
+    },
+    "SandWorld": {
+        "Parent": "Sand",
+        "background": "background_SandWorld.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Sand",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoTree",
+                "density": 0
+            },
+            {
+                "type": "PortaltoCat",
+                "density": 0
+            }
+        ]
+    },
+    "CatWorld": {
+        "Parent": "Cat",
+        "background": "background_CatWorld.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Sand",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoRock",
+                "density": 0
+            },
+            {
+                "type": "PortaltoSand",
+                "density": 0
+            }
+        ]
+    },
+    "Bag1": {
+        "Parent": "Player1",
+        "background": null,
+        "size": [
+            10,
+            10
+        ],
+        "entities": []
+    },
+    "Player1": {
+        "FSM": "Player1.gal",
+        "name": "Player1",
+        "hp": 100,
+        "damage": 10,
+        "size": 1,
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "speed": 3,
+        "direction": "N",
+        "sprite": "spritePlayer1.png",
+        "CanRespawn": true
+    },
+    "Player2": {
+        "FSM": "Player2.gal",
+        "name": "Player2",
+        "hp": 100,
+        "damage": 10,
+        "size": 1,
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        "speed": 2,
+        "direction": "N",
+        "sprite": "spritePlayer2.png",
+        "CanRespawn": true
+    }
+}

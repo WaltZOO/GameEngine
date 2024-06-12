@@ -22,5 +22,5 @@ Boss(Init){
 | Closest(A,SW) ? Move(SW) : (Init)
 | Closest(A,NW) ? Move(NW) : (Init)
 
-| True() ? Wait :(Init)
-
+| True() ? :(Init)
+}

@@ -1,7 +1,8 @@
-Boss(Init){
+Porte(Init){
 * Init:
 
-| Cell(F,T) ? Pick(F) :(Init)
+| Cell(F,@#) ? Pick(F) :(Init)
 
-| True() ? Wait :(Init)
+| True() ? :(Init)
 
+}
