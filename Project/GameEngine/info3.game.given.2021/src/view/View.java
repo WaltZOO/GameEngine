@@ -1,10 +1,11 @@
 package view;
 
+import model.Model;
+
 public class View {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+			Model m = new Model(1000, 1);
 	}
 
 }

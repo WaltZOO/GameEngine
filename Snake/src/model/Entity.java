@@ -159,7 +159,6 @@ public abstract class Entity {
 public abstract void do_move(int direction);
 public abstract void do_pick();
 public abstract void do_egg();
-
 public abstract void do_turn(int direction);
 
 
