@@ -31,6 +31,7 @@ import javax.swing.JLabel;
 
 import info3.game.graphics.GameCanvas;
 import info3.game.sound.RandomFileInputStream;
+import model.Model;
 
 public class Game {
 
@@ -52,11 +53,16 @@ public class Game {
 	CanvasListener m_listener;
 	Cowboy m_cowboy;
 	Sound m_music;
+	Model model;
+	int seed = 1738;
+	int timer = 10000;
 
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
+		model = new Model(timer,seed);
+		model.Init_Game();
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -165,7 +171,8 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 
 		// paint
-		m_cowboy.paint(g, width, height);
+		model.update();
+		model.paint(g, width, height);
 	}
 
 }

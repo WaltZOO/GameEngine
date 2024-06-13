@@ -1,10 +1,15 @@
 package ai;
 
 public class State {
-	int state;
-	
-	public State(int state) {
-		this.state=state;
-	}
+
+    String state;
+
+    public State(String state) {
+        this.state = state;
+    }
+
+    public boolean equals(State s) {
+        return state.toUpperCase().equals(s.state.toUpperCase());
+    }
 
 }

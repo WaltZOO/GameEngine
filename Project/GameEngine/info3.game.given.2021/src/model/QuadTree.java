@@ -6,7 +6,7 @@ import java.util.List;
 public class QuadTree {
 	final int Entity_Cap = 4;
 	int level = 0;
-	List<Node> nodes;
+	List<Entity> nodes;
 
 	QuadTree NW = null;
 	QuadTree NE = null;
@@ -17,56 +17,177 @@ public class QuadTree {
 
 	public QuadTree(int level, Boundary bdr) {
 		this.level = level;
-		this.nodes = new ArrayList<Node>();
+		this.nodes = new ArrayList<Entity>();
 		this.bdr = bdr;
 	}
 
-	public void ParcoursProfondeur(QuadTree t) {
-		if (t == null) {
-			return;
-		}
+	public static void main(String args[]) {
+		QuadTree T = new QuadTree(0, new Boundary(0, 0, 1000, 1000));
+		T.insert(new Player(100, 100, 0, 0, null, 0, 0, false));
+		T.insert(new Player(490, 490, 0, 0, null, 0, 0, false));
+		T.insert(new Player(200, 800, 0, 0, null, 0, 0, false));
+		T.insert(new Player(50, 900, 0, 0, null, 0, 0, false));
+		T.insert(new Player(400, 600, 0, 0, null, 0, 0, false));
+		Player P1 = new Player(300, 600, 0, 0, null, 0, 0, false);
+		Player P2 = new Player(350, 650, 0, 0, null, 0, 0, false);
+		T.insert(P1);
+		T.insert(P2);
+		
+		//T.getQuadTree(P2).AffichageProfondeur();
+		
+		T.remove(P1);
+		T.remove(P2);
+		
 
-		System.out.print("");
+
+		T.AffichageProfondeur();
+
+	}
+
+	public void AffichageProfondeur() {
+		System.out.printf("\nLevel = %d [X1=%d Y1=%d] \t[X2=%d Y2=%d] ", level, bdr.getxMin(), bdr.getyMin(),
+				bdr.getxMax(), bdr.getyMax());
+
+		for (Entity e : nodes) {
+			System.out.printf(" \n\t  x=%d y=%d", e.x, e.y);
+		}
+		if (nodes.size() == 0) {
+			System.out.printf(" \n\t  Leaf Node.");
+		}
+		if(NW == null )
+			return;
+			
+		NW.AffichageProfondeur();
+		NE.AffichageProfondeur();
+		SW.AffichageProfondeur();
+		SE.AffichageProfondeur();
 	}
 
 	public void split() {
 		int xOffset = bdr.getxMin() + (bdr.getxMax() - bdr.getxMin()) / 2;
 		int yOffset = bdr.getyMin() + (bdr.getyMax() - bdr.getyMin()) / 2;
 
-		NW = new QuadTree(this.level + 1, new Boundary(bdr.getxMin(), bdr.getyMin(), xOffset, yOffset));
-		NE = new QuadTree(this.level + 1, new Boundary(xOffset, bdr.getyMin(), bdr.getxMax(), yOffset));
-		SW = new QuadTree(this.level + 1, new Boundary(bdr.getxMin(), yOffset, xOffset, bdr.getyMax()));
-		SE = new QuadTree(this.level + 1, new Boundary(xOffset, yOffset, bdr.getxMax(), bdr.getyMax()));
+		NW = new QuadTree(level + 1, new Boundary(bdr.getxMin(), bdr.getyMin(), xOffset, yOffset));
+		NE = new QuadTree(level + 1, new Boundary(xOffset, bdr.getyMin(), bdr.getxMax(), yOffset));
+		SW = new QuadTree(level + 1, new Boundary(bdr.getxMin(), yOffset, xOffset, bdr.getyMax()));
+		SE = new QuadTree(level + 1, new Boundary(xOffset, yOffset, bdr.getxMax(), bdr.getyMax()));
+
+		int size = nodes.size();
+		for (int i = 0; i < size; i++) {
+			insert(nodes.remove(0));
+		}
 	}
 
-	public void insert(int x, int y, Entity e) {
+	public void insert(Entity e) {
+		int x = e.x;
+		int y = e.y;
+
 		if (!bdr.inBoundary(x, y))
 			return;
-		
-		Node node = new Node(x, y, e);
+
 		// Si l'entity cap n'est pas dépassé
-		if(nodes.size() < Entity_Cap) {
-			nodes.add(node);
+		if (nodes.size() < Entity_Cap && NW == null) {
+			nodes.add(e);
+			return;
+		}
+
+		// Si l'entity cap est dépassé et qu'il n y a pas de sous-QuadTree
+		if (NW == null) {
+			this.split();
+		}
+
+		// Insertion dans le bon sous-QuadTree
+		if (NW.bdr.inBoundary(x, y))
+			NW.insert(e);
+
+		else if (NE.bdr.inBoundary(x, y))
+			NE.insert(e);
+
+		else if (SW.bdr.inBoundary(x, y))
+			SW.insert(e);
+
+		else if (SE.bdr.inBoundary(x, y))
+			SE.insert(e);
+
+	}
+
+	public void fusion() {
+		if (NW == null && NE == null && SW == null && SE == null)
+			return;
+
+		if (NW.nodes.size() + NE.nodes.size() + SW.nodes.size() + SE.nodes.size() > Entity_Cap)
+			return;
+
+		if (NW != null) {
+			nodes.addAll(NW.nodes);
+			NW = null;
+		}
+		if (NE != null) {
+			nodes.addAll(NE.nodes);
+			NE = null;
+		}
+		if (SW != null) {
+			nodes.addAll(SW.nodes);
+			SW = null;
+		}
+		if (SE != null) {
+			nodes.addAll(SE.nodes);
+			SE = null;
+		}
+
+	}
+
+	public void remove(Entity e) {
+		int x = e.x;
+		int y = e.y;
+
+		if (!bdr.inBoundary(x, y))
+			return;
+
+		if (NW == null) {
+			nodes.remove(e);
 			return;
 		}
 		
-		//Si l'entity cap est dépassé et qu'il n y a pas de sous-QuadTree
-		if(NW == null) {
-			this.split();
+		if (NW.bdr.inBoundary(x, y))
+			NW.remove(e);
+
+		else if (NE.bdr.inBoundary(x, y))
+			NE.remove(e);
+
+		else if (SW.bdr.inBoundary(x, y))
+			SW.remove(e);
+		
+		else if (SE.bdr.inBoundary(x, y))
+			SE.remove(e);
+
+		
+		if (NW.nodes.size() + NE.nodes.size() + SW.nodes.size() + SE.nodes.size() <= Entity_Cap)
+			this.fusion();
+	}
+	
+	public QuadTree getQuadTree(Entity e) {
+		int x = e.x;
+		int y = e.y;
+		if (!bdr.inBoundary(x, y))
+			return null;
+		if (NW ==null) {
+			return this;
 		}
+		if (NW.bdr.inBoundary(x, y))
+			return NW.getQuadTree(e);
+
+		else if (NE.bdr.inBoundary(x, y))
+			return NE.getQuadTree(e);
+
+		else if (SW.bdr.inBoundary(x, y))
+			return SW.getQuadTree(e);
 		
-		//Insertion dans le bon sous-QuadTree
-		if(NW.bdr.inBoundary(x, y))
-				NW.insert(x, y, e);
-		
-		else if(NE.bdr.inBoundary(x, y))
-			NE.insert(x, y, e);
-		
-		else if(SW.bdr.inBoundary(x, y))
-			SW.insert(x, y, e);
-		
-		else if(SE.bdr.inBoundary(x, y))
-			SE.insert(x, y, e);
+		else if (SE.bdr.inBoundary(x, y))
+			return SE.getQuadTree(e);
+		else
+			return null;
 		
 	}
+
 }

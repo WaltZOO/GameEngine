@@ -28,6 +28,6 @@ public class Boundary {
 	}
 	
 	public boolean inBoundary(int x, int y) {
-		return (x >= xmin && x <= xmax && y >= ymin && ymax >= ymax);
+		return (x >= xmin && x < xmax && y >= ymin && y < ymax);
 	}
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.awt.Graphics;
 
 public abstract class Personnage extends Entity{
 	int vie;
@@ -10,7 +11,7 @@ public abstract class Personnage extends Entity{
 
 
 
-	public Personnage(int x, int y, int vitesse, int reach, Model m, int vie, int damage) {
+	public Personnage(int x, int y, int vitesse, int reach, Monde m, int vie, int damage) {
 		super(x, y, vitesse, reach, m);
 		this.vie=vie;
 		this.damage=damage;
@@ -19,27 +20,31 @@ public abstract class Personnage extends Entity{
 	}
 
 	@Override
-	public void do_move(int direction) {
+	public void do_move(String direction) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void do_turn(int direction) {
+	public void do_turn(String direction) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void do_pick() {
+	public void do_pick(String direction) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void do_egg() {
+	public void do_egg(String direction, String categoryq) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void do_paint(Graphics g, int height, int width) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
