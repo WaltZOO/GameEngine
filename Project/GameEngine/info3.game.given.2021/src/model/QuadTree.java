@@ -23,22 +23,20 @@ public class QuadTree {
 
 	public static void main(String args[]) {
 		QuadTree T = new QuadTree(0, new Boundary(0, 0, 1000, 1000));
-		T.insert(new Player(100, 100, 0, 0, null, 0, 0, false));
-		T.insert(new Player(490, 490, 0, 0, null, 0, 0, false));
-		T.insert(new Player(200, 800, 0, 0, null, 0, 0, false));
-		T.insert(new Player(50, 900, 0, 0, null, 0, 0, false));
-		T.insert(new Player(400, 600, 0, 0, null, 0, 0, false));
-		Player P1 = new Player(300, 600, 0, 0, null, 0, 0, false);
-		Player P2 = new Player(350, 650, 0, 0, null, 0, 0, false);
+		T.insert(new Player(100, 100, 0, 0, 1, null, 0, 0, false));
+		T.insert(new Player(490, 490, 0, 0, 1, null, 0, 0, false));
+		T.insert(new Player(200, 800, 0, 0, 1, null, 0, 0, false));
+		T.insert(new Player(50, 900, 0, 0, 1, null, 0, 0, false));
+		T.insert(new Player(400, 600, 0, 0, 1, null, 0, 0, false));
+		Player P1 = new Player(300, 600, 0, 0, 1, null, 0, 0, false);
+		Player P2 = new Player(350, 650, 0, 0, 1, null, 0, 0, false);
 		T.insert(P1);
 		T.insert(P2);
-		
-		//T.getQuadTree(P2).AffichageProfondeur();
-		
+
+		// T.getQuadTree(P2).AffichageProfondeur();
+
 		T.remove(P1);
 		T.remove(P2);
-		
-
 
 		T.AffichageProfondeur();
 
@@ -54,9 +52,9 @@ public class QuadTree {
 		if (nodes.size() == 0) {
 			System.out.printf(" \n\t  Leaf Node.");
 		}
-		if(NW == null )
+		if (NW == null)
 			return;
-			
+
 		NW.AffichageProfondeur();
 		NE.AffichageProfondeur();
 		SW.AffichageProfondeur();
@@ -148,7 +146,7 @@ public class QuadTree {
 			nodes.remove(e);
 			return;
 		}
-		
+
 		if (NW.bdr.inBoundary(x, y))
 			NW.remove(e);
 
@@ -157,21 +155,20 @@ public class QuadTree {
 
 		else if (SW.bdr.inBoundary(x, y))
 			SW.remove(e);
-		
+
 		else if (SE.bdr.inBoundary(x, y))
 			SE.remove(e);
 
-		
 		if (NW.nodes.size() + NE.nodes.size() + SW.nodes.size() + SE.nodes.size() <= Entity_Cap)
 			this.fusion();
 	}
-	
+
 	public QuadTree getQuadTree(Entity e) {
 		int x = e.x;
 		int y = e.y;
 		if (!bdr.inBoundary(x, y))
 			return null;
-		if (NW ==null) {
+		if (NW == null) {
 			return this;
 		}
 		if (NW.bdr.inBoundary(x, y))
@@ -182,12 +179,12 @@ public class QuadTree {
 
 		else if (SW.bdr.inBoundary(x, y))
 			return SW.getQuadTree(e);
-		
+
 		else if (SE.bdr.inBoundary(x, y))
 			return SE.getQuadTree(e);
 		else
 			return null;
-		
+
 	}
 
 }

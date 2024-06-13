@@ -28,7 +28,7 @@ public abstract class Entity {
 	State state;
 	Monde monde;
 
-	public Entity(int x, int y, int vitesse, int reach, Monde m) {
+	public Entity(int x, int y, int vitesse, int reach, int hitbox, Monde m) {
 		this.x = x;
 		this.y = y;
 		// this.direction = Direction.W;
@@ -37,6 +37,8 @@ public abstract class Entity {
 		this.reach = reach;
 
 		this.pickable = new ArrayList<Entity>();
+
+		this.hitbox = hitbox;
 
 		// this.fsm = new FSM();
 		// this.state = new State(1);
@@ -52,32 +54,31 @@ public abstract class Entity {
 	public void setDir(String dir) {
 		this.direction = dir;
 	}
-	
+
 	public State getState() {
 		return this.state;
 	}
-	
+
 	public void setState(State state) {
 		this.state = state;
 	}
-	
+
 	public boolean eval_key(String key) {
-        // TODO
-        return false;
-    }
+		// TODO
+		return false;
+	}
 
-    // vraie si l’entité de la Catégorie demandée, la plus proche est dans la
-    // Direction
-    public boolean eval_closest(String direction, String category) {
-        // TODO
-        return false;
-    }
+	// vraie si l’entité de la Catégorie demandée, la plus proche est dans la
+	// Direction
+	public boolean eval_closest(String direction, String category) {
+		// TODO
+		return false;
+	}
 
-    // vraie si l'entité est orientée dans la Direction
-    public boolean eval_mydir(String direction) {
-        return (this.direction == direction);
-    }
-
+	// vraie si l'entité est orientée dans la Direction
+	public boolean eval_mydir(String direction) {
+		return (this.direction == direction);
+	}
 
 	public abstract boolean eval_cell(String dir, String cat);
 
@@ -97,8 +98,7 @@ public abstract class Entity {
 
 	public abstract void do_wait();
 
-
-	public abstract void do_paint(Graphics g, int height, int width);
+	public abstract void do_paint(Graphics g, int width, int height, int offsetside);
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);

@@ -24,6 +24,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.io.RandomAccessFile;
 
 import javax.swing.JFrame;
@@ -56,6 +57,7 @@ public class Game {
 	Model model;
 	int seed = 1738;
 	int timer = 10000;
+	Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
@@ -72,7 +74,6 @@ public class Game {
 		m_canvas = new GameCanvas(m_listener);
 
 		System.out.println("  - creating frame...");
-		Dimension d = new Dimension(1024, 768);
 		m_frame = m_canvas.createFrame(d);
 
 		System.out.println("  - setting up the frame...");
@@ -163,8 +164,8 @@ public class Game {
 	void paint(Graphics g) {
 
 		// get the size of the canvas
-		int width = m_canvas.getWidth();
-		int height = m_canvas.getHeight();
+		int width = d.width;
+		int height = d.height -10;
 
 		// erase background
 		g.setColor(Color.gray);
