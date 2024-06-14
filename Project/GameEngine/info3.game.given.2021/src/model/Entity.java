@@ -13,27 +13,36 @@ import ai.FSM;
 import ai.State;
 
 public abstract class Entity {
-	int x, y; // Position
-	String direction;
-	int vitesse; // Vitesse pour le Move()
-	int hitbox; // Rayon de collisions
-	int reach;
-	BufferedImage[] sprites;
+
+	// Mondes 
+	Monde parent;		// Monde parent de l'entité
+	Monde dest;			// Monde destination pour le pick
+	ArrayList<Entity> pickable;	// Liste des entité prenable
+
+	// Mouvement 
+	int x, y; 			// Position
+	int speed; 			// Vitesse pour le Move()
+	String direction;	
+	int hitbox; 		// Rayon de collisions
+	int reach; 			// Rayon de frappe
+	int range;			// Rayon de détection
+
+	// Graphique
+	BufferedImage[] sprites;	
 	int m_imageIndex;
 
-	ArrayList<Entity> pickable;
+	// Automate
+	FSM fsm;			// Automate de l'entité
+	State state;		// Etat de départ
 
-	// Sprite to add
-	FSM fsm;
-	State state;
-	Monde monde;
+	public Entity(int x, int y, int speed, String direction ,int reach, int hitbox, Monde m) {
 
-	public Entity(int x, int y, int vitesse, int reach, int hitbox, Monde m) {
+		// Mouvement
 		this.x = x;
 		this.y = y;
-		// this.direction = Direction.W;
-		this.vitesse = vitesse;
-		this.hitbox = 1;
+		this.direction = direction;
+		this.speed = speed;
+		this.hitbox = hitbox;
 		this.reach = reach;
 
 		this.pickable = new ArrayList<Entity>();
@@ -42,7 +51,6 @@ public abstract class Entity {
 
 		// this.fsm = new FSM();
 		// this.state = new State(1);
-		this.monde = m;
 
 		this.m_imageIndex = 0;
 	}
