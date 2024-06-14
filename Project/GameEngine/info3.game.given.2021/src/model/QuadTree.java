@@ -6,6 +6,7 @@ import java.util.List;
 public class QuadTree {
 	final int Entity_Cap = 4;
 	int level = 0;
+	int hitbox;
 	List<Entity> nodes;
 
 	QuadTree NW = null;
@@ -15,33 +16,11 @@ public class QuadTree {
 
 	Boundary bdr;
 
-	public QuadTree(int level, Boundary bdr) {
+	public QuadTree(int level, int hitbox, Boundary bdr) {
 		this.level = level;
-		this.nodes = new ArrayList<Entity>();
+		this.hitbox = hitbox;
 		this.bdr = bdr;
-	}
-
-	public static void main(String args[]) {
-		QuadTree T = new QuadTree(0, new Boundary(0, 0, 1000, 1000));
-		T.insert(new Player(100, 100, 0, 0, 40, 1, null, 0, 0, false));
-		T.insert(new Player(490, 490, 0, 0, 40, 1, null, 0, 0, false));
-		T.insert(new Player(200, 800, 0, 0, 40, 1, null, 0, 0, false));
-		T.insert(new Player(50, 900, 0, 0, 40, 1, null, 0, 0, false));
-		T.insert(new Player(400, 600, 0, 0, 40, 1, null, 0, 0, false));
-		Player P1 = new Player(300, 600, 0, 40, 0, 1, null, 0, 0, false);
-		Player P2 = new Player(350, 650, 0, 40, 0, 1, null, 0, 0, false);
-		T.insert(P1);
-		T.insert(P2);
-		T.insert(new Player(450, 650, 0, 0, 40, 1, null, 0, 0, false));
-		T.insert(new Player(500, 700, 0, 0, 40, 1, null, 0, 0, false));
-
-		// T.getQuadTree(P2).AffichageProfondeur();
-
-		//T.remove(P1);
-		T.remove(P2);
-
-		T.AffichageProfondeur();
-
+		this.nodes = new ArrayList<Entity>();
 	}
 
 	public void AffichageProfondeur() {
@@ -67,10 +46,10 @@ public class QuadTree {
 		int xOffset = bdr.getxMin() + (bdr.getxMax() - bdr.getxMin()) / 2;
 		int yOffset = bdr.getyMin() + (bdr.getyMax() - bdr.getyMin()) / 2;
 
-		NW = new QuadTree(level + 1, new Boundary(bdr.getxMin(), bdr.getyMin(), xOffset, yOffset));
-		NE = new QuadTree(level + 1, new Boundary(xOffset, bdr.getyMin(), bdr.getxMax(), yOffset));
-		SW = new QuadTree(level + 1, new Boundary(bdr.getxMin(), yOffset, xOffset, bdr.getyMax()));
-		SE = new QuadTree(level + 1, new Boundary(xOffset, yOffset, bdr.getxMax(), bdr.getyMax()));
+		NW = new QuadTree(level + 1, hitbox, new Boundary(bdr.getxMin(), bdr.getyMin(), xOffset, yOffset));
+		NE = new QuadTree(level + 1, hitbox, new Boundary(xOffset, bdr.getyMin(), bdr.getxMax(), yOffset));
+		SW = new QuadTree(level + 1, hitbox, new Boundary(bdr.getxMin(), yOffset, xOffset, bdr.getyMax()));
+		SE = new QuadTree(level + 1, hitbox, new Boundary(xOffset, yOffset, bdr.getxMax(), bdr.getyMax()));
 
 		int size = nodes.size();
 		for (int i = 0; i < size; i++) {
@@ -86,7 +65,8 @@ public class QuadTree {
 			return;
 
 		// Si l'entity cap n'est pas dépassé
-		if (nodes.size() < Entity_Cap && NW == null) {
+		if ((hitbox * Entity_Cap >= bdr.getxMax() - bdr.getxMin()
+				|| hitbox * Entity_Cap >= bdr.getyMax() - bdr.getyMin() || nodes.size() < Entity_Cap) && NW == null) {
 			nodes.add(e);
 			return;
 		}
@@ -162,10 +142,36 @@ public class QuadTree {
 			SE.remove(e);
 
 		if (NW.nodes.size() + NE.nodes.size() + SW.nodes.size() + SE.nodes.size() <= Entity_Cap)
-			if(NW.NW == null && NE.NE == null && SW.SW == null && SE.SE == null)
+			if (NW.NW == null && NE.NE == null && SW.SW == null && SE.SE == null)
 				this.fusion();
 	}
 
+	public List<Entity> getEntitiesFromRadius(int x, int y, int r) {
+		ArrayList<Entity> listE = new ArrayList<Entity>();
+
+		if (!bdr.intersect(x, y, r))
+			return listE;
+
+		if (NW == null) {
+			for (Entity e : nodes) {
+				int distX = x - e.x;
+				int distY = y - e.y;
+				if (r * r >= distX * distX + distY * distY)
+					listE.add(e);
+			}
+			return listE;
+
+		} else {
+
+			listE.addAll(NW.getEntitiesFromRadius(x, y, r));
+			listE.addAll(NE.getEntitiesFromRadius(x, y, r));
+			listE.addAll(SW.getEntitiesFromRadius(x, y, r));
+			listE.addAll(SE.getEntitiesFromRadius(x, y, r));
+			return listE;
+		}
+	}
+
+	/*
 	public QuadTree getQuadTree(Entity e) {
 		int x = e.x;
 		int y = e.y;
@@ -189,5 +195,40 @@ public class QuadTree {
 		else
 			return null;
 	}
+	*/
+	
+	/*
+	public static void main(String args[]) {
+		QuadTree T = new QuadTree(0, 100,new Boundary(0, 0, 1000, 1000));
+		T.insert(new Player(100, 100, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(490, 490, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(200, 800, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(50, 900, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(400, 600, 0, 0, 40, 1, null, 0, 0, false));
+		Player P1 = new Player(300, 600, 0, 40, 0, 1, null, 0, 0, false);
+		Player P2 = new Player(350, 650, 0, 40, 0, 1, null, 0, 0, false);
+		T.insert(P1);
+		T.insert(P2);
+		T.insert(new Player(450, 700, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(400, 700, 0, 0, 40, 1, null, 0, 0, false));
+
+		T.insert(new Player(400, 100, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(200, 300, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(400, 400, 0, 0, 40, 1, null, 0, 0, false));
+
+		// T.getQuadTree(P2).AffichageProfondeur();
+
+		// T.remove(P1);
+		// T.remove(P2);
+		List<Entity> listE = T.getEntitiesFromRadius(375, 625, 1000);
+		for (int i = 0; i < listE.size(); i++) {
+			System.out.printf(" \n\t  x=%d y=%d", listE.get(i).x, listE.get(i).y);
+		}
+		
+
+		T.AffichageProfondeur();
+
+	}
+	*/
 
 }
