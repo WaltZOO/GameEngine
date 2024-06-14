@@ -1,6 +1,9 @@
 package model;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+
 import org.json.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +13,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
 
 public class JSONReader {
-    public static void main(String[] args) throws Exception {
+	Number seed = 0;
+	Number timer = 0;
+	List<Bloc> blocs = new ArrayList<Bloc>();
+	List<NPC> npcs = new ArrayList<NPC>();
+	List<Player> players = new ArrayList<Player>();
+	List<World> worlds = new ArrayList<World>();
+
+	public void parseConfig() throws FileNotFoundException, IOException, ParseException {
 		Long seed;
 		Long timer;
 		List<String> entities = new ArrayList<String>();
@@ -18,13 +28,14 @@ public class JSONReader {
 		List<String> players = new ArrayList<String>();
 		List<String> monsters = new ArrayList<String>();
 
-		Object obj = new JSONParser().parse(
-				new FileReader("/home/bossantm/Cours/Projet_Moteur/g2/Project/Contrat/jeu2/configjeu2_mvpScom.json"));
+		Object obj = new JSONParser().parse(new FileReader("resources/config.json"));
 		JSONObject jo = (JSONObject) obj;
 		seed = (Long) jo.get("seed");
 		timer = (Long) jo.get("timer");
-		System.out.println("Seed : " + seed);
-		System.out.println("Timer : " + timer);
+		/*
+		 * System.out.println("Seed : " + seed);
+		 * System.out.println("Timer : " + timer);
+		 */
 
 		// on récupère les entités
 		Set<String> keys = jo.keySet();
@@ -48,10 +59,10 @@ public class JSONReader {
 		}
 
 		// Affichage des players reconnues
-		System.out.println("Players:");
+		// System.out.println("Players:");
 		for (int i = 0; i < players.size(); i++) {
 			String player = players.get(i);
-			System.out.println(player);
+			//System.out.println(player);
 			JSONObject playerDetails = (JSONObject) jo.get(player);
 			JSONArray position = (JSONArray) playerDetails.get("position");
 			String name = (String) playerDetails.get("name");
@@ -66,20 +77,18 @@ public class JSONReader {
 			Number damage = (Number) playerDetails.get("damage");
 			Number hp = (Number) playerDetails.get("hp");
 			Number fov = (Number) playerDetails.get("fov");
-			System.out.println("Name: " + name);
-			System.out.println("HP: " + hp.doubleValue());
-			System.out.println("Angle: " + angle.doubleValue());
-			System.out.println("Position: " + position.get(0) + ", " + position.get(1));
-			System.out.println("Reach: " + reach);
-			System.out.println("Damage: " + damage.doubleValue());
-			System.out.println("Size: " + size);
-			System.out.println("FSM: " + fsm);
-			System.out.println("Speed: " + speed.doubleValue());
-			System.out.println("Direction: " + direction);
-			System.out.println("Sprite: " + sprite);
-			System.out.println("FOV : " + fov.doubleValue());
-			System.out.println("Can_respawn : " + can_respawn);
-			System.out.println();
+			/*
+			 * System.out.println("Name: " + name); System.out.println("HP: " +
+			 * hp.doubleValue()); System.out.println("Angle: " + angle.doubleValue());
+			 * System.out.println("Position: " + position.get(0) + ", " + position.get(1));
+			 * System.out.println("Reach: " + reach); System.out.println("Damage: " +
+			 * damage.doubleValue()); System.out.println("Size: " + size);
+			 * System.out.println("FSM: " + fsm); System.out.println("Speed: " +
+			 * speed.doubleValue()); System.out.println("Direction: " + direction);
+			 * System.out.println("Sprite: " + sprite); System.out.println("FOV : " +
+			 * fov.doubleValue()); System.out.println("Can_respawn : " + can_respawn);
+			 * System.out.println();
+			 */
 		}
 
 		// Affichage des monsters reconnues
@@ -100,18 +109,16 @@ public class JSONReader {
 			Number damage = (Number) monsterDetails.get("damage");
 			Number hp = (Number) monsterDetails.get("hp");
 
-			System.out.println("Name: " + name);
-			System.out.println("HP: " + hp.doubleValue());
-			System.out.println("Angle: " + angle.doubleValue());
-			System.out.println("Position: " + position.get(0) + ", " + position.get(1));
-			System.out.println("Reach: " + reach);
-			System.out.println("Damage: " + damage.doubleValue());
-			System.out.println("Size: " + size);
-			System.out.println("FSM: " + fsm);
-			System.out.println("Speed: " + speed.doubleValue());
-			System.out.println("Direction: " + direction);
-			System.out.println("Sprite: " + sprite);
-			System.out.println();
+			/*
+			 * System.out.println("Name: " + name); System.out.println("HP: " +
+			 * hp.doubleValue()); System.out.println("Angle: " + angle.doubleValue());
+			 * System.out.println("Position: " + position.get(0) + ", " + position.get(1));
+			 * System.out.println("Reach: " + reach); System.out.println("Damage: " +
+			 * damage.doubleValue()); System.out.println("Size: " + size);
+			 * System.out.println("FSM: " + fsm); System.out.println("Speed: " +
+			 * speed.doubleValue()); System.out.println("Direction: " + direction);
+			 * System.out.println("Sprite: " + sprite); System.out.println();
+			 */
 		}
 
 		// Affichage des entités reconnues

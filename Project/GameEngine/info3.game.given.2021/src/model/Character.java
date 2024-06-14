@@ -4,11 +4,25 @@ import java.awt.Graphics;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Bloc extends Entity {
+public class Character extends Entity {
+	String team;
+	int hp;
+	int damage;
+	ArrayList<Entity> ennemies;
+	ArrayList<Entity> allies;
+	int range;
 
-	public Bloc(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<model.Entity> pickable) throws IOException {
+	public Character(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
+			String filename, ArrayList<model.Entity> pickable, String team, int hp, int damage,
+			ArrayList<Entity> ennemies, ArrayList<Entity> allies, int range) throws IOException {
+		
 		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable);
+		
+		this.hp = hp;
+		this.damage = damage;
+		this.ennemies = new ArrayList<Entity>();
+		this.allies = new ArrayList<Entity>();
+		this.range = range;
 	}
 
 	@Override

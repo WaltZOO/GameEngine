@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.Color;
@@ -15,8 +16,8 @@ import ai.State;
 public abstract class Entity {
 
 	// Mondes 
-	Monde parent;		// Monde parent de l'entité
-	Monde dest;			// Monde destination pour le pick
+	World parent;		// Monde parent de l'entité
+	World dest;			// Monde destination pour le pick
 	ArrayList<Entity> pickable;	// Liste des entité prenable
 
 	// Mouvement 
@@ -28,14 +29,21 @@ public abstract class Entity {
 	int range;			// Rayon de détection
 
 	// Graphique
-	BufferedImage[] sprites;	
-	int m_imageIndex;
+	BufferedImage[] sprites; // Sprites
+	int m_imageIndex;		 // Index de l'image à afficher
 
 	// Automate
 	FSM fsm;			// Automate de l'entité
 	State state;		// Etat de départ
 
-	public Entity(int x, int y, int speed, String direction ,int reach, int hitbox, Monde m) {
+	public Entity(int x, int y, int speed, String direction ,int reach, int hitbox,
+			World parent, World dest,
+			String filename, ArrayList<Entity> pickable) throws IOException {
+		
+		// Monde
+		this.parent = parent;
+		this.dest = dest;
+		this.pickable = pickable;
 
 		// Mouvement
 		this.x = x;
@@ -45,14 +53,13 @@ public abstract class Entity {
 		this.hitbox = hitbox;
 		this.reach = reach;
 
-		this.pickable = new ArrayList<Entity>();
-
-		this.hitbox = hitbox;
-
+		// Graphique
+		this.sprites = loadSprite(filename, 4, 5);
+		this.m_imageIndex = 0;
+		
+		// Automate
 		// this.fsm = new FSM();
 		// this.state = new State(1);
-
-		this.m_imageIndex = 0;
 	}
 
 	public String getDir() {
