@@ -32,10 +32,12 @@ public class QuadTree {
 		Player P2 = new Player(350, 650, 0, 40, 0, 1, null, 0, 0, false);
 		T.insert(P1);
 		T.insert(P2);
+		T.insert(new Player(450, 650, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(500, 700, 0, 0, 40, 1, null, 0, 0, false));
 
 		// T.getQuadTree(P2).AffichageProfondeur();
 
-		T.remove(P1);
+		//T.remove(P1);
 		T.remove(P2);
 
 		T.AffichageProfondeur();
@@ -160,12 +162,14 @@ public class QuadTree {
 			SE.remove(e);
 
 		if (NW.nodes.size() + NE.nodes.size() + SW.nodes.size() + SE.nodes.size() <= Entity_Cap)
-			this.fusion();
+			if(NW.NW == null && NE.NE == null && SW.SW == null && SE.SE == null)
+				this.fusion();
 	}
 
 	public QuadTree getQuadTree(Entity e) {
 		int x = e.x;
 		int y = e.y;
+		
 		if (!bdr.inBoundary(x, y))
 			return null;
 		if (NW == null) {
@@ -184,7 +188,6 @@ public class QuadTree {
 			return SE.getQuadTree(e);
 		else
 			return null;
-
 	}
 
 }

@@ -30,4 +30,17 @@ public class Boundary {
 	public boolean inBoundary(int x, int y) {
 		return (x >= xmin && x < xmax && y >= ymin && y < ymax);
 	}
+	
+	 public boolean intersect(int x, int y, int radius) {
+		 
+	        int closestX = Math.max(getxMin(), Math.min(x, getxMax()));
+	        int closestY = Math.max(getyMin(), Math.min(y, getyMax()));
+
+	        int distX = x - closestX;
+	        int distY = y - closestY;
+
+	        int dist = distX*distX + distY*distY;
+
+	        return radius*radius >= dist;
+	    } 
 }
