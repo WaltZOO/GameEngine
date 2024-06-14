@@ -23,13 +23,13 @@ public class QuadTree {
 
 	public static void main(String args[]) {
 		QuadTree T = new QuadTree(0, new Boundary(0, 0, 1000, 1000));
-		T.insert(new Player(100, 100, 0, 0, 1, null, 0, 0, false));
-		T.insert(new Player(490, 490, 0, 0, 1, null, 0, 0, false));
-		T.insert(new Player(200, 800, 0, 0, 1, null, 0, 0, false));
-		T.insert(new Player(50, 900, 0, 0, 1, null, 0, 0, false));
-		T.insert(new Player(400, 600, 0, 0, 1, null, 0, 0, false));
-		Player P1 = new Player(300, 600, 0, 0, 1, null, 0, 0, false);
-		Player P2 = new Player(350, 650, 0, 0, 1, null, 0, 0, false);
+		T.insert(new Player(100, 100, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(490, 490, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(200, 800, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(50, 900, 0, 0, 40, 1, null, 0, 0, false));
+		T.insert(new Player(400, 600, 0, 0, 40, 1, null, 0, 0, false));
+		Player P1 = new Player(300, 600, 0, 40, 0, 1, null, 0, 0, false);
+		Player P2 = new Player(350, 650, 0, 40, 0, 1, null, 0, 0, false);
 		T.insert(P1);
 		T.insert(P2);
 

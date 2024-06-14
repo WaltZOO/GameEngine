@@ -15,14 +15,14 @@ public class Model {
 		this.timer = timer;
 		this.seed = seed;
 		this.mondes = new ArrayList<Monde>();
-
+		
 	}
 
 	public void Init_Game() throws IOException {
-		Player P1 = new Player(300, 300, 20, 50, 20, null, 100, 10, true);
-		Player P2 = new Player(100, 100, 20, 50, 10, null, 100, 10, false);
+		Player P1 = new Player(900, 900, 20, 20, 500, 20, null, 100, 10, true);
+		Player P2 = new Player(950, 910, 20, 50, 400, 15, null, 100, 10, false);
 
-		Monde monde = new Monde(1000, "resources/40861.jpg", P1, P2);
+		Monde monde = new Monde(1000, "resources/background.png", P1, P2);
 		mondes.add(monde);
 
 		monde.listE.add(P1);

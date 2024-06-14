@@ -6,22 +6,23 @@ import java.awt.Graphics;
 public class Player extends Personnage {
 	boolean isPlayer1;
 
-	public Player(int x, int y, int vitesse, int reach, int hitbox, Monde m, int vie, int damage, boolean isPlayer1) {
-		super(x, y, vitesse, reach, hitbox, m, vie, damage);
+	public Player(int x, int y, int vitesse, int reach, int range, int hitbox, Monde m, int vie, int damage,
+			boolean isPlayer1) {
+		super(x, y, vitesse, reach, range, hitbox, m, vie, damage);
 		this.isPlayer1 = isPlayer1;
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside) {
+	public void do_paint(Graphics g, int width, int height, int offsetside,int range) {
 		// BufferedImage img = sprites[m_imageIndex];
 		// g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(),
 		// null);
 		g.setColor(Color.RED);
-		if(isPlayer1) {
+		if (isPlayer1) {
 			g.setColor(Color.BLUE);
 		}
-		
-		g.fillOval(width / 2 + offsetside - hitbox/2, height / 2 - hitbox/2, hitbox, hitbox);
+		int size = hitbox * hitbox * hitbox / range;
+		g.fillOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size,size);
 	}
 
 	@Override

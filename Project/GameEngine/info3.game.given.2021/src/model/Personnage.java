@@ -8,13 +8,15 @@ public abstract class Personnage extends Entity {
 	int damage;
 	ArrayList<Entity> ennemies;
 	ArrayList<Entity> allies;
+	int range;
 
-	public Personnage(int x, int y, int vitesse, int reach, int hitbox, Monde m, int vie, int damage) {
+	public Personnage(int x, int y, int vitesse, int reach, int range, int hitbox, Monde m, int vie, int damage) {
 		super(x, y, vitesse, reach, hitbox, m);
 		this.vie = vie;
 		this.damage = damage;
 		this.ennemies = new ArrayList<Entity>();
 		this.allies = new ArrayList<Entity>();
+		this.range = range;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public abstract class Personnage extends Entity {
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside) {
+	public void do_paint(Graphics g, int width, int height, int offsetside,int range) {
 		// TODO Auto-generated method stub
 
 	}
