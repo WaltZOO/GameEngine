@@ -25,8 +25,7 @@ public class Player extends Character {
 		this.canRespawn = canRespawn;
 	}
 
-	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
+	public void do_paint(Graphics g, int width, int height, int offsetside, int fov) {
 		// BufferedImage img = sprites[m_imageIndex];
 		// g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(),
 		// null);
@@ -34,7 +33,7 @@ public class Player extends Character {
 		if (isPlayer1) {
 			g.setColor(Color.BLUE);
 		}
-		int size = hitbox * hitbox * hitbox / range;
+		int size = hitbox * hitbox * hitbox / fov;
 		g.fillOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size, size);
 	}
 

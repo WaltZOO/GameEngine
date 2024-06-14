@@ -21,8 +21,8 @@ public class Model {
 	}
 
 	public void Init_Game() throws IOException, ParseException {
-		JSONReader JP = new JSONReader();
-		JP.parseConfig();
+		//JSONReader JP = new JSONReader();
+		//JP.parseConfig();
 		
 		
 		/*

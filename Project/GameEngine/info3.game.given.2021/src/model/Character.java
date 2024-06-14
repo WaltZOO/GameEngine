@@ -80,7 +80,7 @@ public class Character extends Entity {
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
+	public void do_paint(Graphics g, int width, int height, int offsetside, int fov) {
 		// TODO Auto-generated method stub
 
 	}
