@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.Color;
@@ -13,38 +14,52 @@ import ai.FSM;
 import ai.State;
 
 public abstract class Entity {
-	int x, y; // Position
-	String direction;
-	int vitesse; // Vitesse pour le Move()
-	int hitbox; // Rayon de collisions
-	int reach;
-	BufferedImage[] sprites;
-	int m_imageIndex;
 
-	ArrayList<Entity> pickable;
+	// Mondes 
+	World parent;		// Monde parent de l'entité
+	World dest;			// Monde destination pour le pick
+	ArrayList<Entity> pickable;	// Liste des entité prenable
 
-	// Sprite to add
-	FSM fsm;
-	State state;
-	Monde monde;
+	// Mouvement 
+	int x, y; 			// Position
+	int speed; 			// Vitesse pour le Move()
+	String direction;	
+	int hitbox; 		// Rayon de collisions
+	int reach; 			// Rayon de frappe
+	int range;			// Rayon de détection
 
-	public Entity(int x, int y, int vitesse, int reach, int hitbox, Monde m) {
+	// Graphique
+	BufferedImage[] sprites; // Sprites
+	int m_imageIndex;		 // Index de l'image à afficher
+
+	// Automate
+	FSM fsm;			// Automate de l'entité
+	State state;		// Etat de départ
+
+	public Entity(int x, int y, int speed, String direction ,int reach, int hitbox,
+			World parent, World dest,
+			String filename, ArrayList<Entity> pickable) throws IOException {
+		
+		// Monde
+		this.parent = parent;
+		this.dest = dest;
+		this.pickable = pickable;
+
+		// Mouvement
 		this.x = x;
 		this.y = y;
-		// this.direction = Direction.W;
-		this.vitesse = vitesse;
-		this.hitbox = 1;
+		this.direction = direction;
+		this.speed = speed;
+		this.hitbox = hitbox;
 		this.reach = reach;
 
-		this.pickable = new ArrayList<Entity>();
-
-		this.hitbox = hitbox;
-
+		// Graphique
+		this.sprites = loadSprite(filename, 4, 5);
+		this.m_imageIndex = 0;
+		
+		// Automate
 		// this.fsm = new FSM();
 		// this.state = new State(1);
-		this.monde = m;
-
-		this.m_imageIndex = 0;
 	}
 
 	public String getDir() {
@@ -98,7 +113,7 @@ public abstract class Entity {
 
 	public abstract void do_wait();
 
-	public abstract void do_paint(Graphics g, int width, int height, int offsetside, int range);
+	public abstract void do_paint(Graphics g, int width, int height, int offsetside, int fov);
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);

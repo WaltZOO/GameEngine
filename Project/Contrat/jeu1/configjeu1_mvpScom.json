@@ -2,50 +2,55 @@
     "seed": 0,
     "timer": 100000,
     "Tree": {
-        "dest": "CatWorld",
+        "dest": null,
+        "pickable": [],
         "position": [
             0,
             0
         ],
-        "angle": 0,
+        "speed": 1,
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "tree.gal",
         "sprite": "spriteTree.png"
     },
     "Rock": {
-        "dest": "CatWorld",
+        "dest": null,
+        "pickable": [],
         "position": [
             0,
             0
         ],
-        "angle": 0,
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "rock.gal",
         "sprite": "spriteRock.png"
     },
     "Sand": {
-        "dest": "CatWorld",
+        "dest": null,
+        "pickable": [],
         "position": [
             0,
             0
         ],
-        "angle": 0,
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "Sand.gal",
         "sprite": "spriteSand.png"
     },
     "Cat": {
-        "dest": "CatWorld",
+        "dest": null,
+        "pickable": [],
         "position": [
             0,
             0
         ],
-        "angle": 0,
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "Cat.gal",
         "sprite": "spriteCat.png"
     },
@@ -55,9 +60,10 @@
             0,
             0
         ],
-        "angle": 0,
+        "pickable": [],
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "Portal.gal",
         "sprite": "spritePortal.png"
     },
@@ -67,9 +73,10 @@
             0,
             0
         ],
-        "angle": 0,
+        "pickable": [],
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "portal.gal",
         "sprite": "spritePortal.png"
     },
@@ -79,9 +86,10 @@
             0,
             0
         ],
-        "angle": 0,
+        "pickable": [],
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "portal.gal",
         "sprite": "spritePortal.png"
     },
@@ -91,15 +99,16 @@
             0,
             0
         ],
-        "angle": 0,
+        "pickable": [],
+        "direction": "N",
         "reach": 3,
-        "size": 1,
+        "hitbox": 1,
         "FSM": "portal.gal",
         "sprite": "spritePortal.png"
     },
     "TreeWorld": {
         "background": "background_TreeWorld.png",
-        "size": [
+        "hitbox": [
             100,
             100
         ],
@@ -129,7 +138,7 @@
     "RockWorld": {
         "Parent": "Rock",
         "background": "background_RockWorld.png",
-        "size": [
+        "hitbox": [
             100,
             100
         ],
@@ -151,7 +160,7 @@
     "SandWorld": {
         "Parent": "Sand",
         "background": "background_SandWorld.png",
-        "size": [
+        "hitbox": [
             100,
             100
         ],
@@ -173,7 +182,7 @@
     "CatWorld": {
         "Parent": "Cat",
         "background": "background_CatWorld.png",
-        "size": [
+        "hitbox": [
             100,
             100
         ],
@@ -195,7 +204,7 @@
     "Bag1": {
         "Parent": "Player1",
         "background": null,
-        "size": [
+        "hitbox": [
             10,
             10
         ],
@@ -206,14 +215,14 @@
         "name": "Player1",
         "hp": 100,
         "damage": 10,
-        "size": 1,
+        "hitbox": 1,
         "position": [
             0,
             0
         ],
-        "angle": 0,
-        "speed": 3,
+        "pickable": ["Tree", "Rock", "Sand", "Cat","Player2"],
         "direction": "N",
+        "speed": 3,
         "sprite": "spritePlayer1.png",
         "CanRespawn": true
     },
@@ -222,14 +231,14 @@
         "name": "Player2",
         "hp": 100,
         "damage": 10,
-        "size": 1,
+        "hitbox": 1,
         "position": [
             0,
             0
         ],
-        "angle": 0,
-        "speed": 2,
+        "pickable": [],
         "direction": "N",
+        "speed": 2,
         "sprite": "spritePlayer2.png",
         "CanRespawn": true
     }

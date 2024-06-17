@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.accessibility.AccessibleResourceBundle;
 import javax.imageio.ImageIO;
 
 import java.awt.Color;
@@ -11,15 +12,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Monde {
+public class World {
 	int size;
 	List<Entity> listE;
+	QuadTree qt;
 	BufferedImage background;
 	Player p1 = null;
 	Player p2 = null;
 
-	public Monde(int size, String filename, Player p1, Player p2) throws IOException {
+	public World(int size, String filename, Player p1, Player p2) throws IOException {
 		listE = new ArrayList<Entity>();
+		qt = new QuadTree(0, new Boundary(0, 0, size, size));
 		this.size = size;
 
 		File file = new File(filename);
@@ -42,7 +45,9 @@ public class Monde {
 
 			g.setClip(0, 0, width / 2, height);
 			g.drawImage(background, xOffset, yOffset, temp, temp, null);
-
+			
+			
+			
 			for (Entity e : listE) {
 				if (e == p2) {
 					xOffset = p1.x * p1.x / p1.range - p2.x * p2.x / p1.range;
@@ -53,6 +58,8 @@ public class Monde {
 				}
 
 			}
+			
+			
 		}
 
 		if (p2 != null) {

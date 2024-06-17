@@ -2,18 +2,28 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class Player extends Personnage {
+public class Player extends Character {
+	String name;
 	boolean isPlayer1;
+	boolean canRespawn;
 
-	public Player(int x, int y, int vitesse, int reach, int range, int hitbox, Monde m, int vie, int damage,
-			boolean isPlayer1) {
-		super(x, y, vitesse, reach, range, hitbox, m, vie, damage);
+	public Player(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
+			String filename, ArrayList<Entity> pickable, String team, int hp, int damage, ArrayList<Entity> ennemies,
+			ArrayList<Entity> allies, int range, String name, boolean isPlayer1, boolean canRespawn)
+			throws IOException {
+
+		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies,
+				allies, range);
+
+		this.name = name;
 		this.isPlayer1 = isPlayer1;
+		this.canRespawn = canRespawn;
 	}
 
-	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside,int range) {
+	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
 		// BufferedImage img = sprites[m_imageIndex];
 		// g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(),
 		// null);
@@ -22,7 +32,12 @@ public class Player extends Personnage {
 			g.setColor(Color.BLUE);
 		}
 		int size = hitbox * hitbox * hitbox / range;
-		g.fillOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size,size);
+		g.fillOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size, size);
+
+		// dessin de la reach
+		g.setColor(Color.BLUE);
+		size =  reach * reach * reach / range ;
+		g.drawOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size, size);
 	}
 
 	@Override

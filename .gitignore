@@ -1,5 +1,10 @@
 *.class
 *.log
+<<<<<<< HEAD
 GameEngine/info3.game.given.2021/bin/
 
+=======
+/bin/
+Project/GameEngine/info3.game.given.2021/bin/
+>>>>>>> parserJson
 /.metadata/
