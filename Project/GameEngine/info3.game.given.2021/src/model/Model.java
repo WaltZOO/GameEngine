@@ -30,6 +30,14 @@ public class Model {
 		
 		World monde = new World(1000, "resources/background.png", P1, P2);
 		mondes.add(monde);
+		
+		for (int i = 0; i < 10; i++) {
+			int xrand = (int) (Math.random() * monde.size);
+			int yrand = (int) (Math.random() * monde.size);
+			Character c = new Character(xrand, yrand, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20, 100, null, null, 300);
+			monde.listE.add(c);
+			monde.qt.insert(c);
+		}
 
 		monde.listE.add(P1); monde.listE.add(P2);
 		monde.qt.insert(P1);monde.qt.insert(P2);
@@ -37,8 +45,8 @@ public class Model {
 	}
 
 	public void update() {
-		Player p = mondes.get(0).p1;
-		p.x += 1;
+		//Player p = mondes.get(0).p1;
+		//p.x += 1;
 	}
 
 	public void paint(Graphics g, int height, int width) {
