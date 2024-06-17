@@ -26,7 +26,6 @@ public abstract class Entity {
 	String direction;	
 	int hitbox; 		// Rayon de collisions
 	int reach; 			// Rayon de frappe
-	int range;			// Rayon de détection
 
 	// Graphique
 	BufferedImage[] sprites; // Sprites

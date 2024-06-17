@@ -25,13 +25,13 @@ public class Model {
 		//JP.parseConfig();
 		
 		
-		Player P1 = new Player(900, 900, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20, 100, null, null, 300, null, true, true);
+		Player P1 = new Player(900, 900, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20, 100, null, null, 500, null, true, true);
 		Player P2 = new Player(950, 910, 20, null, 30, 20, null, null, "resources/j2.jpg", null, null, 30, 100, null, null, 200, null, false, true);
 		
 		World monde = new World(1000, "resources/background.png", P1, P2);
 		mondes.add(monde);
 		
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 			int xrand = (int) (Math.random() * monde.size);
 			int yrand = (int) (Math.random() * monde.size);
 			Character c = new Character(xrand, yrand, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20, 100, null, null, 300);
