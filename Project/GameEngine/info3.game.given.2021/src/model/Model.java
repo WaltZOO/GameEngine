@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import ai.Direction;
+
 public class Model {
 	int timer;
 	int seed;
@@ -21,6 +23,16 @@ public class Model {
 		this.mondes = new ArrayList<World>();
 
 	}
+	/*
+	public static void main(String args[]) throws IOException, ParseException {
+		Model m = new Model(0,0);
+		m.Init_Game();
+		m.mondes.get(0).qt.AffichageProfondeur();
+		m.mondes.get(0).listE.get(0).do_pick(Direction.W);
+		m.mondes.get(0).qt.AffichageProfondeur();
+		m.mondes.get(1).qt.AffichageProfondeur();
+	}
+	*/
 
 	public void Init_Game() throws IOException, ParseException {
 		// JSONReader JP = new JSONReader();
@@ -40,10 +52,10 @@ public class Model {
 		mondes.add(monde);
 
 		for (int i = 0; i < 1; i++) {
+
 			int xrand = (int) (Math.random() * monde.size);
 			int yrand = (int) (Math.random() * monde.size);
-			Character c = new Character(xrand, yrand, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20,
-					100, null, null, 300);
+			Character c = new Character(xrand, yrand, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20,100, null, null, 300, null);
 			monde.listE.add(c);
 			monde.qt.insert(c);
 		}

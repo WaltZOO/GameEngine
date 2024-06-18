@@ -3,14 +3,14 @@ package model;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import org.json.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
+import org.json.simple.parser.JSONParser;
 
 public class JSONReader {
 	Number seed = 0;
@@ -20,7 +20,7 @@ public class JSONReader {
 	List<Player> players = new ArrayList<Player>();
 	List<World> worlds = new ArrayList<World>();
 
-	public void parseConfig() throws FileNotFoundException, IOException, ParseException {
+	public void parseConfig() throws FileNotFoundException, IOException, ParseException, org.json.simple.parser.ParseException {
 		Long seed;
 		Long timer;
 		List<String> entities = new ArrayList<String>();

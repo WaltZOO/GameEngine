@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Bloc extends Entity {
 
 	public Bloc(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<model.Entity> pickable) throws IOException {
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable);
+			String filename, ArrayList<String> pickable, String name) throws IOException {
+		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, name);
 	}
 
 	@Override
@@ -31,12 +31,6 @@ public class Bloc extends Entity {
 
 	@Override
 	public void do_hit(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_store() {
 		// TODO Auto-generated method stub
 
 	}

@@ -131,10 +131,6 @@ public class FSMGenerator implements IVisitor {
 				}
 				break;
 			}
-			case "Store": {
-				a = new Store();
-				break;
-			}
 			case "Get": {
 				a = new Get();
 				break;
