@@ -1,11 +1,8 @@
 package model;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.simple.parser.ParseException;
 
 import ai.Direction;
 
@@ -34,12 +31,11 @@ public class Model {
 	}
 	*/
 
-	public void Init_Game() throws IOException, ParseException {
+	public void Init_Game() throws Exception {
 		// JSONReader JP = new JSONReader();
 		// JP.parseConfig();
-
-		Player P1 = new Player(500, 500, 20, null, 100, 20, null, null, "resources/j1.jpg", null, null, 20, 100, null,
-				null, 500, null, true, true);
+		Player P1 = new Player(500, 500, 5, null, 100, 20, null, null, "resources/j1.jpg", null, null, 20, 100, null,
+				null, 1000, null, true, true);
 		Player P2 = new Player(550, 510, 20, null, 30, 20, null, null, "resources/j2.jpg", null, null, 30, 100, null,
 				null, 200, null, false, true);
 
@@ -51,11 +47,11 @@ public class Model {
 		P2.parent = monde;
 		mondes.add(monde);
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 100; i++) {
 
 			int xrand = (int) (Math.random() * monde.size);
 			int yrand = (int) (Math.random() * monde.size);
-			Character c = new Character(xrand, yrand, 20, null, 30, 20, null, null, "resources/j1.jpg", null, null, 20,100, null, null, 300, null);
+			Character c = new Character(xrand, yrand, 20, null, 30, 20, monde, null, "resources/j1.jpg", null, null, 20,100, null, null, 300, null);
 			monde.listE.add(c);
 			monde.qt.insert(c);
 		}
@@ -68,11 +64,8 @@ public class Model {
 	}
 
 	public void update() {
-		if (P1 != null) {
-			if (P1.parent != null) {
-				if (P1.x < P1.parent.size)
-					P1.x += 1;
-			}
+		for (World m : this.mondes) {
+			m.update();
 		}
 
 	}

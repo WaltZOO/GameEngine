@@ -1,14 +1,13 @@
 package model;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class NPC extends Character {
 
 	public NPC(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
 			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
-			ArrayList<String> allies, int range, String name) throws IOException {
+			ArrayList<String> allies, int range, String name) throws Exception {
 		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies,
 				allies, range, name);
 		// TODO Auto-generated constructor stub

@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Character {
@@ -12,7 +11,7 @@ public class Player extends Character {
 	public Player(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
 			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, boolean isPlayer1, boolean canRespawn)
-			throws IOException {
+			throws Exception {
 
 		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies,
 				allies, range, name);

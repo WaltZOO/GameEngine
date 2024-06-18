@@ -11,7 +11,10 @@ import java.awt.Color;
 
 import ai.Direction;
 import ai.FSM;
+import ai.FSMGenerator;
 import ai.State;
+import gal.ast.AST;
+import gal.parser.Parser;
 
 public abstract class Entity {
 
@@ -20,6 +23,8 @@ public abstract class Entity {
 	World dest; // Monde destination pour le pick
 	ArrayList<String> pickable; // Liste des entité prenable
 	String name;
+	boolean checked;
+	
 	// Mouvement
 	int x, y; // Position
 	int speed; // Vitesse pour le Move()
@@ -38,14 +43,18 @@ public abstract class Entity {
 	State state; // Etat de départ
 
 	public Entity(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<String> pickable, String name) throws IOException {
+			String filename, ArrayList<String> pickable, String name) throws Exception {
 
 		// Monde
 		this.parent = parent;
 		this.dest = dest;
 		this.pickable = pickable;
 		this.name = name;
-
+		state= new State("Init");
+		AST ast=Parser.from_file("./resources/test.gal");
+		FSMGenerator fsmg=new FSMGenerator();
+		ast.accept(fsmg);
+		fsm= fsmg.getOutput().get(0);
 		// Mouvement
 		this.x = x;
 		this.y = y;
@@ -62,6 +71,7 @@ public abstract class Entity {
 		// Graphique
 		this.sprites = loadSprite(filename, 4, 5);
 		this.m_imageIndex = 0;
+
 
 		// Automate
 		// this.fsm = new FSM();
@@ -138,11 +148,13 @@ public abstract class Entity {
 		default:
 			break;
 		}
-		
+		// on regarde les collisions avec les voisins
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, 2 * hitbox);
 		if (listE.size() <= 1) {
+			this.parent.qt.remove(this);
 			x=dx;
 			y=dy;
+			this.parent.qt.insert(this);
 		}
 	}
 

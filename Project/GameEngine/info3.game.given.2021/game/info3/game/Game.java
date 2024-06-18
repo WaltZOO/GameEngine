@@ -172,8 +172,10 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 
 		// paint
+		
 		model.update();
 		model.paint(g, width, height);
+		
 	}
 
 }
