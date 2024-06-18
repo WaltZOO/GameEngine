@@ -4,9 +4,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import org.json.simple.parser.ParseException;
+
 import ai.Direction;
 
 public class Model {
@@ -38,7 +37,6 @@ public class Model {
 	}
 	*/
 
-<<<<<<< HEAD
 	public Model(JSONReader JP) throws IOException {
 		
 		this.timer = JP.getTimer();
@@ -66,14 +64,10 @@ public class Model {
 	}
 
 	public void update() {
-		if (P1 != null) {
-			if (P1.parent != null) {
-				if (P1.x < P1.parent.size)
-				{
-					P1.x += 1;
-				}
-			}
+		for (World m : this.mondes) {
+			m.update();
 		}
+
 	}
 
 	public void paint(Graphics g, int width, int height) {

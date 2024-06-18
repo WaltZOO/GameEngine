@@ -19,16 +19,21 @@ import gal.parser.Parser;
 public abstract class Entity {
 	final static float CDD = 0.71f;
 
-	// Mondes 
-	World parent;
-	World dest;			// Monde destination pour le pick
-	ArrayList<String> pickable;	// Liste des entité prenable
+	// Mondes
+	World parent; // Monde parent de l'entité
+	World dest; // Monde destination pour le pick
+	ArrayList<String> pickable; // Liste des entité prenable
+	String name;
+	boolean checked;
+	
+	// Mouvement
+	int x, y; // Position
+	int speed; // Vitesse pour le Move()
+	String direction;
+	int hitbox; // Rayon de collisions
+	int reach; // Rayon de frappe
 
-	// Mouvement 
-	int x, y; 			// Position
-	int speed; 			// Vitesse pour le Move()
-	String direction;	
-	int reach; 			// Rayon de frappe
+	final static float CDG = 0.71f; // Coefficient de Déplacemnent Diagonale à 45 degrés
 
 	// Graphique
 	BufferedImage[] sprites; // Sprites
@@ -39,7 +44,7 @@ public abstract class Entity {
 	State state; // Etat de départ
 
 	public Entity(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<String> pickable, String name) throws IOException {
+			String filename, ArrayList<String> pickable, String name) throws Exception {
 
 		// Monde
 		this.parent = parent;
@@ -85,7 +90,11 @@ public abstract class Entity {
 		this.dest = dest;
 		this.pickable = pickable;
 		this.name = name;
-
+		state= new State("Init");
+		AST ast=Parser.from_file("./resources/test.gal");
+		FSMGenerator fsmg=new FSMGenerator();
+		ast.accept(fsmg);
+		fsm= fsmg.getOutput().get(0);
 		// Mouvement
 		this.x = x;
 		this.y = y;
@@ -101,6 +110,46 @@ public abstract class Entity {
 		// Graphique
 		this.sprites = loadSprite(filename, 4, 5);
 		this.m_imageIndex = 0;
+
+
+		// Automate
+		// this.fsm = fsm;
+		// this.fsm = new FSM();
+		// this.state = new State(1);
+		
+		this.name = name;
+	}
+	
+	public Entity(int x, int y, int speed, String direction ,int reach,
+			World dest,
+			String filename, ArrayList<String> pickable, String name, String fsm, World parent, int hitbox) throws IOException {
+		
+		// Monde
+		this.parent = parent;
+		this.dest = dest;
+		this.pickable = pickable;
+		this.name = name;
+		state= new State("Init");
+		AST ast=Parser.from_file("./resources/test.gal");
+		FSMGenerator fsmg=new FSMGenerator();
+		ast.accept(fsmg);
+		fsm= fsmg.getOutput().get(0);
+		// Mouvement
+		this.x = x;
+		this.y = y;
+		
+		if(direction == null) 
+			this.direction = Direction.E;
+		else 		
+			this.direction = direction;
+
+		this.speed = speed;
+		this.reach = reach;
+
+		// Graphique
+		this.sprites = loadSprite(filename, 4, 5);
+		this.m_imageIndex = 0;
+
 
 		// Automate
 		// this.fsm = fsm;
