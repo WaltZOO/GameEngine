@@ -66,7 +66,7 @@ public class Bloc extends Entity {
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
+	public void do_paint(Graphics g, int width, int height, Player p) {
 		// TODO Auto-generated method stub
 
 	}

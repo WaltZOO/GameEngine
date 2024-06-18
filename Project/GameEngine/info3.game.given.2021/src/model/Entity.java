@@ -26,7 +26,6 @@ public abstract class Entity {
 	String direction;	
 	int hitbox; 		// Rayon de collisions
 	int reach; 			// Rayon de frappe
-	int range;			// Rayon de détection
 
 	// Graphique
 	BufferedImage[] sprites; // Sprites
@@ -113,7 +112,7 @@ public abstract class Entity {
 
 	public abstract void do_wait();
 
-	public abstract void do_paint(Graphics g, int width, int height, int offsetside, int fov);
+	public abstract void do_paint(Graphics g, int width, int height, Player p);
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);

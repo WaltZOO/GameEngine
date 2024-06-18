@@ -9,7 +9,7 @@
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="audio"/>
 	<classpathentry kind="src" path="game"/>
-	<classpathentry kind="lib" path="/home/enzoperrin/Téléchargements/json-20240303.jar"/>
-	<classpathentry kind="lib" path="/home/enzoperrin/Téléchargements/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Project/GameEngine/info3.game.given.2021/resources/json-20240303.jar"/>
+	<classpathentry kind="lib" path="/Project/GameEngine/info3.game.given.2021/resources/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

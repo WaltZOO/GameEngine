@@ -165,7 +165,7 @@ public class Game {
 
 		// get the size of the canvas
 		int width = d.width;
-		int height = d.height -10;
+		int height = d.height -80;
 
 		// erase background
 		g.setColor(Color.gray);

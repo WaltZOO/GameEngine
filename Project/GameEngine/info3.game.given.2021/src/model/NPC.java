@@ -9,11 +9,10 @@ public class NPC extends Character {
 	public NPC(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
 			String filename, ArrayList<Entity> pickable, String team, int hp, int damage, ArrayList<Entity> ennemies,
 			ArrayList<Entity> allies, int range) throws IOException {
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies, allies,
-				range);
+		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies,
+				allies, range);
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	@Override
 	public boolean eval_cell(String dir, String cat) {
@@ -70,7 +69,7 @@ public class NPC extends Character {
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
+	public void do_paint(Graphics g, int width, int height, Player p) {
 		// TODO Auto-generated method stub
 
 	}
