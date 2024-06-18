@@ -6,19 +6,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Character {
-	String name;
 	boolean isPlayer1;
 	boolean canRespawn;
 
 	public Player(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<Entity> pickable, String team, int hp, int damage, ArrayList<Entity> ennemies,
-			ArrayList<Entity> allies, int range, String name, boolean isPlayer1, boolean canRespawn)
+			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> allies, int range, String name, boolean isPlayer1, boolean canRespawn)
 			throws IOException {
 
 		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies,
-				allies, range);
+				allies, range, name);
 
-		this.name = name;
 		this.isPlayer1 = isPlayer1;
 		this.canRespawn = canRespawn;
 	}
@@ -41,25 +39,7 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void do_move(String direction2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_pick(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void do_hit(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_store() {
 		// TODO Auto-generated method stub
 
 	}
@@ -72,12 +52,6 @@ public class Player extends Character {
 
 	@Override
 	public void do_egg(String direction, String category) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_turn(String direction) {
 		// TODO Auto-generated method stub
 
 	}

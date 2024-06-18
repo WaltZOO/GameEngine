@@ -13,10 +13,10 @@ public class Character extends Entity {
 	int range;
 
 	public Character(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<model.Entity> pickable, String team, int hp, int damage,
-			ArrayList<Entity> ennemies, ArrayList<Entity> allies, int range) throws IOException {
+			String filename, ArrayList<String> pickable, String team, int hp, int damage,
+			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name) throws IOException {
 		
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable);
+		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, name);
 		
 		this.hp = hp;
 		this.damage = damage;
@@ -32,29 +32,11 @@ public class Character extends Entity {
 	}
 
 	@Override
-	public void do_move(String direction2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_pick(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void do_hit(String direction) {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void do_store() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	@Override
 	public void do_get() {
 		// TODO Auto-generated method stub
@@ -63,12 +45,6 @@ public class Character extends Entity {
 
 	@Override
 	public void do_egg(String direction, String category) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_turn(String direction) {
 		// TODO Auto-generated method stub
 
 	}

@@ -147,8 +147,8 @@ public class QuadTree {
 
 	public List<Entity> getEntitiesFromRadius(int x, int y, int r) {
 		ArrayList<Entity> listE = new ArrayList<Entity>();
-
-		if (!bdr.intersect(x, y, r))
+		
+		if (!bdr.intersect(x, y, r)) 
 			return listE;
 
 		if (NW == null) {
