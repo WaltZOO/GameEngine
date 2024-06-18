@@ -1,7 +1,9 @@
 {
     "seed": 0,
     "timer": 100000,
+    "hitbox": 5,
     "Tree": {
+        "name": "Tree",
         "dest": null,
         "pickable": [],
         "position": [
@@ -11,11 +13,11 @@
         "speed": 1,
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "tree.gal",
         "sprite": "spriteTree.png"
     },
     "Rock": {
+        "name": "Rock",
         "dest": null,
         "pickable": [],
         "position": [
@@ -24,11 +26,12 @@
         ],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "rock.gal",
-        "sprite": "spriteRock.png"
+        "sprite": "spriteRock.png",
+        "speed": 0
     },
     "Sand": {
+        "name": "Sand",
         "dest": null,
         "pickable": [],
         "position": [
@@ -37,11 +40,12 @@
         ],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "Sand.gal",
-        "sprite": "spriteSand.png"
+        "sprite": "spriteSand.png",
+        "speed": 0
     },
     "Cat": {
+        "name": "Cat",
         "dest": null,
         "pickable": [],
         "position": [
@@ -50,11 +54,18 @@
         ],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "Cat.gal",
-        "sprite": "spriteCat.png"
+        "sprite": "spriteCat.png",
+        "speed": 1.5,
+        "team": "Cat",
+        "allies": [],
+        "hp": 25,
+        "damage": 0,
+        "enemies": [],
+        "range": 7
     },
     "PortaltoRock": {
+        "name": "PortaltoRock",
         "dest": "RockWorld",
         "position": [
             0,
@@ -63,11 +74,12 @@
         "pickable": [],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "Portal.gal",
-        "sprite": "spritePortal.png"
+        "sprite": "spritePortal.png",
+        "speed": 0
     },
     "PortaltoTree": {
+        "name": "PortaltoTree",
         "dest": "TreeWorld",
         "position": [
             0,
@@ -76,11 +88,12 @@
         "pickable": [],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "portal.gal",
-        "sprite": "spritePortal.png"
+        "sprite": "spritePortal.png",
+        "speed": 0
     },
     "PortaltoCat": {
+        "name": "PortaltoCat",
         "dest": "CatWorld",
         "position": [
             0,
@@ -89,11 +102,12 @@
         "pickable": [],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "portal.gal",
-        "sprite": "spritePortal.png"
+        "sprite": "spritePortal.png",
+        "speed": 0
     },
     "PortaltoSand": {
+        "name": "PortaltoSand",
         "dest": "SandWorld",
         "position": [
             0,
@@ -102,13 +116,13 @@
         "pickable": [],
         "direction": "N",
         "reach": 3,
-        "hitbox": 1,
         "FSM": "portal.gal",
-        "sprite": "spritePortal.png"
+        "sprite": "spritePortal.png",
+        "speed": 0
     },
     "TreeWorld": {
         "background": "background_TreeWorld.png",
-        "hitbox": [
+        "size": [
             100,
             100
         ],
@@ -136,9 +150,8 @@
         ]
     },
     "RockWorld": {
-        "Parent": "Rock",
         "background": "background_RockWorld.png",
-        "hitbox": [
+        "size": [
             100,
             100
         ],
@@ -158,9 +171,8 @@
         ]
     },
     "SandWorld": {
-        "Parent": "Sand",
         "background": "background_SandWorld.png",
-        "hitbox": [
+        "size": [
             100,
             100
         ],
@@ -180,9 +192,8 @@
         ]
     },
     "CatWorld": {
-        "Parent": "Cat",
         "background": "background_CatWorld.png",
-        "hitbox": [
+        "size": [
             100,
             100
         ],
@@ -202,9 +213,8 @@
         ]
     },
     "Bag1": {
-        "Parent": "Player1",
         "background": null,
-        "hitbox": [
+        "size": [
             10,
             10
         ],
@@ -215,23 +225,31 @@
         "name": "Player1",
         "hp": 100,
         "damage": 10,
-        "hitbox": 1,
         "position": [
             0,
             0
         ],
-        "pickable": ["Tree", "Rock", "Sand", "Cat","Player2"],
+        "pickable": [
+            "Player2"
+        ],
         "direction": "N",
         "speed": 3,
         "sprite": "spritePlayer1.png",
-        "CanRespawn": true
+        "CanRespawn": true,
+        "reach": 3,
+        "dest": "Bag1",
+        "team": "Player1",
+        "enemies": [
+            "Player2"
+        ],
+        "allies": [],
+        "range": 15
     },
     "Player2": {
         "FSM": "Player2.gal",
         "name": "Player2",
         "hp": 100,
         "damage": 10,
-        "hitbox": 1,
         "position": [
             0,
             0
@@ -240,6 +258,14 @@
         "direction": "N",
         "speed": 2,
         "sprite": "spritePlayer2.png",
-        "CanRespawn": true
+        "CanRespawn": true,
+        "reach": 3,
+        "dest": null,
+        "team": "Player2",
+        "enemies": [
+            "Player1"
+        ],
+        "allies": [],
+        "range": 15
     }
 }

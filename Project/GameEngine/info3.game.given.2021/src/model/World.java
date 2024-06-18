@@ -13,23 +13,20 @@ import java.io.IOException;
 
 public class World {
 	int size;
-	List<Entity> listE;
+	QuadTree listE;
 	BufferedImage background;
-	Player p1 = null;
-	Player p2 = null;
 
-	public World(int size, String filename, Player p1, Player p2) throws IOException {
-		listE = new ArrayList<Entity>();
+	public World() {
+		size = 0;
+	}
+	public World(int size, String filename) throws IOException {
 		this.size = size;
 
-		File file = new File(filename);
-		if (!file.exists()) {
-			System.out.println("Fichier " + filename + " introuvable");
-		}
-		background = ImageIO.read(file);
-
-		this.p1 = p1;
-		this.p2 = p2;
+//		File file = new File(filename);
+//		if (!file.exists()) {
+//			System.out.println("Fichier " + filename + " introuvable");
+//		}
+//		background = ImageIO.read(file);
 	}
 
 	public void do_paint(Graphics g, int width, int height) {

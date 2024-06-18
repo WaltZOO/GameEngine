@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class NPC extends Character {
 
-	public NPC(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<Entity> pickable, String team, int hp, int damage, ArrayList<Entity> ennemies,
-			ArrayList<Entity> allies, int range) throws IOException {
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies, allies,
-				range);
+	public NPC(int x, int y, int speed, String direction, int reach, World dest,
+			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> allies, int range, String name, String fsm) throws IOException {
+		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies,
+				range, name, fsm);
 		// TODO Auto-generated constructor stub
 	}
 	

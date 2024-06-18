@@ -6,9 +6,10 @@ import java.util.ArrayList;
 
 public class Bloc extends Entity {
 
-	public Bloc(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<model.Entity> pickable) throws IOException {
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable);
+	public Bloc(int x, int y, int speed, String direction, int reach, World dest,
+			String filename, ArrayList<String> pickable, String name, String fsm
+) throws IOException {
+		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm);
 	}
 
 	@Override

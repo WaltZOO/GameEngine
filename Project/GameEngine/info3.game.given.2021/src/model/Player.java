@@ -6,22 +6,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Character {
-	String name;
 	boolean isPlayer1;
-	int fov;
 	boolean canRespawn;
 
-	public Player(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<Entity> pickable, String team, int hp, int damage, ArrayList<Entity> ennemies,
-			ArrayList<Entity> allies, int range, String name, boolean isPlayer1, int fov, boolean canRespawn)
+	public Player(int x, int y, int speed, String direction, int reach, World dest,
+			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> allies, int range, String name, boolean isPlayer1, boolean canRespawn, String fsm)
 			throws IOException {
 
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, team, hp, damage, ennemies,
-				allies, range);
+		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies,
+				allies, range, name, fsm);
 
 		this.name = name;
 		this.isPlayer1 = isPlayer1;
-		this.fov = fov;
 		this.canRespawn = canRespawn;
 	}
 

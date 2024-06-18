@@ -8,21 +8,22 @@ public class Character extends Entity {
 	String team;
 	int hp;
 	int damage;
-	ArrayList<Entity> ennemies;
-	ArrayList<Entity> allies;
+	ArrayList<String> ennemies;
+	ArrayList<String> allies;
 	int range;
 
-	public Character(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<model.Entity> pickable, String team, int hp, int damage,
-			ArrayList<Entity> ennemies, ArrayList<Entity> allies, int range) throws IOException {
+	public Character(int x, int y, int speed, String direction, int reach, World dest,
+			String filename, ArrayList<String> pickable, String team, int hp, int damage,
+			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name, String fsm) throws IOException {
 		
-		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable);
+		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm);
 		
 		this.hp = hp;
 		this.damage = damage;
-		this.ennemies = new ArrayList<Entity>();
-		this.allies = new ArrayList<Entity>();
+		this.ennemies = ennemies;
+		this.allies = allies;
 		this.range = range;
+		this.team = team;
 	}
 
 	@Override

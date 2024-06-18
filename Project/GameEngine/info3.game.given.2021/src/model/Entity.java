@@ -16,17 +16,14 @@ import ai.State;
 public abstract class Entity {
 
 	// Mondes 
-	World parent;		// Monde parent de l'entité
 	World dest;			// Monde destination pour le pick
-	ArrayList<Entity> pickable;	// Liste des entité prenable
+	ArrayList<String> pickable;	// Liste des entité prenable
 
 	// Mouvement 
 	int x, y; 			// Position
 	int speed; 			// Vitesse pour le Move()
 	String direction;	
-	int hitbox; 		// Rayon de collisions
 	int reach; 			// Rayon de frappe
-	int range;			// Rayon de détection
 
 	// Graphique
 	BufferedImage[] sprites; // Sprites
@@ -36,12 +33,13 @@ public abstract class Entity {
 	FSM fsm;			// Automate de l'entité
 	State state;		// Etat de départ
 
-	public Entity(int x, int y, int speed, String direction ,int reach, int hitbox,
-			World parent, World dest,
-			String filename, ArrayList<Entity> pickable) throws IOException {
+	String name;
+
+	public Entity(int x, int y, int speed, String direction ,int reach,
+			World dest,
+			String filename, ArrayList<String> pickable, String name, String fsm) throws IOException {
 		
 		// Monde
-		this.parent = parent;
 		this.dest = dest;
 		this.pickable = pickable;
 
@@ -50,7 +48,6 @@ public abstract class Entity {
 		this.y = y;
 		this.direction = direction;
 		this.speed = speed;
-		this.hitbox = hitbox;
 		this.reach = reach;
 
 		// Graphique
@@ -58,8 +55,11 @@ public abstract class Entity {
 		this.m_imageIndex = 0;
 		
 		// Automate
+		// this.fsm = fsm;
 		// this.fsm = new FSM();
 		// this.state = new State(1);
+		
+		this.name = name;
 	}
 
 	public String getDir() {

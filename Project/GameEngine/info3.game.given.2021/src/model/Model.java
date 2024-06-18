@@ -5,24 +5,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import org.json.simple.parser.ParseException;
 
 public class Model {
-	int timer;
-	int seed;
-	int nMonde;
-	List<World> mondes;
+	double timer;
+	double seed;
+	double hitbox;
+	int nworlds;
+	List<World> worlds;
+	Player p1;
+	Player p2;
 
-	public Model(int timer, int seed) {
-		this.timer = timer;
-		this.seed = seed;
-		this.mondes = new ArrayList<World>();
-
+	public Model() {
+		this.timer = 0;
+		this.seed = 0;
+		this.hitbox = 0;
+		this.nworlds = 0;
+		this.worlds = new ArrayList<World>();
+		Player p1 = null;
+		Player p2 = null;
 	}
 
-	public void Init_Game() throws IOException, ParseException {
-		JSONReader JP = new JSONReader();
-		JP.parseConfig();
+	public Model(JSONReader JP) throws IOException {
+		
+		this.timer = JP.getTimer();
+		this.seed = JP.getSeed();
+		this.hitbox = JP.getHitbox();
+		List<WorldConfig> worlds_conf = JP.getWorldsConfig();		
+		this.nworlds = worlds_conf.size();
+		
+		Player tmp = JP.getPlayers().get(0);
+		if (tmp.isPlayer1) {
+			p1 = tmp;
+			p2 = JP.getPlayers().get(1);
+		}
 		
 		
 		/*
@@ -41,7 +59,7 @@ public class Model {
 	}
 
 	public void paint(Graphics g, int height, int width) {
-		for (World m : mondes) {
+		for (World m : worlds) {
 			m.do_paint(g, height, width);
 		}
 	}
