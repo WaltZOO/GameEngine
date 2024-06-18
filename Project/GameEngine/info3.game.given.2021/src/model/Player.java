@@ -23,21 +23,49 @@ public class Player extends Character {
 		this.canRespawn = canRespawn;
 	}
 
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
-		// BufferedImage img = sprites[m_imageIndex];
-		// g.drawImage(img, x, y, scale * img.getWidth(), scale * img.getHeight(),
-		// null);
+	public void do_paint(Graphics g, int width, int height, Player p) {
+		// offsetside
+		int offsetside = 0;
+		if (p != null) {
+			if (p.isPlayer1) {
+				offsetside = -width / 4;
+			} else {
+				offsetside = width / 4;
+			}
+		}
 		g.setColor(Color.RED);
 		if (isPlayer1) {
-			g.setColor(Color.BLUE);
+			g.setColor(Color.GREEN);
 		}
-		int size = hitbox * hitbox * hitbox / range;
-		g.fillOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size, size);
+		if(this == p) {
+			float scale = (width / 2) / (float) p.range;
 
-		// dessin de la reach
-		g.setColor(Color.BLUE);
-		size =  reach * reach * reach / range ;
-		g.drawOval(width / 2 + offsetside - size / 2, height / 2 - size / 2, size, size);
+			int sizex = (int) ((float) hitbox * scale);
+			g.fillOval(width / 2 + offsetside - sizex / 2, height / 2 - sizex / 2, sizex, sizex);
+
+			// dessin de la reach
+			g.setColor(Color.BLUE);
+			sizex = (int) (reach * scale);
+			g.drawOval(width / 2 + offsetside - sizex / 2, height / 2 - sizex / 2, sizex, sizex);
+		
+		}else {
+			
+			// dessin de la hitbox
+			float scale = (float) width / (2 * p.range);
+			int sizex = (int) (hitbox * scale);
+
+			int posxInWindow = (int) ((x - p.x) * scale + width / 2);
+			int posyInWindow = (int) ((y - p.y) * scale + height / 2);
+
+			g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+
+			// dessin de la reach
+			g.setColor(Color.BLUE);
+			sizex = (int) (reach * scale);
+			g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+		}
+		
+
 	}
 
 	@Override
