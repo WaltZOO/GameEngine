@@ -9,10 +9,12 @@ import javax.swing.JPanel;
 
 import org.json.simple.parser.ParseException;
 
+import ai.Direction;
+
 public class Model {
 	double timer;
 	double seed;
-	double hitbox;
+	int hitbox;
 	int nworlds;
 	List<World> worlds;
 	Player p1;
@@ -27,6 +29,16 @@ public class Model {
 		Player p1 = null;
 		Player p2 = null;
 	}
+	/*
+	public static void main(String args[]) throws IOException, ParseException {
+		Model m = new Model(0,0);
+		m.Init_Game();
+		m.mondes.get(0).qt.AffichageProfondeur();
+		m.mondes.get(0).listE.get(0).do_pick(Direction.W);
+		m.mondes.get(0).qt.AffichageProfondeur();
+		m.mondes.get(1).qt.AffichageProfondeur();
+	}
+	*/
 
 	public Model(JSONReader JP) throws IOException {
 		
@@ -55,12 +67,17 @@ public class Model {
 	}
 
 	public void update() {
+		if (p1 != null) {
+			if (p1.parent != null) {
+				if (p1.x < p1.parent.size)
+					p1.x += 1;
+			}
+		}
 
 	}
 
-	public void paint(Graphics g, int height, int width) {
-		for (World m : worlds) {
-			m.do_paint(g, height, width);
-		}
+	public void paint(Graphics g, int width, int height) {
+		p1.parent.do_paint(g, width, height, p1);
+		p2.parent.do_paint(g, width, height, p2);
 	}
 }

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 public class Bloc extends Entity {
 
 	public Bloc(int x, int y, int speed, String direction, int reach, World dest,
-			String filename, ArrayList<String> pickable, String name, String fsm
+			String filename, ArrayList<String> pickable, String name, String fsm, World parent
 ) throws IOException {
-		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm);
+		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
 	}
 
 	@Override
@@ -32,12 +32,6 @@ public class Bloc extends Entity {
 
 	@Override
 	public void do_hit(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_store() {
 		// TODO Auto-generated method stub
 
 	}
@@ -67,7 +61,7 @@ public class Bloc extends Entity {
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
+	public void do_paint(Graphics g, int width, int height, Player p) {
 		// TODO Auto-generated method stub
 
 	}

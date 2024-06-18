@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -55,9 +56,9 @@ public class JSONReader {
 		return tmp.doubleValue();
 	}
 
-	public Double getHitbox() {
+	public int getHitbox() {
 		Number tmp = (Number) jo.get("hitbox");
-		return tmp.doubleValue();
+		return tmp.intValue();
 	}
 
 	public ArrayList<Bloc> getBlocs() throws IOException { // Récupération des blocs reconnus
@@ -81,7 +82,7 @@ public class JSONReader {
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
 			World world_dest = new World();
 			blocs.add(new Bloc(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(),
-					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm));
+					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm, new World()));
 		}
 		return blocs;
 	}
@@ -116,7 +117,7 @@ public class JSONReader {
 
 			npcs.add(new NPC(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(), speed.intValue(),
 					direction, reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(),
-					enemies, allies, range.intValue(), name, fsm));
+					enemies, allies, range.intValue(), name, fsm, new World()));
 
 		}
 		return npcs;
@@ -158,7 +159,7 @@ public class JSONReader {
 			ArrayList<Integer> position_int = jsonArrayToIntList(position);
 			players.add(new Player(position_int.get(0), position_int.get(1), speed.intValue(), direction,
 					reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(), enemies,
-					allies, range.intValue(), name, isPlayer1, can_respawn, fsm));
+					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World()));
 
 		}
 		return players;

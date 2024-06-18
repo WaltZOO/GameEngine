@@ -8,9 +8,9 @@ public class NPC extends Character {
 
 	public NPC(int x, int y, int speed, String direction, int reach, World dest,
 			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
-			ArrayList<String> allies, int range, String name, String fsm) throws IOException {
+			ArrayList<String> allies, int range, String name, String fsm, World parent) throws IOException {
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies,
-				range, name, fsm);
+				range, name, fsm, parent);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -40,12 +40,6 @@ public class NPC extends Character {
 	}
 
 	@Override
-	public void do_store() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void do_get() {
 		// TODO Auto-generated method stub
 
@@ -70,7 +64,7 @@ public class NPC extends Character {
 	}
 
 	@Override
-	public void do_paint(Graphics g, int width, int height, int offsetside, int range) {
+	public void do_paint(Graphics g, int width, int height, Player p) {
 		// TODO Auto-generated method stub
 
 	}
