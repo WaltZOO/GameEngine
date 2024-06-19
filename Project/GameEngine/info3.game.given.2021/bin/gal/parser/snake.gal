@@ -1,6 +1,0 @@
-Snake(init) {
-    *(init)
-    | Cell(F,V) ? Move(F) : (init)
-    | Cell(L,V) ? Move(L) : (init)
-    | Cell(R,V) ? Move(R) : (init)
-}
