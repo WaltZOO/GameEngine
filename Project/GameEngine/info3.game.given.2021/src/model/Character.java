@@ -12,11 +12,26 @@ public class Character extends Entity {
 	ArrayList<String> allies;
 	int range;
 
-	public Character(int x, int y, int speed, String direction, int reach, World dest,
-			String filename, ArrayList<String> pickable, String team, int hp, int damage,
+	public Character(int x, int y, int speed, String direction, int reach, World dest, String filename,
+			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
 
-			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name) throws Exception {
-		
+		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
+
+		this.hp = hp;
+		this.damage = damage;
+		this.ennemies = ennemies;
+		this.allies = allies;
+		this.range = range;
+		this.team = team;
+	}
+
+	public Character(int x, int y, int speed, String direction, int reach, World dest, BufferedImage[] filename,
+			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> allies, int range, String name, FSM fsm, World parent) throws Exception {
+
+		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
+
 		this.hp = hp;
 		this.damage = damage;
 		this.ennemies = ennemies;
@@ -36,7 +51,7 @@ public class Character extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void do_get() {
 		// TODO Auto-generated method stub
