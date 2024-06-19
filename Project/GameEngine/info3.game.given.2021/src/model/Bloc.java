@@ -85,9 +85,8 @@ public class Bloc extends Entity {
 		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
 		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
 		
-		scale = (float) (2 * p.range) / width;
-		int sizex = (int) (hitbox / scale);
-
+		// on fait un produit en croix pour la taille
+		int sizex = (int) (((float )hitbox) * scale);
 		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 
 	}
