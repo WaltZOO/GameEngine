@@ -67,6 +67,9 @@ public class Bloc extends Entity {
 
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
+		// scale
+		float scale = (float) height / p.range;
+
 		// offsetside
 		int offsetside = 0;
 		if (p != null) {
@@ -77,16 +80,11 @@ public class Bloc extends Entity {
 			}
 		}
 
-		// dessin de la hitbox
-		g.setColor(Color.blue);
-
-		float scale = (float) width / (2 * p.range);
-
 		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
 		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
-		
-		// on fait un produit en croix pour la taille
-		int sizex = (int) (((float )hitbox) * scale);
+
+		int sizex = (int) (hitbox * scale);
+		g.setColor(Color.blue);
 		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 
 	}

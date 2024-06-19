@@ -69,8 +69,7 @@ public class NPC extends Character {
 
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
-		// TODO Auto-generated method stub
-
+		super.do_paint(g, width, height, p);
 	}
 
 }

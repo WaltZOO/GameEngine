@@ -26,10 +26,11 @@ public class Model {
 		p1 = JP.getPlayers().get(1);
 		p2 = JP.getPlayers().get(0);
 		int nb_player=0;
+		
 		// on ajoute les mondes au model
 		this.mondes = new ArrayList<World>();
 		for (WorldConfig w : worlds_conf) {
-			WorldConfig w1 = w;
+
 			World temp = w.world;
 			for (int i = 0; i < w.categories.size(); i++) {
 				for (Bloc b : JP.getBlocs()) {

@@ -31,6 +31,10 @@ public class Player extends Character {
 	}
 
 	public void do_paint(Graphics g, int width, int height, Player p) {
+
+		// scale
+		float scale = (float) height / p.range;
+
 		// offsetside
 		int offsetside = 0;
 		if (p != null) {
@@ -40,37 +44,25 @@ public class Player extends Character {
 				offsetside = width / 4;
 			}
 		}
-		g.setColor(Color.RED);
-		if (isPlayer1) {
+		
+		// couleur
+		if (this.isPlayer1) {
 			g.setColor(Color.GREEN);
-		}
-		if (this == p) {
-			float scale = (width / 2) / (float) p.range;
-
-			int sizex = (int) ((float) hitbox * scale);
-			g.fillOval(width / 2 + offsetside - sizex / 2, height / 2 - sizex / 2, sizex, sizex);
-
-			// dessin de la reach
-			g.setColor(Color.BLUE);
-			sizex = (int) (reach * scale);
-			g.drawOval(width / 2 + offsetside - sizex / 2, height / 2 - sizex / 2, sizex, sizex);
-
 		} else {
-
-			// dessin de la hitbox
-			float scale = (float) width / (2 * p.range);
-			int sizex = (int) (hitbox * scale);
-
-			int posxInWindow = (int) ((x - p.x) * scale + width / 2);
-			int posyInWindow = (int) ((y - p.y) * scale + height / 2);
-
-			g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
-
-			// dessin de la reach
-			g.setColor(Color.BLUE);
-			sizex = (int) (reach * scale);
-			g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+			g.setColor(Color.RED);
 		}
+
+		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
+		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
+		
+		int sizex = (int) (hitbox * scale);
+		
+		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+
+		// dessin de la reach
+		g.setColor(Color.BLUE);
+		sizex = (int) (reach * scale);
+		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 
 	}
 

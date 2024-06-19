@@ -229,22 +229,23 @@ public class QuadTree {
 	}
 
 	public void paint(Graphics g, int width, int height, Player P) {		
-		int size = bdr.getxMax()-bdr.getxMin();
+		int sizex = bdr.getxMax()-bdr.getxMin();
+		int sizey = bdr.getyMax()-bdr.getyMin();
 
 		float scale1 = (float) width / (2 * P.range);
 
-		int xOffset1 = (int) ((float)(bdr.getxMin()-P.x) * scale1 + width / 4);
-		int yOffset1 = (int) ((float)(bdr.getyMin()-P.y) * scale1 + height / 2);
+		float xOffset1 = ((float)(bdr.getxMin()-P.x) * scale1 + width / 4);
+		float yOffset1 = ((float)(bdr.getyMin()-P.y) * scale1 + height / 2);
 		
 		//this.AffichageProfondeur();
 
 		if (P.isPlayer1) {
 			g.setClip(0, 0, width / 2, height);
-			g.drawRect(xOffset1, yOffset1, (int) (size * scale1), (int) (size * scale1));
+			g.drawRect((int) xOffset1,(int) yOffset1, (int) ((float)sizex * scale1), (int) ((float)sizey * scale1));
 			
 		} else {
 			g.setClip(width / 2, 0, width / 2, height);
-			g.drawRect(xOffset1 + width / 2, yOffset1, (int) (size * scale1), (int) (size * scale1));
+			g.drawRect((int) xOffset1 + width / 2, (int) yOffset1, (int) ((float)sizex * scale1), (int) ((float)sizey * scale1));
 		}
 		
 		if (NE != null) {

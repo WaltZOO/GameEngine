@@ -163,8 +163,8 @@ public class Game {
 	void paint(Graphics g) {
 
 		// get the size of the canvas
-		int width = d.width;
-		int height = d.height -80;
+		int width = m_frame.getWidth();
+		int height = m_frame.getHeight() -52;
 
 		// erase background
 		g.setColor(Color.gray);
