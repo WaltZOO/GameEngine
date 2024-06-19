@@ -9,6 +9,9 @@ public class Bloc extends Entity {
 	public Bloc(int x, int y, int speed, String direction, int reach, World world_dest, String sprite,
 			ArrayList<String> pickable, String filename, String fsm, World world) throws Exception {
 		super(x, y, speed, direction, reach, world_dest, sprite, pickable, filename, fsm, world);
+
+		sprites = loadSprite("./resources/Tree.png", 9, 8);
+
 	}
 
 	public Bloc(Bloc other) throws Exception {
@@ -86,6 +89,12 @@ public class Bloc extends Entity {
 		int sizex = (int) (hitbox * scale);
 		g.setColor(Color.blue);
 		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+
+		// On dessine le sprite
+		sizex = (int) (sizex * 2);
+
+		g.drawImage(sprites[26], posxInWindow + offsetside - 4 * sizex / 6 , posyInWindow - 4 * sizex / 6, sizex,
+				sizex, null);
 
 	}
 

@@ -14,7 +14,7 @@
         "direction": "N",
         "reach": 4,
         "FSM": "./resources/rien.gal",
-        "sprite": "spriteTree.png"
+        "sprite": "./resources/Tree.png"
     },
     "Rock": {
         "name": "Rock",
@@ -234,7 +234,7 @@
         ],
         "direction": "N",
         "speed": 3,
-        "sprite": "spritePlayer1.png",
+        "sprite": "./resources/Player1.png",
         "CanRespawn": true,
         "reach": 4,
         "dest": "Bag1",
@@ -257,7 +257,7 @@
         "pickable": [],
         "direction": "N",
         "speed": 2,
-        "sprite": "spritePlayer2.png",
+        "sprite": "./resources/Player2.png",
         "CanRespawn": true,
         "reach": 4,
         "dest": null,

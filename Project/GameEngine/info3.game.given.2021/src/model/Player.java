@@ -15,6 +15,8 @@ public class Player extends Character {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
+		
+		sprites = loadSprite(filename, 10, 6);
 
 		this.isPlayer1 = isPlayer1;
 		this.canRespawn = canRespawn;
@@ -45,20 +47,51 @@ public class Player extends Character {
 			}
 		}
 		
-		// couleur
+
+		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
+		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
+		
+		
+		
+		// On dessine la hitbox
 		if (this.isPlayer1) {
 			g.setColor(Color.GREEN);
 		} else {
 			g.setColor(Color.RED);
 		}
-
-		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
-		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
-		
 		int sizex = (int) (hitbox * scale);
-		
 		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+		
+		// On dessine le sprite
+		boolean isWest = false;
+		switch (direction) {
+		case "N":
+			m_imageIndex = 12;
+			break;
+		case "S":
+			m_imageIndex = 0;
+			break;
+		case "W":
+			isWest = true;
+			m_imageIndex = 6;
+			break;
+		case "E":
+			m_imageIndex = 6;
+			break;
 
+		default:
+			m_imageIndex = (m_imageIndex + 1)%60;
+			break;
+		}
+		sizex = (int) (sizex * 1.8);
+		
+		if (isWest) {
+			g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside + sizex / 2, posyInWindow - 4*sizex/6 , -sizex, sizex,null);
+		}else {
+			g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside - sizex / 2, posyInWindow - 4*sizex/6 , sizex, sizex,null);
+		}
+		
+		
 		// dessin de la reach
 		g.setColor(Color.BLUE);
 		sizex = (int) (reach * scale);
