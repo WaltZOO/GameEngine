@@ -61,12 +61,12 @@ public class JSONReader {
 		return tmp.intValue();
 	}
 
-	public ArrayList<Bloc> getBlocs() throws IOException { // Récupération des blocs reconnus
+	public ArrayList<Bloc> getBlocs() throws Exception { // Récupération des blocs reconnus
 		ArrayList<Bloc> blocs = new ArrayList<Bloc>();
-		System.out.println("Blocs :");
+		//System.out.println("Blocs :");
 		for (int i = 0; i < blocs_string.size(); i++) {
 			String bloc = blocs_string.get(i);
-			System.out.println(blocs_string);
+			//System.out.println(blocs_string);
 			JSONObject blocDetails = (JSONObject) jo.get(bloc);
 			JSONArray position = (JSONArray) blocDetails.get("position");
 			String name = (String) blocDetails.get("name");
@@ -80,18 +80,18 @@ public class JSONReader {
 			Number speed = (Number) blocDetails.get("speed");
 
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
-			World world_dest = new World();
+			World world_dest = new World(getHitbox());
 			blocs.add(new Bloc(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(),
-					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm, new World()));
+					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm, new World(getHitbox())));
 		}
 		return blocs;
 	}
 
-	public ArrayList<NPC> getNpcs() throws IOException { // Récupération des blocs reconnus
+	public ArrayList<NPC> getNpcs() throws Exception { // Récupération des blocs reconnus
 		ArrayList<NPC> npcs = new ArrayList<NPC>();
 		for (int i = 0; i < npcs_string.size(); i++) {
 			String NPC = npcs_string.get(i);
-			System.out.println(npcs_string);
+			//System.out.println(npcs_string);
 			JSONObject NPCDetails = (JSONObject) jo.get(NPC);
 			JSONArray position = (JSONArray) NPCDetails.get("position");
 			String name = (String) NPCDetails.get("name");
@@ -113,21 +113,21 @@ public class JSONReader {
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
 			ArrayList<String> allies = jsonArrayToStringList(alliesArray);
 			ArrayList<String> enemies = jsonArrayToStringList(enemiesArray);
-			World world_dest = new World();
+			World world_dest = new World(getHitbox());
 
 			npcs.add(new NPC(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(), speed.intValue(),
 					direction, reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(),
-					enemies, allies, range.intValue(), name, fsm, new World()));
+					enemies, allies, range.intValue(), name, fsm, new World(getHitbox())));
 
 		}
 		return npcs;
 	}
 
-	public ArrayList<Player> getPlayers() throws IOException { // Récupération des players reconnus
+	public ArrayList<Player> getPlayers() throws Exception { // Récupération des players reconnus
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (int i = 0; i < players_string.size(); i++) {
 			String player = players_string.get(i);
-			// System.out.println(player);
+			// //System.out.println(player);
 			JSONObject playerDetails = (JSONObject) jo.get(player);
 			JSONArray position = (JSONArray) playerDetails.get("position");
 			String name = (String) playerDetails.get("name");
@@ -155,12 +155,12 @@ public class JSONReader {
 			ArrayList<String> allies = jsonArrayToStringList(alliesArray);
 			ArrayList<String> enemies = jsonArrayToStringList(enemiesArray);
 
-			World world_dest = new World();
+			World world_dest = new World(getHitbox());
 			ArrayList<Integer> position_int = jsonArrayToIntList(position);
 			players.add(new Player(position_int.get(0), position_int.get(1), speed.intValue(), direction,
 					reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(), enemies,
-					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World()));
-
+					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World(getHitbox())));
+			
 		}
 		return players;
 	}
@@ -170,7 +170,7 @@ public class JSONReader {
 
 		for (int i = 0; i < worlds_string.size(); i++) {
 			String world = worlds_string.get(i);
-			// System.out.println(worlds_string.get(i));
+			// //System.out.println(worlds_string.get(i));
 			JSONObject worldDetails = (JSONObject) jo.get(world);
 			String background = (String) worldDetails.get("background");
 			String parent = (String) worldDetails.get("Parent");
@@ -187,7 +187,7 @@ public class JSONReader {
 				densities.add(entity_density.doubleValue());
 			}
 			ArrayList<Integer> size_int = jsonArrayToIntList(size);
-			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background), categories, densities));
+			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background,getHitbox()), categories, densities));
 		}
 		return worlds_conf;
 	}

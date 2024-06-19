@@ -63,8 +63,7 @@ public class Game {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		m_cowboy = new Cowboy();
-		model = new Model(timer,seed);
-		model.Init_Game();
+		model = new Model("./resources/configjeu1_mvpScom.json");
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -172,8 +171,10 @@ public class Game {
 		g.fillRect(0, 0, width, height);
 
 		// paint
+		
 		model.update();
 		model.paint(g, width, height);
+		
 	}
 
 }

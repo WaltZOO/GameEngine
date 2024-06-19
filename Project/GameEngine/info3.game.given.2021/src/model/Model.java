@@ -1,15 +1,8 @@
 package model;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JPanel;
-
-import org.json.simple.parser.ParseException;
-
-import ai.Direction;
 
 public class Model {
 	double timer;
@@ -19,60 +12,119 @@ public class Model {
 	List<World> worlds;
 	Player p1;
 	Player p2;
+	ArrayList<World> mondes;
+	final static float pourcenatge_remplissage=0.7f;
 
-	public Model() {
-		this.timer = 0;
-		this.seed = 0;
-		this.hitbox = 0;
-		this.nworlds = 0;
-		this.worlds = new ArrayList<World>();
-		Player p1 = null;
-		Player p2 = null;
-	}
-	/*
-	public static void main(String args[]) throws IOException, ParseException {
-		Model m = new Model(0,0);
-		m.Init_Game();
-		m.mondes.get(0).qt.AffichageProfondeur();
-		m.mondes.get(0).listE.get(0).do_pick(Direction.W);
-		m.mondes.get(0).qt.AffichageProfondeur();
-		m.mondes.get(1).qt.AffichageProfondeur();
-	}
-	*/
-
-	public Model(JSONReader JP) throws IOException {
-		
+	public Model(String configFileName) throws Exception {
+		JSONReader JP = new JSONReader(configFileName);
 		this.timer = JP.getTimer();
 		this.seed = JP.getSeed();
 		this.hitbox = JP.getHitbox();
-		List<WorldConfig> worlds_conf = JP.getWorldsConfig();		
+		List<WorldConfig> worlds_conf = JP.getWorldsConfig();
 		this.nworlds = worlds_conf.size();
-		
-		Player tmp = JP.getPlayers().get(0);
-		if (tmp.isPlayer1) {
-			p1 = tmp;
-			p2 = JP.getPlayers().get(1);
+
+		p1 = JP.getPlayers().get(1);
+		p2 = JP.getPlayers().get(0);
+		int nb_player=0;
+		// on ajoute les mondes au model
+		this.mondes = new ArrayList<World>();
+		for (WorldConfig w : worlds_conf) {
+			WorldConfig w1 = w;
+			World temp = w.world;
+			for (int i = 0; i < w.categories.size(); i++) {
+				for (Bloc b : JP.getBlocs()) {
+					if (b.name.equals(w.categories.get(i))) {
+						int quantity;
+						if (w.densities.get(i)==-1) {
+							quantity=1;
+						}
+						else {
+							quantity=(int) (((temp.size*temp.size)/(hitbox*hitbox*3))*pourcenatge_remplissage*w.densities.get(i));
+						}
+						for (int j=0;j<quantity;j++) {
+							Bloc tempb = new Bloc(b);
+							tempb.parent = temp;
+							random_insert(tempb, temp);
+						}
+						
+					}
+
+				}
+				for (NPC b : JP.getNpcs()) {
+					if (b.name.equals(w.categories.get(i))) {
+						int quantity;
+						if (w.densities.get(i)==-1) {
+							quantity=1;
+						}
+						else {
+							quantity=(int) (((temp.size*temp.size)/(hitbox*hitbox*3))*pourcenatge_remplissage*w.densities.get(i));
+						}
+						for (int j=0;j<quantity;j++) {
+							NPC tempb = new NPC(b);
+							tempb.parent = temp;
+							random_insert(tempb, temp);
+						}
+						
+					}
+
+				}
+				for (Player b : JP.getPlayers()) {
+					if (b.name.equals(w.categories.get(i))) {
+						int quantity;
+						if (w.densities.get(i)==-1) {
+							quantity=1;
+						}
+						else {
+							quantity=(int) (((temp.size*temp.size)/(hitbox*hitbox*3))*pourcenatge_remplissage*w.densities.get(i));
+						}
+						for (int j=0;j<quantity;j++) {
+							Player tempb = new Player(b);
+							tempb.parent = temp;
+							random_insert(tempb, temp);
+							if (nb_player++==0) {
+								p1=tempb;
+							}
+							else {
+								p2=tempb;
+							}
+						}
+						
+					}
+
+				}
+			}
+			mondes.add(temp);
+
 		}
-		
-		
-		/*
-		 * Player P1 = new Player(900, 900, 20, 20, 500, 20, null, 100, 10, true);
-		 * Player P2 = new Player(950, 910, 20, 50, 400, 30, null, 100, 10, false);
-		 * 
-		 * Monde monde = new Monde(1000, "resources/background.png", P1, P2);
-		 * mondes.add(monde);
-		 * 
-		 * monde.listE.add(P1); monde.listE.add(P2);
-		 */
+		System.out.println("Fichier chargé");
 	}
 
+	/*
+	 * public static void main(String args[]) throws IOException, ParseException {
+	 * Model m = new Model(0,0); m.Init_Game();
+	 * m.mondes.get(0).qt.AffichageProfondeur();
+	 * m.mondes.get(0).listE.get(0).do_pick(Direction.W);
+	 * m.mondes.get(0).qt.AffichageProfondeur();
+	 * m.mondes.get(1).qt.AffichageProfondeur(); }
+	 */
+
 	public void update() {
-		if (p1 != null) {
-			if (p1.parent != null) {
-				if (p1.x < p1.parent.size)
-					p1.x += 1;
-			}
+		for (World m : this.mondes) {
+			m.update();
 		}
+	}
+
+	public void random_insert(Entity e, World w) {
+		int x = (int) (Math.random() * w.size);
+		int y = (int) (Math.random() * w.size);
+		while (!w.qt.getEntitiesFromRadius(x, y, hitbox * 2).isEmpty()) { // on verifie que l'on peut insérer a ces
+																			// coordonées
+			x = (int) (Math.random() * w.size);
+			y = (int) (Math.random() * w.size);
+		}
+		e.x = x;
+		e.y = y;
+		w.qt.insert(e);
 
 	}
 

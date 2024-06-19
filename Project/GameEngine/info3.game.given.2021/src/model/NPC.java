@@ -1,19 +1,23 @@
 package model;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class NPC extends Character {
 
 	public NPC(int x, int y, int speed, String direction, int reach, World dest,
 			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
-			ArrayList<String> allies, int range, String name, String fsm, World parent) throws IOException {
+			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies,
 				range, name, fsm, parent);
 		// TODO Auto-generated constructor stub
 	}
-	
+	public NPC(NPC other) throws Exception {
+        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites, 
+              new ArrayList<>(other.pickable), other.team, other.hp, other.damage, 
+              new ArrayList<>(other.ennemies), new ArrayList<>(other.allies), 
+              other.range, other.name, other.fsm, other.parent);
+    }
 
 	@Override
 	public boolean eval_cell(String dir, String cat) {

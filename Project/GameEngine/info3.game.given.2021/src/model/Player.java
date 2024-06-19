@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Character {
@@ -12,7 +11,7 @@ public class Player extends Character {
 	public Player(int x, int y, int speed, String direction, int reach, World dest,
 			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, boolean isPlayer1, boolean canRespawn, String fsm, World parent)
-			throws IOException {
+			throws Exception {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies,
 				allies, range, name, fsm, parent);
@@ -20,6 +19,15 @@ public class Player extends Character {
 		this.isPlayer1 = isPlayer1;
 		this.canRespawn = canRespawn;
 	}
+	public Player(Player other) throws Exception {
+        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
+              new ArrayList<String>(other.pickable), other.team, other.hp, other.damage,
+              new ArrayList<String>(other.ennemies), new ArrayList<String>(other.allies),
+              other.range, other.name, other.fsm, other.parent);
+
+        this.isPlayer1 = other.isPlayer1;
+        this.canRespawn = other.canRespawn;
+    }
 
 	public void do_paint(Graphics g, int width, int height, Player p) {
 		// offsetside

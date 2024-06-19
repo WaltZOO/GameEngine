@@ -57,4 +57,8 @@ public class FSM implements StepByStep {
 
 	}
 
+	public State getStart() {
+		return start;
+	}
+
 }

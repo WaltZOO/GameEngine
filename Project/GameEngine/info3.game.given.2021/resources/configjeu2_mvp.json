@@ -1,0 +1,266 @@
+{
+    // Germe
+    "seed": 0,
+    // temps imparti pour finir le jeu   int ou infinite
+    // A la fin de ce timer on vérifie les coditions de victoires
+    "timer": 100000,
+    "Zombie": {
+        // id de groupe
+        "team": "Zombie",
+        "dest": null,
+        // position
+        "position": [
+            0,
+            0
+        ],
+        // direction (angle)
+        "angle": 0,
+        // Vitesse
+        "speed": 1,
+        // vie de l'entité
+        "hp": 10,
+        // dégats de l'entité
+        "damage": 5,
+        // ennemies    des types ex : Tree --> le zombie attaque toutes les entités de type Tree
+        "ennemies": [
+            "Player1",
+            "Player2"
+        ],
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "zombie.gal",
+        // sprite de l'entité
+        "sprite": "spriteZombie.png",
+        // Vision/détection des ennemies
+        "range": 10,
+        // zone de frappe
+        "reach": 3
+    },
+    "Rock": {
+        "dest": null,
+        "team": "Rock",
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        // rayon d'interaction avec les autres entité
+        "reach": 3,
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 1,
+        // Automate de l'entité
+        "FSM": "rock.gal",
+        // sprite de l'entité
+        "sprite": "spriteRock.png"
+    },
+    "Boss": {
+        // id de groupe
+        "team": "Zombie",
+        "dest": null,
+        // position
+        "position": [
+            0,
+            0
+        ],
+        // direction (angle)
+        "angle": 0,
+        // Vitesse
+        "speed": 1,
+        // vie de l'entité
+        "hp": 100,
+        // dégats de l'entité
+        "damage": 10,
+        // ennemies    des types ex : Tree --> le zombie attaque toutes les entités de type Tree
+        "ennemies": [
+            "Player1",
+            "Player2"
+        ],
+        // liste des entité qu'il peut prendre
+        "pickable": [],
+        //  taille de l'hitbox
+        "size": 2,
+        // Automate de l'entité
+        "FSM": "Boss.gal",
+        // sprite de l'entité
+        "sprite": "spriteBoss.png",
+        // Vision/détection des ennemies
+        "range": 15,
+        // zone de frappe
+        "reach": 5
+    },
+     "Spawn": {
+        // id du Type associé
+        "Parent": null,
+        // image de fond
+        "background": "background_Spawn.png",
+        // taille du monde
+        "size": [
+            10,
+            10
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": [
+            {
+                "type": "Player1",
+                "density": 1,
+            },
+            {
+                "type": "Player2",
+                "density": 1,
+            }
+        ]
+    },
+    "Niveau_1": {
+        // id du Type associé
+        "Parent": "porte_toNiveau_1",
+        // image de fond
+        "background": "background_Niveau_1.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": [
+            {
+                "type": "Zombie", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "density": 0.1, // Densité du groupe
+            },
+
+            {
+                "type": "Rock",
+                "density": 0.1,
+            }
+        ]
+    },
+    "Niveau_2": {
+        // id du Type associé
+        "Parent": "porte_toNiveau_2",
+        // image de fond
+        "background": "background_Niveau_2.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": [
+            {
+                "type": "Zombie", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "density": 0.1, // Densité du groupe
+            },
+            {
+                "type": "Rock",
+                "density": 0.1,
+            }
+        ]
+    },
+    "Niveau_final": {
+        // id du Type associé
+        "Parent": "porte_toNiveau_final",
+        // image de fond
+        "background": "background_Niveau_final.png",
+        // taille du monde
+        "size": [
+            100,
+            100
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": [
+            {
+                "type": "Zombie", // Type d'entités associé ex : "Tree", "Rock", "Zombie"
+                "density": 0.1, // Densité du groupe
+            },
+            {
+                "type": "Rock",
+                "density": 0.1,
+            },
+            {
+                "type": "Boss",
+                "density": 1,
+            }
+        ]
+    },
+    "Bag1": {
+        // le type parent
+        // ex : "Parent" : "Tree"    (tous les arbres sont parent de ce monde)
+        "Parent": "Player1",
+        // image de fond
+        "background": null,
+        // taille du monde
+        "size": [
+            10,
+            10
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": []
+    },
+    "Player1": {
+        // Automate de l'entité
+        "FSM": "Player1.gal",
+        "name": "Player1", // nom du joueur
+        "hp": 100, // vie du joueur
+        "damage": 10, // dégats du joueur
+        "size": 1, // taille du joueur
+        // position du joueur
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        // Vitesse
+        "speed": 3,
+        // direction du joueur
+        "direction": "N",
+        // sprite du joueur (4x5)
+        "sprite": "spritePlayer1.png",
+        // Visibilité taille de notre vue du monde
+        "fov": 70,
+        // un joueur peut réaparaitre dans un monde
+        "CanRespawn": true
+        // un player à un sac mais le lien se fait dans le Monde Bag
+    },
+    "Bag2": {
+        // le type parent
+        // ex : "Parent" : "Tree"    (tous les arbres sont parent de ce monde)
+        "Parent": "Player2",
+        // image de fond
+        "background": null,
+        // taille du monde
+        "size": [
+            10,
+            10
+        ],
+        // Types d'Etentités dans le monde pour la génération de map
+        "entities": []
+    },
+    "Player2": {
+        // Automate de l'entité
+        "FSM": "Player2.gal",
+        "name": "Player2", // nom du joueur
+        "hp": 100, // vie du joueur
+        "damage": 10, // dégats du joueur
+        "size": 1, // taille du joueur
+        // position du joueur
+        "position": [
+            0,
+            0
+        ],
+        "angle": 0,
+        // Vitesse
+        "speed": 2,
+        // direction du joueur
+        "direction": "N",
+        // sprite du joueur (4x5)
+        "sprite": "spritePlayer1.png",
+        // Visibilité taille de notre vue du monde
+        "fov": 70,
+        // un joueur peut réaparaitre dans un monde
+        "CanRespawn": true
+    }
+}
