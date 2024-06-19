@@ -233,8 +233,8 @@ public class QuadTree {
 
 		float scale1 = (float) width / (2 * P.range);
 
-		int xOffset1 = (int) ((bdr.getxMin()-P.x) * scale1 + width / 4);
-		int yOffset1 = (int) ((bdr.getyMin()-P.y) * scale1 + height / 2);
+		int xOffset1 = (int) ((float)(bdr.getxMin()-P.x) * scale1 + width / 4);
+		int yOffset1 = (int) ((float)(bdr.getyMin()-P.y) * scale1 + height / 2);
 		
 		//this.AffichageProfondeur();
 

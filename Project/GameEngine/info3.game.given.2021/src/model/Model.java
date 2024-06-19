@@ -10,8 +10,8 @@ public class Model {
 	int hitbox;
 	int nworlds;
 	List<World> worlds;
-	Player p1;
-	Player p2;
+	public Player p1;
+	public Player p2;
 	ArrayList<World> mondes;
 	final static float pourcenatge_remplissage=0.7f;
 

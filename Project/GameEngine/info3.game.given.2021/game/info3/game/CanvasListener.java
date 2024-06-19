@@ -90,6 +90,8 @@ public class CanvasListener implements GameCanvasListener {
   @Override
   public void keyPressed(KeyEvent e) {
     //System.out.println("Key pressed: "+e.getKeyChar()+" code="+e.getKeyCode());
+	  this.m_game.model.p1.keys.add(e.getKeyChar()+"");
+	  // ATTENTION a tester la conversion string to char ne vas peut etre pas fonctionner
   }
 
   @Override

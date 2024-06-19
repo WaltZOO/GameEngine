@@ -75,6 +75,9 @@ public abstract class Entity {
 		ast.accept(fsmg);
 		fsm = fsmg.getOutput().get(0);
 		state = fsm.getStart();
+		
+		//Key
+		this.keys = new ArrayList<String>();
 	}
 
 	public Entity(int x, int y, int speed, String direction, int reach, World world_dest, BufferedImage[] sprite,
@@ -106,6 +109,9 @@ public abstract class Entity {
 
 		fsm = fsm2;
 		state = fsm.getStart();
+		
+		//Key
+		this.keys = new ArrayList<String>();
 	}
 
 	public Entity(int x, int y, int speed, String direction, int reach, World dest, String filename,
@@ -146,6 +152,9 @@ public abstract class Entity {
 
 		this.name = name;
 		this.hitbox = hitbox;
+
+		//Key
+		this.keys = new ArrayList<String>();
 	}
 
 	public String getDir() {
@@ -164,9 +173,11 @@ public abstract class Entity {
 		this.state = state;
 	}
 
+	// key
+	
+	public ArrayList<String> keys;
 	public boolean eval_key(String key) {
-		// TODO
-		return false;
+		return keys.contains(key);
 	}
 
 	// vraie si l’entité de la Catégorie demandée, la plus proche est dans la
