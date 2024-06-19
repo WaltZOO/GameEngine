@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 
+import ai.Category;
 import ai.Direction;
 import ai.FSM;
 import ai.FSMGenerator;
@@ -20,20 +21,18 @@ public abstract class Entity {
 	final static float CDD = 0.71f;
 
 	// Mondes
-	World parent; // Monde parent de l'entité
+	World parent;
 	World dest; // Monde destination pour le pick
 	ArrayList<String> pickable; // Liste des entité prenable
-	String name;
+
 	boolean checked;
-	
+
 	// Mouvement
 	int x, y; // Position
 	int speed; // Vitesse pour le Move()
 	String direction;
-	int hitbox; // Rayon de collisions
 	int reach; // Rayon de frappe
-
-	final static float CDG = 0.71f; // Coefficient de Déplacemnent Diagonale à 45 degrés
+	int hitbox;
 
 	// Graphique
 	BufferedImage[] sprites; // Sprites
@@ -43,104 +42,94 @@ public abstract class Entity {
 	FSM fsm; // Automate de l'entité
 	State state; // Etat de départ
 
-	public Entity(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
-			String filename, ArrayList<String> pickable, String name) throws Exception {
+	String name;
+
+	public Entity(int x, int y, int speed, String direction, int reach, World world_dest, String sprite,
+			ArrayList<String> pickable2, String name, String fsm2, World world) throws Exception {
 
 		// Monde
-		this.parent = parent;
-		this.dest = dest;
-		this.pickable = pickable;
+		this.parent = world;
+		this.dest = world_dest;
+		this.pickable = pickable2;
 		this.name = name;
-		state= new State("Init");
-		AST ast=Parser.from_file("./resources/test.gal");
-		FSMGenerator fsmg=new FSMGenerator();
-		ast.accept(fsmg);
-		fsm= fsmg.getOutput().get(0);
 		// Mouvement
 		this.x = x;
 		this.y = y;
-		
-		if(direction == null) 
+		this.hitbox = parent.maxHitbox;
+
+		if (direction == null)
 			this.direction = Direction.E;
-		else 		
+		else
 			this.direction = direction;
 
 		this.speed = speed;
 		this.reach = reach;
 
 		// Graphique
-		this.sprites = loadSprite(filename, 4, 5);
+		this.sprites = loadSprite(sprite, 4, 5);
 		this.m_imageIndex = 0;
 
-
 		// Automate
-		// this.fsm = fsm;
-		// this.fsm = new FSM();
-		// this.state = new State(1);
-		
-		this.name = name;
+		AST ast = Parser.from_file(fsm2);
+		FSMGenerator fsmg = new FSMGenerator();
+		ast.accept(fsmg);
+		fsm = fsmg.getOutput().get(0);
+		state = fsm.getStart();
 	}
-	
-	public Entity(int x, int y, int speed, String direction ,int reach,
-			World dest,
-			String filename, ArrayList<String> pickable, String name, String fsm, World parent, int hitbox) throws IOException {
-		
+
+	public Entity(int x, int y, int speed, String direction, int reach, World world_dest, BufferedImage[] sprite,
+			ArrayList<String> pickable2, String name, FSM fsm2, World world) throws Exception {
+
 		// Monde
-		this.parent = parent;
-		this.dest = dest;
-		this.pickable = pickable;
+		this.parent = world;
+		this.dest = world_dest;
+		this.pickable = pickable2;
 		this.name = name;
-		state= new State("Init");
-		AST ast=Parser.from_file("./resources/test.gal");
-		FSMGenerator fsmg=new FSMGenerator();
-		ast.accept(fsmg);
-		fsm= fsmg.getOutput().get(0);
+		this.hitbox = parent.maxHitbox;
 		// Mouvement
 		this.x = x;
 		this.y = y;
-		
-		if(direction == null) 
+
+		if (direction == null)
 			this.direction = Direction.E;
-		else 		
+		else
 			this.direction = direction;
 
 		this.speed = speed;
 		this.reach = reach;
 
 		// Graphique
-		this.sprites = loadSprite(filename, 4, 5);
+		this.sprites = sprite;
 		this.m_imageIndex = 0;
 
-
 		// Automate
-		// this.fsm = fsm;
-		// this.fsm = new FSM();
-		// this.state = new State(1);
-		
-		this.name = name;
+
+		fsm = fsm2;
+		state = fsm.getStart();
 	}
-	
-	public Entity(int x, int y, int speed, String direction ,int reach,
-			World dest,
-			String filename, ArrayList<String> pickable, String name, String fsm, World parent, int hitbox) throws IOException {
-		
+
+	public Entity(int x, int y, int speed, String direction, int reach, World dest, String filename,
+			ArrayList<String> pickable, String name, FSM fsm, World parent, int hitbox) throws Exception {
+
 		// Monde
 		this.parent = parent;
 		this.dest = dest;
 		this.pickable = pickable;
 		this.name = name;
-		state= new State("Init");
-		AST ast=Parser.from_file("./resources/test.gal");
-		FSMGenerator fsmg=new FSMGenerator();
+		this.hitbox = parent.maxHitbox;
+
+		state = new State("Init");
+		AST ast = Parser.from_file("./resources/test.gal");
+		FSMGenerator fsmg = new FSMGenerator();
 		ast.accept(fsmg);
-		fsm= fsmg.getOutput().get(0);
+		fsm = fsmg.getOutput().get(0);
 		// Mouvement
 		this.x = x;
 		this.y = y;
-		
-		if(direction == null) 
+
+		if (direction == null)
 			this.direction = Direction.E;
-		else 		
+		else
 			this.direction = direction;
 
 		this.speed = speed;
@@ -150,12 +139,11 @@ public abstract class Entity {
 		this.sprites = loadSprite(filename, 4, 5);
 		this.m_imageIndex = 0;
 
-
 		// Automate
 		// this.fsm = fsm;
 		// this.fsm = new FSM();
 		// this.state = new State(1);
-		
+
 		this.name = name;
 		this.hitbox = hitbox;
 	}
@@ -190,10 +178,183 @@ public abstract class Entity {
 
 	// vraie si l'entité est orientée dans la Direction
 	public boolean eval_mydir(String direction) {
-		return (this.direction == direction);
+		return (this.direction.equals(direction));
 	}
 
-	public abstract boolean eval_cell(String dir, String cat);
+	public String relativeToAbsolue(String d) {
+
+		switch (direction) {
+		case Direction.N:
+			switch (d) {
+			case Direction.R:
+				return Direction.E;
+			case Direction.L:
+				return Direction.W;
+			case Direction.B:
+				return Direction.S;
+			default:
+				return Direction.N;
+			}
+		case Direction.S:
+			switch (d) {
+			case Direction.R:
+				return Direction.W;
+			case Direction.L:
+				return Direction.E;
+			case Direction.B:
+				return Direction.N;
+			default:
+				return Direction.S;
+			}
+		case Direction.E:
+			switch (d) {
+			case Direction.R:
+				return Direction.S;
+			case Direction.L:
+				return Direction.N;
+			case Direction.B:
+				return Direction.W;
+			default:
+				return Direction.E;
+			}
+		case Direction.W:
+			switch (d) {
+			case Direction.R:
+				return Direction.N;
+			case Direction.L:
+				return Direction.S;
+			case Direction.B:
+				return Direction.E;
+			default:
+				return Direction.W;
+			}
+		case Direction.NW:
+			switch (d) {
+			case Direction.R:
+				return Direction.NE;
+			case Direction.L:
+				return Direction.SW;
+			case Direction.B:
+				return Direction.SE;
+			default:
+				return Direction.NW;
+			}
+		case Direction.NE:
+			switch (d) {
+			case Direction.R:
+				return Direction.SE;
+			case Direction.L:
+				return Direction.NW;
+			case Direction.B:
+				return Direction.SW;
+			default:
+				return Direction.NE;
+			}
+		case Direction.SW:
+			switch (d) {
+			case Direction.R:
+				return Direction.NW;
+			case Direction.L:
+				return Direction.SE;
+			case Direction.B:
+				return Direction.NE;
+			default:
+				return Direction.SW;
+			}
+		case Direction.SE:
+			switch (d) {
+			case Direction.R:
+				return Direction.SW;
+			case Direction.L:
+				return Direction.NE;
+			case Direction.B:
+				return Direction.NW;
+			default:
+				return Direction.SE;
+			}
+		}
+		return Direction.E;
+	}
+
+	public boolean eval_cell(String dir, String cat) {
+		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, reach);
+		ArrayList<Entity> listE_tri_cat=new ArrayList<Entity>();
+		for (Entity e : listE) {
+			if (cat == null) {
+				listE_tri_cat = listE;
+			} else {
+				switch (cat) {
+				case Category.P:
+					if (pickable.contains(e.name)) {
+						listE_tri_cat.add(e);
+					}
+				case Category.O:
+					if (e instanceof Bloc) {
+						listE_tri_cat.add(e);
+					}
+				case Category.ALL:
+					listE_tri_cat.add(e);
+				}
+			}
+		}
+		if (listE_tri_cat.isEmpty())
+			return false;
+		if (direction == null) {
+
+			return true;
+		}
+		if (dir == Direction.F || dir == Direction.L || dir == Direction.R || dir == Direction.B)
+			dir = relativeToAbsolue(dir);
+		for (Entity e : listE_tri_cat) {
+			switch (dir) {
+
+			case Direction.N:
+				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+					return true;
+				}
+				break;
+			case Direction.S:
+				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+					return true;
+				}
+				break;
+			case Direction.E:
+				if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+					return true;
+				}
+				break;
+			case Direction.W:
+				if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+					return true;
+				}
+				break;
+			case Direction.NE:
+				if (e.x >= x && e.y >= y) {
+					return true;
+				}
+				break;
+			case Direction.NW:
+				if (e.x <= x && e.y >= y) {
+					return true;
+				}
+				break;
+			case Direction.SE:
+				if (e.x >= x && e.y <= y) {
+					return true;
+				}
+				break;
+			case Direction.SW:
+				if (e.x <= x && e.y <= y) {
+					return true;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		return false;
+
+	}
 
 	public void moveF() {
 		int dx = x;
@@ -232,10 +393,10 @@ public abstract class Entity {
 		}
 		// on regarde les collisions avec les voisins
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, 2 * hitbox);
-		if (listE.size() <= 1) {
+		if (listE.size() <= 1 && dx < parent.size && dy < parent.size && dx >= 0 && dy >= 0) {
 			this.parent.qt.remove(this);
-			x=dx;
-			y=dy;
+			x = dx;
+			y = dy;
 			this.parent.qt.insert(this);
 		}
 	}
@@ -256,7 +417,7 @@ public abstract class Entity {
 		switch (direction) {
 		case Direction.F:
 			break;
-			
+
 		case Direction.B:
 			switch (this.direction) {
 			case Direction.S:
@@ -288,7 +449,7 @@ public abstract class Entity {
 				break;
 			}
 			break;
-			
+
 		case Direction.L:
 			switch (this.direction) {
 			case Direction.S:
@@ -319,7 +480,7 @@ public abstract class Entity {
 				break;
 			}
 			break;
-			
+
 		case Direction.R:
 			switch (this.direction) {
 			case Direction.S:
@@ -350,7 +511,7 @@ public abstract class Entity {
 				break;
 			}
 			break;
-			
+
 		default:
 			this.direction = direction;
 			break;
@@ -423,7 +584,6 @@ public abstract class Entity {
 
 		}
 	}
-	
 
 	public void spawnSpiral(Entity e) {
 		int x = dest.size / 2;
@@ -440,11 +600,11 @@ public abstract class Entity {
 			return;
 		}
 
-		while (cpt < dest.size*2) {
+		while (cpt < dest.size * 2) {
 			for (int i = 0; i < 2; i++) {
 				for (int j = 0; j < cpt; j++) {
-					x += directions[i][0] * hitbox*0.5;
-					y += directions[i][1] * hitbox*0.5;
+					x += directions[i][0] * hitbox * 0.5;
+					y += directions[i][1] * hitbox * 0.5;
 					if (dest.qt.bdr.inBoundary(x, y)) {
 						if (dest.qt.getEntitiesFromRadius(x, y, hitbox).isEmpty()) {
 							parent.qt.remove(e);
@@ -460,8 +620,8 @@ public abstract class Entity {
 
 			for (int i = 2; i < 4; i++) {
 				for (int j = 0; j < cpt; j++) {
-					x += directions[i][0] * hitbox*0.5;
-					y += directions[i][1] * hitbox*0.5;
+					x += directions[i][0] * hitbox * 0.5;
+					y += directions[i][1] * hitbox * 0.5;
 					if (dest.qt.bdr.inBoundary(x, y)) {
 						if (dest.qt.getEntitiesFromRadius(x, y, hitbox).isEmpty()) {
 							parent.qt.remove(e);
@@ -476,7 +636,6 @@ public abstract class Entity {
 			cpt++;
 		}
 	}
-	
 
 	public abstract void do_get();
 

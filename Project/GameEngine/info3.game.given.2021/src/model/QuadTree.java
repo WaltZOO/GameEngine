@@ -215,16 +215,16 @@ public class QuadTree {
 	 * }
 	 */
 	// Update all Entities in the QuadTree*/
-	public void updateEntities() {
+	public List<Entity> updateEntities() {
 		if (NW == null) {
-			for (Entity e : nodes) {
-				e.fsm.step(e);
-			}
+			return nodes;
 		} else {
-			NW.updateEntities();
-			NE.updateEntities();
-			SW.updateEntities();
-			SE.updateEntities();
+			ArrayList<Entity> res= new ArrayList<Entity>();
+			res.addAll(NW.updateEntities());
+			res.addAll(NE.updateEntities());
+			res.addAll(SW.updateEntities());
+			res.addAll(SE.updateEntities());
+			return res;
 		}
 	}
 
@@ -236,7 +236,7 @@ public class QuadTree {
 		int xOffset1 = (int) ((bdr.getxMin()-P.x) * scale1 + width / 4);
 		int yOffset1 = (int) ((bdr.getyMin()-P.y) * scale1 + height / 2);
 		
-		this.AffichageProfondeur();
+		//this.AffichageProfondeur();
 
 		if (P.isPlayer1) {
 			g.setClip(0, 0, width / 2, height);

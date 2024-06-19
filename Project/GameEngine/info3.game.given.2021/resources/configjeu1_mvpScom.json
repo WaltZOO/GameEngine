@@ -1,0 +1,271 @@
+{
+    "seed": 0,
+    "timer": 100000,
+    "hitbox": 2,
+    "Tree": {
+        "name": "Tree",
+        "dest": null,
+        "pickable": [],
+        "position": [
+            0,
+            0
+        ],
+        "speed": 1,
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spriteTree.png"
+    },
+    "Rock": {
+        "name": "Rock",
+        "dest": null,
+        "pickable": [],
+        "position": [
+            0,
+            0
+        ],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spriteRock.png",
+        "speed": 0
+    },
+    "Sand": {
+        "name": "Sand",
+        "dest": null,
+        "pickable": [],
+        "position": [
+            0,
+            0
+        ],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spriteSand.png",
+        "speed": 0
+    },
+    "Cat": {
+        "name": "Cat",
+        "dest": null,
+        "pickable": [],
+        "position": [
+            0,
+            0
+        ],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spriteCat.png",
+        "speed": 1.5,
+        "team": "Cat",
+        "allies": [],
+        "hp": 25,
+        "damage": 0,
+        "enemies": [],
+        "range": 7
+    },
+    "PortaltoRock": {
+        "name": "PortaltoRock",
+        "dest": "RockWorld",
+        "position": [
+            0,
+            0
+        ],
+        "pickable": [],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spritePortal.png",
+        "speed": 0
+    },
+    "PortaltoTree": {
+        "name": "PortaltoTree",
+        "dest": "TreeWorld",
+        "position": [
+            0,
+            0
+        ],
+        "pickable": [],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spritePortal.png",
+        "speed": 0
+    },
+    "PortaltoCat": {
+        "name": "PortaltoCat",
+        "dest": "CatWorld",
+        "position": [
+            0,
+            0
+        ],
+        "pickable": [],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spritePortal.png",
+        "speed": 0
+    },
+    "PortaltoSand": {
+        "name": "PortaltoSand",
+        "dest": "SandWorld",
+        "position": [
+            0,
+            0
+        ],
+        "pickable": [],
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spritePortal.png",
+        "speed": 0
+    },
+    "TreeWorld": {
+        "background": "./resources/background.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Tree",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoRock",
+                "density": -1
+            },
+            {
+                "type": "PortaltoSand",
+                "density": -1
+            },
+            {
+                "type": "Player1",
+                "density": -1
+            },
+            {
+                "type": "Player2",
+                "density": -1
+            }
+        ]
+    },
+    "RockWorld": {
+        "background": "./resources/background.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Rock",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoTree",
+                "density": -1
+            },
+            {
+                "type": "PortaltoSand",
+                "density": -1
+            }
+        ]
+    },
+    "SandWorld": {
+        "background": "./resources/background.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Sand",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoTree",
+                "density": -1
+            },
+            {
+                "type": "PortaltoCat",
+                "density": -1
+            }
+        ]
+    },
+    "CatWorld": {
+        "background": "./resources/background.png",
+        "size": [
+            100,
+            100
+        ],
+        "entities": [
+            {
+                "type": "Sand",
+                "density": 0.1
+            },
+            {
+                "type": "PortaltoRock",
+                "density": -1
+            },
+            {
+                "type": "PortaltoSand",
+                "density": -1
+            }
+        ]
+    },
+    "Bag1": {
+        "background": null,
+        "size": [
+            10,
+            10
+        ],
+        "entities": []
+    },
+    "Player1": {
+        "FSM": "./resources/test.gal",
+        "name": "Player1",
+        "hp": 100,
+        "damage": 10,
+        "position": [
+            0,
+            0
+        ],
+        "pickable": [
+            "Player2"
+        ],
+        "direction": "N",
+        "speed": 3,
+        "sprite": "spritePlayer1.png",
+        "CanRespawn": true,
+        "reach": 4,
+        "dest": "Bag1",
+        "team": "Player1",
+        "enemies": [
+            "Player2"
+        ],
+        "allies": [],
+        "range": 100
+    },
+    "Player2": {
+        "FSM": "./resources/test.gal",
+        "name": "Player2",
+        "hp": 100,
+        "damage": 10,
+        "position": [
+            0,
+            0
+        ],
+        "pickable": [],
+        "direction": "N",
+        "speed": 2,
+        "sprite": "spritePlayer2.png",
+        "CanRespawn": true,
+        "reach": 4,
+        "dest": null,
+        "team": "Player2",
+        "enemies": [
+            "Player1"
+        ],
+        "allies": [],
+        "range": 15
+    }
+}

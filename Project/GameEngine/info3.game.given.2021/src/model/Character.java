@@ -2,7 +2,10 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import ai.FSM;
 
 public class Character extends Entity {
 	String team;
@@ -12,12 +15,12 @@ public class Character extends Entity {
 	ArrayList<String> allies;
 	int range;
 
-	public Character(int x, int y, int speed, String direction, int reach, World dest, String filename,
-			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
-			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
-
+	public Character(int x, int y, int speed, String direction, int reach, World dest,
+			String filename, ArrayList<String> pickable, String team, int hp, int damage,
+			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
+		
 		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
-
+		
 		this.hp = hp;
 		this.damage = damage;
 		this.ennemies = ennemies;
@@ -25,13 +28,12 @@ public class Character extends Entity {
 		this.range = range;
 		this.team = team;
 	}
-
-	public Character(int x, int y, int speed, String direction, int reach, World dest, BufferedImage[] filename,
-			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
-			ArrayList<String> allies, int range, String name, FSM fsm, World parent) throws Exception {
-
+	public Character(int x, int y, int speed, String direction, int reach, World dest,
+			BufferedImage[] filename, ArrayList<String> pickable, String team, int hp, int damage,
+			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name, FSM fsm, World parent) throws Exception {
+		
 		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
-
+		
 		this.hp = hp;
 		this.damage = damage;
 		this.ennemies = ennemies;
@@ -51,7 +53,7 @@ public class Character extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
 	public void do_get() {
 		// TODO Auto-generated method stub

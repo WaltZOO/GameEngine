@@ -15,36 +15,39 @@ public class World {
 	int size;
 	QuadTree qt;
 	BufferedImage background;
-	int maxHitbox = 20;
-	
+	int maxHitbox ;
+
 	static final boolean debug = true;
 
-	public World() {
+	public World(int hitbox) {
 		size = 0;
+		maxHitbox=hitbox;
 	}
-	
-	public World(int size, String filename) throws IOException {
+
+	public World(int size, String filename,int hitbox) throws IOException {
+		maxHitbox=hitbox;
 		this.qt = new QuadTree(0, maxHitbox, new Boundary(0, 0, size, size));
 		this.size = size;
 
-//		File file = new File(filename);
-//		if (!file.exists()) {
-//			System.out.println("Fichier " + filename + " introuvable");
-//		}
-//		background = ImageIO.read(file);
+		if (filename != null) {
+			File file = new File(filename);
+			if (!file.exists()) {
+				System.out.println("Fichier " + filename + " introuvable");
+			}
+			background = ImageIO.read(file);
+		}
 
 	}
+
 	public void update() {
-		qt.updateEntities();
+		ArrayList<Entity> liste = (ArrayList<Entity>) qt.updateEntities();
+		for (Entity e : liste) {
+			e.fsm.step(e);
+		}
 	}
-	
-	
-	
 
 	public void do_paint(Graphics g, int width, int height, Player P) {
-		
-		
-		
+
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on
 		// augmenterait la scale
 		// 2 par ce que c'est la moitié de l'écran
@@ -70,25 +73,23 @@ public class World {
 
 		int xOffset1 = (int) (-P.x * scale1 + width / 4);
 		int yOffset1 = (int) (-P.y * scale1 + height / 2);
-		
+
 		if (P.isPlayer1) {
 			g.setClip(0, 0, width / 2, height);
-			g.drawImage(background, xOffset1, yOffset1, (int) (size * scale1),
-				(int) (size * scale1), null);
-		}else {
+			g.drawImage(background, xOffset1, yOffset1, (int) (size * scale1), (int) (size * scale1), null);
+		} else {
 			g.setClip(width / 2, 0, width / 2, height);
-			g.drawImage(background, xOffset1 + width/2, yOffset1, (int) (size * scale1),
-				(int) (size * scale1), null);
+			g.drawImage(background, xOffset1 + width / 2, yOffset1, (int) (size * scale1), (int) (size * scale1), null);
 		}
-	
+
 		List<Entity> listE = qt.getEntitiesFromRadius(P.x, P.y, P.range);
 		for (Entity e : listE) {
 			e.do_paint(g, width, height, P);
 		}
-		
+
 		// on affiche les quadtree seulement en mode débug
 		if (debug) {
-			qt.paint(g,width,height,P);
+			qt.paint(g, width, height, P);
 		}
 	}
 }

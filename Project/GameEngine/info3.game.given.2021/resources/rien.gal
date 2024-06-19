@@ -1,0 +1,4 @@
+Rien(Init) {
+    *(Init) 
+    | True ? Wait : (Init)
+}

@@ -12,7 +12,12 @@ public class NPC extends Character {
 				range, name, fsm, parent);
 		// TODO Auto-generated constructor stub
 	}
-	
+	public NPC(NPC other) throws Exception {
+        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites, 
+              new ArrayList<>(other.pickable), other.team, other.hp, other.damage, 
+              new ArrayList<>(other.ennemies), new ArrayList<>(other.allies), 
+              other.range, other.name, other.fsm, other.parent);
+    }
 
 	@Override
 	public boolean eval_cell(String dir, String cat) {

@@ -1,15 +1,12 @@
 package model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
-
 public class test_parserJSON {
 
-	public static void main(String[] args) throws IOException, ParseException {
-		JSONReader JP = new JSONReader("/home/erwanponcin/Documents/Cours/PLE/g2/Project/Contrat/jeu1/configjeu1_mvpScom.json");
+	public static void main(String[] args) throws Exception {
+		JSONReader JP = new JSONReader("./resources/configjeu1_mvpScom.json");
 		double timer = JP.getTimer();
 		System.out.println(timer);
 		double seed = JP.getSeed();
@@ -26,7 +23,7 @@ public class test_parserJSON {
 
 		ArrayList<NPC> npcs = JP.getNpcs();
 		ArrayList<Bloc> blocs = JP.getBlocs();
-
+		
 	}
 
 }

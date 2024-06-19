@@ -19,6 +19,15 @@ public class Player extends Character {
 		this.isPlayer1 = isPlayer1;
 		this.canRespawn = canRespawn;
 	}
+	public Player(Player other) throws Exception {
+        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
+              new ArrayList<String>(other.pickable), other.team, other.hp, other.damage,
+              new ArrayList<String>(other.ennemies), new ArrayList<String>(other.allies),
+              other.range, other.name, other.fsm, other.parent);
+
+        this.isPlayer1 = other.isPlayer1;
+        this.canRespawn = other.canRespawn;
+    }
 
 	public void do_paint(Graphics g, int width, int height, Player p) {
 		// offsetside
