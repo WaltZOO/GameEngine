@@ -1,0 +1,4 @@
+Player(Init) {
+    *(Init) 
+    | True ? Move(F) / Move(R) / Move(L) / Move(B) : (Init)
+}

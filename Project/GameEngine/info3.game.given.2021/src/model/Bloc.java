@@ -1,15 +1,14 @@
 package model;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Bloc extends Entity {
 
-	public Bloc(int x, int y, int speed, String direction, int reach, World dest,
-			String filename, ArrayList<String> pickable, String name, String fsm, World parent
-) throws IOException {
-		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
+
+	public Bloc(int x, int y, int speed, String direction, int reach, int hitbox, World parent, World dest,
+			String filename, ArrayList<String> pickable, String name) throws Exception {
+		super(x, y, speed, direction, reach, hitbox, parent, dest, filename, pickable, name);
 	}
 
 	@Override

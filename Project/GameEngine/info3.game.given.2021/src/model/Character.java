@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Character extends Entity {
@@ -15,9 +14,8 @@ public class Character extends Entity {
 
 	public Character(int x, int y, int speed, String direction, int reach, World dest,
 			String filename, ArrayList<String> pickable, String team, int hp, int damage,
-			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name, String fsm, World parent) throws IOException {
-		
-		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
+
+			ArrayList<String> ennemies, ArrayList<String> allies, int range, String name) throws Exception {
 		
 		this.hp = hp;
 		this.damage = damage;

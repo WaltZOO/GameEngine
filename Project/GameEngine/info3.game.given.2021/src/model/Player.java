@@ -2,7 +2,6 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Character {

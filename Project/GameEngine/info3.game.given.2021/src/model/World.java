@@ -15,7 +15,9 @@ public class World {
 	int size;
 	QuadTree qt;
 	BufferedImage background;
-	int maxHitbox = 100;
+	int maxHitbox = 20;
+	
+	static final boolean debug = true;
 
 	public World() {
 		size = 0;
@@ -32,8 +34,17 @@ public class World {
 //		background = ImageIO.read(file);
 
 	}
+	public void update() {
+		qt.updateEntities();
+	}
+	
+	
+	
 
 	public void do_paint(Graphics g, int width, int height, Player P) {
+		
+		
+		
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on
 		// augmenterait la scale
 		// 2 par ce que c'est la moitié de l'écran
@@ -66,13 +77,18 @@ public class World {
 				(int) (size * scale1), null);
 		}else {
 			g.setClip(width / 2, 0, width / 2, height);
-			g.drawImage(background, xOffset1 + width/2, yOffset1 + width/2, (int) (size * scale1),
+			g.drawImage(background, xOffset1 + width/2, yOffset1, (int) (size * scale1),
 				(int) (size * scale1), null);
 		}
 	
 		List<Entity> listE = qt.getEntitiesFromRadius(P.x, P.y, P.range);
 		for (Entity e : listE) {
 			e.do_paint(g, width, height, P);
+		}
+		
+		// on affiche les quadtree seulement en mode débug
+		if (debug) {
+			qt.paint(g,width,height,P);
 		}
 	}
 }

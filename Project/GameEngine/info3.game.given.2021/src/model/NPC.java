@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.Graphics;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class NPC extends Character {
