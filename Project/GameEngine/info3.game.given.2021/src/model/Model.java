@@ -132,4 +132,9 @@ public class Model {
 		p1.parent.do_paint(g, width, height, p1);
 		p2.parent.do_paint(g, width, height, p2);
 	}
+
+	public void tick(long elapsed) {
+		// TODO Auto-generated method stub
+		
+	}
 }

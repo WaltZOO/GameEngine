@@ -52,7 +52,7 @@ public class Game {
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
-	Cowboy m_cowboy;
+	//Cowboy m_cowboy;
 	Sound m_music;
 	Model model;
 	int seed = 1738;
@@ -62,7 +62,7 @@ public class Game {
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		m_cowboy = new Cowboy();
+		//m_cowboy = new Cowboy();
 		model = new Model("./resources/configjeu1_mvpScom.json");
 		// creating a listener for all the events
 		// from the game canvas, that would be
@@ -138,7 +138,7 @@ public class Game {
 	 */
 	void tick(long elapsed) {
 
-		m_cowboy.tick(elapsed);
+		model.update();
 
 		// Update every second
 		// the text on top of the frame: tick and fps
@@ -172,7 +172,6 @@ public class Game {
 
 		// paint
 		
-		model.update();
 		model.paint(g, width, height);
 		
 	}

@@ -8,26 +8,27 @@ public class Player extends Character {
 	boolean isPlayer1;
 	boolean canRespawn;
 
-	public Player(int x, int y, int speed, String direction, int reach, World dest,
-			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
-			ArrayList<String> allies, int range, String name, boolean isPlayer1, boolean canRespawn, String fsm, World parent)
-			throws Exception {
+	public Player(int x, int y, int speed, String direction, int reach, World dest, String filename,
+			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> allies, int range, String name, boolean isPlayer1, boolean canRespawn, String fsm,
+			World parent) throws Exception {
 
-		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies,
-				allies, range, name, fsm, parent);
+		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
+				fsm, parent);
 
 		this.isPlayer1 = isPlayer1;
 		this.canRespawn = canRespawn;
 	}
-	public Player(Player other) throws Exception {
-        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
-              new ArrayList<String>(other.pickable), other.team, other.hp, other.damage,
-              new ArrayList<String>(other.ennemies), new ArrayList<String>(other.allies),
-              other.range, other.name, other.fsm, other.parent);
 
-        this.isPlayer1 = other.isPlayer1;
-        this.canRespawn = other.canRespawn;
-    }
+	public Player(Player other) throws Exception {
+		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
+				new ArrayList<String>(other.pickable), other.team, other.hp, other.damage,
+				new ArrayList<String>(other.ennemies), new ArrayList<String>(other.allies), other.range, other.name,
+				other.fsm, other.parent);
+
+		this.isPlayer1 = other.isPlayer1;
+		this.canRespawn = other.canRespawn;
+	}
 
 	public void do_paint(Graphics g, int width, int height, Player p) {
 		// offsetside
@@ -43,7 +44,7 @@ public class Player extends Character {
 		if (isPlayer1) {
 			g.setColor(Color.GREEN);
 		}
-		if(this == p) {
+		if (this == p) {
 			float scale = (width / 2) / (float) p.range;
 
 			int sizex = (int) ((float) hitbox * scale);
@@ -53,9 +54,9 @@ public class Player extends Character {
 			g.setColor(Color.BLUE);
 			sizex = (int) (reach * scale);
 			g.drawOval(width / 2 + offsetside - sizex / 2, height / 2 - sizex / 2, sizex, sizex);
-		
-		}else {
-			
+
+		} else {
+
 			// dessin de la hitbox
 			float scale = (float) width / (2 * p.range);
 			int sizex = (int) (hitbox * scale);
@@ -70,7 +71,6 @@ public class Player extends Character {
 			sizex = (int) (reach * scale);
 			g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 		}
-		
 
 	}
 
