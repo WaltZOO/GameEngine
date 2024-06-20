@@ -20,11 +20,6 @@ public class Bloc extends Entity {
 				new ArrayList<String>(other.pickable), other.name, other.fsm, other.parent);
 	}
 
-	@Override
-	public boolean eval_cell(String dir, String cat) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public void do_move(String direction2) {

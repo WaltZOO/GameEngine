@@ -302,33 +302,39 @@ public abstract class Entity {
 					if (pickable.contains(e.name)) {
 						listE_tri_cat.add(e);
 					}
+					break;
 				case Category.O:
 					if (e instanceof Bloc) {
 						listE_tri_cat.add(e);
 					}
+					break;
 				case Category.ALL:
 					listE_tri_cat.add(e);
+				
+				break;
+				default:
+					break;
 				}
 			}
 		}
 		if (listE_tri_cat.isEmpty())
 			return false;
-		if (direction == null) {
+		if (dir == null) {
 
 			return true;
 		}
-		if (dir == Direction.F || dir == Direction.L || dir == Direction.R || dir == Direction.B)
+		if (dir.equals(Direction.F) || dir.equals(Direction.L )|| dir.equals(Direction.R) || dir.equals(Direction.B))
 			dir = relativeToAbsolue(dir);
 		for (Entity e : listE_tri_cat) {
 			switch (dir) {
 
 			case Direction.N:
-				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
 					return true;
 				}
 				break;
 			case Direction.S:
-				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
 					return true;
 				}
 				break;
@@ -343,22 +349,22 @@ public abstract class Entity {
 				}
 				break;
 			case Direction.NE:
-				if (e.x >= x && e.y >= y) {
-					return true;
-				}
-				break;
-			case Direction.NW:
-				if (e.x <= x && e.y >= y) {
-					return true;
-				}
-				break;
-			case Direction.SE:
 				if (e.x >= x && e.y <= y) {
 					return true;
 				}
 				break;
-			case Direction.SW:
+			case Direction.NW:
 				if (e.x <= x && e.y <= y) {
+					return true;
+				}
+				break;
+			case Direction.SE:
+				if (e.x >= x && e.y >= y) {
+					return true;
+				}
+				break;
+			case Direction.SW:
+				if (e.x <= x && e.y >= y) {
 					return true;
 				}
 				break;

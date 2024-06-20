@@ -1,5 +1,6 @@
 Player(Init) {
     *(Init) 
+    | Cell(F,P) ?  Pick(F) : (Init)
     | Key(e) ? Pick(F) : (Init)
     | Key(z) & Key(q) ? Move(NW) : (Init)
     | Key(z) & Key(d) ? Move(NE) : (Init)
@@ -9,5 +10,6 @@ Player(Init) {
     | Key(q) ? Move(W) : (Init)
     | Key(s) ? Move(S) : (Init)
     | Key(d) ? Move(E) : (Init)
+    
     | True ? Wait: (Init)
 }

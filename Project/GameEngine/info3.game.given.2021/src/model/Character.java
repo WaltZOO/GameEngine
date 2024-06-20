@@ -43,11 +43,7 @@ public class Character extends Entity {
 		this.team = team;
 	}
 
-	@Override
-	public boolean eval_cell(String dir, String cat) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	@Override
 	public void do_hit(String direction) {

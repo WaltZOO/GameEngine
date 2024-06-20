@@ -19,11 +19,7 @@ public class NPC extends Character {
               other.range, other.name, other.fsm, other.parent);
     }
 
-	@Override
-	public boolean eval_cell(String dir, String cat) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
 	public void do_move(String direction2) {

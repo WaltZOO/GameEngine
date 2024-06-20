@@ -123,9 +123,5 @@ public class Player extends Character {
 
 	}
 
-	@Override
-	public boolean eval_cell(String dir, String cat) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 }
