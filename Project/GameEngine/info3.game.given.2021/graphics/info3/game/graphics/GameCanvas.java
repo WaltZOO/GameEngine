@@ -74,7 +74,7 @@ import info3.game.sound.AudioPlayerListener;
  */
 public class GameCanvas extends Canvas {
 
-  static final int TICK_PERIOD = 100; // tick every milli-second.
+  static final int TICK_PERIOD = 1; // tick every milli-second.
   /*
    * We want to target 24 frame per seconds (fps), which is the following period
    * in milliseconds period = (1000.0 / 24.0)
