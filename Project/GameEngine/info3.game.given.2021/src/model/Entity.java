@@ -75,8 +75,8 @@ public abstract class Entity {
 		ast.accept(fsmg);
 		fsm = fsmg.getOutput().get(0);
 		state = fsm.getStart();
-		
-		//Key
+
+		// Key
 		this.keys = new ArrayList<String>();
 	}
 
@@ -109,8 +109,8 @@ public abstract class Entity {
 
 		fsm = fsm2;
 		state = fsm.getStart();
-		
-		//Key
+
+		// Key
 		this.keys = new ArrayList<String>();
 	}
 
@@ -153,7 +153,7 @@ public abstract class Entity {
 		this.name = name;
 		this.hitbox = hitbox;
 
-		//Key
+		// Key
 		this.keys = new ArrayList<String>();
 	}
 
@@ -174,12 +174,16 @@ public abstract class Entity {
 	}
 
 	// key
-	
+
 	public ArrayList<String> keys;
+
+	private double elasped;
+
 	public boolean eval_key(String key) {
-		/*System.out.println(key);
-		System.out.println(keys.toString());
-		System.out.println(keys.contains(key));*/
+		/*
+		 * System.out.println(key); System.out.println(keys.toString());
+		 * System.out.println(keys.contains(key));
+		 */
 		return keys.contains(key);
 	}
 
@@ -292,7 +296,7 @@ public abstract class Entity {
 
 	public boolean eval_cell(String dir, String cat) {
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, reach);
-		ArrayList<Entity> listE_tri_cat=new ArrayList<Entity>();
+		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
 		for (Entity e : listE) {
 			if (cat == null) {
 				listE_tri_cat = listE;
@@ -373,34 +377,41 @@ public abstract class Entity {
 	public void moveF() {
 		int dx = x;
 		int dy = y;
+		
+		if(this instanceof Player) {
+			((Player) this).isRunning = true;
+		}
+		
+		double disttemp = (double) this.speed/3.0f;
+
 		switch (this.direction) {
 		case Direction.S:
-			dy += this.speed;
+			dy += (int) Math.ceil(disttemp);
 			break;
 		case Direction.N:
-			dy -= this.speed;
+			dy -= (int) Math.ceil(disttemp);
 			break;
 		case Direction.E:
-			dx += this.speed;
+			dx += (int) Math.ceil(disttemp);
 			break;
 		case Direction.W:
-			dx -= this.speed;
+			dx -= (int) Math.ceil(disttemp);
 			break;
 		case Direction.SE:
-			dy += Math.ceil(this.speed * CDD);
-			dx += Math.ceil(this.speed * CDD);
+			dy += (int) Math.ceil(disttemp * CDD);
+			dx += (int) Math.ceil(disttemp * CDD);
 			break;
 		case Direction.SW:
-			dy += Math.ceil(this.speed * CDD);
-			dx -= Math.ceil(this.speed * CDD);
+			dy += (int) Math.ceil(disttemp * CDD);
+			dx -= (int) Math.ceil(disttemp * CDD);
 			break;
 		case Direction.NE:
-			dy -= Math.ceil(this.speed * CDD);
-			dx += Math.ceil(this.speed * CDD);
+			dy -= (int) Math.ceil(disttemp * CDD);
+			dx += (int) Math.ceil(disttemp * CDD);
 			break;
 		case Direction.NW:
-			dy -= Math.ceil(this.speed * CDD);
-			dx -= Math.ceil(this.speed * CDD);
+			dy -= (int) Math.ceil(disttemp * CDD);
+			dx -= (int) Math.ceil(disttemp * CDD);
 			break;
 		default:
 			break;
@@ -420,7 +431,7 @@ public abstract class Entity {
 		if (direction == null) {
 			direction = Direction.F;
 		}
-		
+
 		do_turn(direction);
 		moveF();
 	}
@@ -612,7 +623,7 @@ public abstract class Entity {
 			e.x = x;
 			e.y = y;
 			dest.qt.insert(e);
-			e.parent=dest;
+			e.parent = dest;
 			return;
 		}
 
@@ -683,6 +694,18 @@ public abstract class Entity {
 			return images;
 		}
 		return null;
+	}
+
+	public void update(long elasped) {
+		this.elasped += elasped;
+		if(this.elasped > 70) {
+			if(this instanceof Player) {
+				((Player) this).isRunning = false;
+			}
+			fsm.step(this);
+			this.elasped = 0;
+		}
+		
 	}
 
 }

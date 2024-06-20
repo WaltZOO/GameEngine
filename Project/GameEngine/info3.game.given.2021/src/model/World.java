@@ -42,10 +42,10 @@ public class World {
 
 	}
 
-	public void update() {
+	public void update(long elasped) {
 		ArrayList<Entity> liste = (ArrayList<Entity>) qt.updateEntities();
 		for (Entity e : liste) {
-			e.fsm.step(e);
+			e.update(elasped);
 		}
 	}
 
