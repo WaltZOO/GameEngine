@@ -17,7 +17,7 @@ public class World {
 	BufferedImage background;
 	int maxHitbox;
 
-	static final boolean debug = true;
+	static final boolean debug = false;
 
 	public World(int hitbox) {
 		size = 0;
@@ -47,17 +47,11 @@ public class World {
 	}
 
 	public void do_paint(Graphics g, int width, int height, Player P) {
+		
 		if (debug) {
-			if (P.isPlayer1) {
-				width = 1600;
-				height = 800;
-				P.x = 50;
-				P.y = 50;
-				P.range = 100;
-				size = 100;
-			}
+			P.x = size/2;
 		}
-
+		
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on
 		// augmenterait la scale
 		// 2 par ce que c'est la moitié de l'écran

@@ -1,7 +1,7 @@
 {
     "seed": 0,
     "timer": 100000,
-    "hitbox": 2,
+    "hitbox": 1,
     "Tree": {
         "name": "Tree",
         "dest": null,

@@ -403,7 +403,7 @@ public abstract class Entity {
 			break;
 		}
 		// on regarde les collisions avec les voisins
-		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, 2 * hitbox);
+		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, hitbox);
 		if (listE.size() <= 1 && dx < parent.size && dy < parent.size && dx >= 0 && dy >= 0) {
 			this.parent.qt.remove(this);
 			x = dx;
