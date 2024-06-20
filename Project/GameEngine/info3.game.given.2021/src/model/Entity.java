@@ -177,6 +177,9 @@ public abstract class Entity {
 	
 	public ArrayList<String> keys;
 	public boolean eval_key(String key) {
+		/*System.out.println(key);
+		System.out.println(keys.toString());
+		System.out.println(keys.contains(key));*/
 		return keys.contains(key);
 	}
 
@@ -384,26 +387,26 @@ public abstract class Entity {
 			dx -= this.speed;
 			break;
 		case Direction.SE:
-			dy += this.speed * CDD;
-			dx += this.speed * CDD;
+			dy += Math.ceil(this.speed * CDD);
+			dx += Math.ceil(this.speed * CDD);
 			break;
 		case Direction.SW:
-			dy += this.speed * CDD;
-			dx -= this.speed * CDD;
+			dy += Math.ceil(this.speed * CDD);
+			dx -= Math.ceil(this.speed * CDD);
 			break;
 		case Direction.NE:
-			dy -= this.speed * CDD;
-			dx += this.speed * CDD;
+			dy -= Math.ceil(this.speed * CDD);
+			dx += Math.ceil(this.speed * CDD);
 			break;
 		case Direction.NW:
-			dy -= this.speed * CDD;
-			dx -= this.speed * CDD;
+			dy -= Math.ceil(this.speed * CDD);
+			dx -= Math.ceil(this.speed * CDD);
 			break;
 		default:
 			break;
 		}
 		// on regarde les collisions avec les voisins
-		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, 2 * hitbox);
+		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, hitbox);
 		if (listE.size() <= 1 && dx < parent.size && dy < parent.size && dx >= 0 && dy >= 0) {
 			this.parent.qt.remove(this);
 			x = dx;
@@ -417,6 +420,7 @@ public abstract class Entity {
 		if (direction == null) {
 			direction = Direction.F;
 		}
+		
 		do_turn(direction);
 		moveF();
 	}
@@ -541,13 +545,13 @@ public abstract class Entity {
 				switch (this.direction) {
 
 				case Direction.N:
-					if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+					if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
 						spawnSpiral(e);
 						return;
 					}
 					break;
 				case Direction.S:
-					if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+					if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
 						spawnSpiral(e);
 						return;
 					}
@@ -565,25 +569,25 @@ public abstract class Entity {
 					}
 					break;
 				case Direction.NE:
-					if (e.x >= x && e.y >= y) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.NW:
-					if (e.x <= x && e.y >= y) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.SE:
 					if (e.x >= x && e.y <= y) {
 						spawnSpiral(e);
 						return;
 					}
 					break;
-				case Direction.SW:
+				case Direction.NW:
 					if (e.x <= x && e.y <= y) {
+						spawnSpiral(e);
+						return;
+					}
+					break;
+				case Direction.SE:
+					if (e.x >= x && e.y >= y) {
+						spawnSpiral(e);
+						return;
+					}
+					break;
+				case Direction.SW:
+					if (e.x <= x && e.y >= y) {
 						spawnSpiral(e);
 						return;
 					}
@@ -608,6 +612,7 @@ public abstract class Entity {
 			e.x = x;
 			e.y = y;
 			dest.qt.insert(e);
+			e.parent=dest;
 			return;
 		}
 

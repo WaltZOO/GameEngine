@@ -45,6 +45,12 @@ public class Model {
 						for (int j=0;j<quantity;j++) {
 							Bloc tempb = new Bloc(b);
 							tempb.parent = temp;
+							for (WorldConfig tempw: worlds_conf) {
+								if (tempw.world.name.equals(b.dest.name)) {
+									tempb.dest=tempw.world;
+									break;
+								}
+							}
 							random_insert(tempb, temp);
 						}
 						
@@ -63,6 +69,12 @@ public class Model {
 						for (int j=0;j<quantity;j++) {
 							NPC tempb = new NPC(b);
 							tempb.parent = temp;
+							for (WorldConfig tempw: worlds_conf) {
+								if (tempw.world.name.equals(b.dest.name)) {
+									tempb.dest=tempw.world;
+									break;
+								}
+							}
 							random_insert(tempb, temp);
 						}
 						
@@ -81,6 +93,12 @@ public class Model {
 						for (int j=0;j<quantity;j++) {
 							Player tempb = new Player(b);
 							tempb.parent = temp;
+							for (WorldConfig tempw: worlds_conf) {
+								if (tempw.world.name.equals(b.dest.name)) {
+									tempb.dest=tempw.world;
+									break;
+								}
+							}
 							random_insert(tempb, temp);
 							if (nb_player++==0) {
 								p1=tempb;

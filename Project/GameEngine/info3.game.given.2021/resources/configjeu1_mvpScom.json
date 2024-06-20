@@ -221,7 +221,7 @@
         "entities": []
     },
     "Player1": {
-        "FSM": "./resources/test.gal",
+        "FSM": "./resources/player1.gal",
         "name": "Player1",
         "hp": 100,
         "damage": 10,
@@ -233,20 +233,20 @@
             "Player2"
         ],
         "direction": "N",
-        "speed": 3,
+        "speed": 1,
         "sprite": "./resources/Player1.png",
         "CanRespawn": true,
-        "reach": 4,
+        "reach": 10,
         "dest": "Bag1",
         "team": "Player1",
         "enemies": [
             "Player2"
         ],
         "allies": [],
-        "range": 100
+        "range": 20
     },
     "Player2": {
-        "FSM": "./resources/test.gal",
+        "FSM": "./resources/player2.gal",
         "name": "Player2",
         "hp": 100,
         "damage": 10,
@@ -256,7 +256,7 @@
         ],
         "pickable": [],
         "direction": "N",
-        "speed": 2,
+        "speed": 1,
         "sprite": "./resources/Player2.png",
         "CanRespawn": true,
         "reach": 4,

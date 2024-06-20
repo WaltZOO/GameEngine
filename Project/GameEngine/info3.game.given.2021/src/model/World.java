@@ -16,18 +16,21 @@ public class World {
 	QuadTree qt;
 	BufferedImage background;
 	int maxHitbox;
+	String name;
 
 	static final boolean debug = true;
 
-	public World(int hitbox) {
+	public World(int hitbox,String name) {
 		size = 0;
 		maxHitbox = hitbox;
+		this.name=name;
 	}
 
-	public World(int size, String filename, int hitbox) throws IOException {
+	public World(int size, String filename, int hitbox,String name) throws IOException {
 		maxHitbox = hitbox;
 		this.qt = new QuadTree(0, maxHitbox, new Boundary(0, 0, size, size));
 		this.size = size;
+		this.name=name;
 
 		if (filename != null) {
 			File file = new File(filename);
@@ -48,14 +51,6 @@ public class World {
 
 	public void do_paint(Graphics g, int width, int height, Player P) {
 		if (debug) {
-			if (P.isPlayer1) {
-				width = 1600;
-				height = 800;
-				P.x = 50;
-				P.y = 50;
-				P.range = 100;
-				size = 100;
-			}
 		}
 
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on

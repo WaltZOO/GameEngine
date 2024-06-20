@@ -80,9 +80,9 @@ public class JSONReader {
 			Number speed = (Number) blocDetails.get("speed");
 
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
-			World world_dest = new World(getHitbox());
+			World world_dest = new World(getHitbox(),dest);
 			blocs.add(new Bloc(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(),
-					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm, new World(getHitbox())));
+					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm, new World(getHitbox(),"")));
 		}
 		return blocs;
 	}
@@ -113,11 +113,11 @@ public class JSONReader {
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
 			ArrayList<String> allies = jsonArrayToStringList(alliesArray);
 			ArrayList<String> enemies = jsonArrayToStringList(enemiesArray);
-			World world_dest = new World(getHitbox());
+			World world_dest = new World(getHitbox(),dest);
 
 			npcs.add(new NPC(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(), speed.intValue(),
 					direction, reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(),
-					enemies, allies, range.intValue(), name, fsm, new World(getHitbox())));
+					enemies, allies, range.intValue(), name, fsm, new World(getHitbox(),"")));
 
 		}
 		return npcs;
@@ -155,11 +155,11 @@ public class JSONReader {
 			ArrayList<String> allies = jsonArrayToStringList(alliesArray);
 			ArrayList<String> enemies = jsonArrayToStringList(enemiesArray);
 
-			World world_dest = new World(getHitbox());
+			World world_dest = new World(getHitbox(),dest);
 			ArrayList<Integer> position_int = jsonArrayToIntList(position);
 			players.add(new Player(position_int.get(0), position_int.get(1), speed.intValue(), direction,
 					reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(), enemies,
-					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World(getHitbox())));
+					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World(getHitbox(),"")));
 			
 		}
 		return players;
@@ -187,7 +187,7 @@ public class JSONReader {
 				densities.add(entity_density.doubleValue());
 			}
 			ArrayList<Integer> size_int = jsonArrayToIntList(size);
-			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background,getHitbox()), categories, densities));
+			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background,getHitbox(),world), categories, densities));
 		}
 		return worlds_conf;
 	}

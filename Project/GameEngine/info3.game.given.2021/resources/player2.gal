@@ -1,0 +1,12 @@
+Player(Init) {
+    *(Init) 
+    | Key(FU) & Key(FL) ? Move(NW) : (Init)
+    | Key(FU) & Key(FR) ? Move(NE) : (Init)
+    | Key(FD) & Key(FL) ? Move(SW) : (Init)
+    | Key(FD) & Key(FR) ? Move(SE) : (Init)
+    | Key(FU) ? Move(N) : (Init)
+    | Key(FL) ? Move(W) : (Init)
+    | Key(FD) ? Move(S) : (Init)
+    | Key(FR) ? Move(E) : (Init)
+    | True ? Wait: (Init)
+}
