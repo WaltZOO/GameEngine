@@ -18,7 +18,10 @@ public class Player extends Character {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
-				
+		
+		sprites = loadSprite(filename, 10, 6);
+		col_sprite = 0;
+		
 		isRunning = false;
 
 		this.isPlayer1 = isPlayer1;
