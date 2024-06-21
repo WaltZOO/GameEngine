@@ -121,7 +121,7 @@
         "speed": 0
     },
     "TreeWorld": {
-        "background": "./resources/background.png",
+        "background": "./resources/TreeWorld.png",
         "size": [
             100,
             100
@@ -150,7 +150,7 @@
         ]
     },
     "RockWorld": {
-        "background": "./resources/background.png",
+        "background": "./resources/RockWorld.png",
         "size": [
             100,
             100
@@ -171,7 +171,7 @@
         ]
     },
     "SandWorld": {
-        "background": "./resources/background.png",
+        "background": "./resources/SandWorld.png",
         "size": [
             100,
             100
@@ -192,7 +192,7 @@
         ]
     },
     "CatWorld": {
-        "background": "./resources/background.png",
+        "background": "./resources/CatWorld.png",
         "size": [
             100,
             100
@@ -214,6 +214,7 @@
     },
     "Bag1": {
         "background": null,
+        "background": "./resources/BagWorld.png",
         "size": [
             10,
             10
