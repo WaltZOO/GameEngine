@@ -11,5 +11,5 @@ Player(Init) {
     | Key(s) ? Move(S) : (Init)
     | Key(d) ? Move(E) : (Init)
     
-    | True ? Wait: (Init)
+    | True ? Wait : (Init)
 }

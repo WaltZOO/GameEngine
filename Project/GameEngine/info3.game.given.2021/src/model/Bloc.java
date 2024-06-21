@@ -27,6 +27,7 @@ public class Bloc extends Entity {
 	public boolean eval(String dir, String cat, int radius) {
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
 		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
+
 		for (Entity e : listE) {
 			if (cat == null) {
 				listE_tri_cat = listE;

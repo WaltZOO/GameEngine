@@ -27,7 +27,7 @@
         "direction": "N",
         "reach": 4,
         "FSM": "./resources/rien.gal",
-        "sprite": "spriteRock.png",
+        "sprite": "./resources/Tree.png",
         "speed": 0
     },
     "Sand": {
@@ -41,7 +41,7 @@
         "direction": "N",
         "reach": 4,
         "FSM": "./resources/rien.gal",
-        "sprite": "spriteSand.png",
+        "sprite": "./resources/Tree.png",
         "speed": 0
     },
     "Cat": {
@@ -54,8 +54,8 @@
         ],
         "direction": "N",
         "reach": 4,
-        "FSM": "./resources/rien.gal",
-        "sprite": "spriteCat.png",
+        "FSM": "./resources/portal.gal",
+        "sprite": "./resources/Tree.png",
         "speed": 1.5,
         "team": "Cat",
         "allies": [],
@@ -71,10 +71,10 @@
             0,
             0
         ],
-        "pickable": [],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 4,
-        "FSM": "./resources/rien.gal",
+        "reach": 7,
+        "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -85,10 +85,10 @@
             0,
             0
         ],
-        "pickable": [],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 4,
-        "FSM": "./resources/rien.gal",
+        "reach": 7,
+        "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -99,10 +99,10 @@
             0,
             0
         ],
-        "pickable": [],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 4,
-        "FSM": "./resources/rien.gal",
+        "reach": 7,
+        "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -113,10 +113,10 @@
             0,
             0
         ],
-        "pickable": [],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 4,
-        "FSM": "./resources/rien.gal",
+        "reach": 7,
+        "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -270,3 +270,4 @@
         "range": 60
     }
 }
+

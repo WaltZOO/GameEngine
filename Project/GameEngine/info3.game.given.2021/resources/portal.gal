@@ -1,0 +1,5 @@
+Player(Init) {
+    *(Init) 
+    | Cell(P) ? Pick : (Init)
+    | True ? Wait : (Init)
+}
