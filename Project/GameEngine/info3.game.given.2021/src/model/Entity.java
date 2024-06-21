@@ -3,6 +3,7 @@ package model;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public abstract class Entity {
 		// Mouvement
 		this.x = x;
 		this.y = y;
-		this.hitbox = parent.maxHitbox;
+		this.hitbox = parent.hitbox;
 
 		if (direction == null)
 			this.direction = Direction.E;
@@ -88,7 +89,7 @@ public abstract class Entity {
 		this.dest = world_dest;
 		this.pickable = pickable2;
 		this.name = name;
-		this.hitbox = parent.maxHitbox;
+		this.hitbox = parent.hitbox;
 		// Mouvement
 		this.x = x;
 		this.y = y;
@@ -122,7 +123,7 @@ public abstract class Entity {
 		this.dest = dest;
 		this.pickable = pickable;
 		this.name = name;
-		this.hitbox = parent.maxHitbox;
+		this.hitbox = parent.hitbox;
 
 		state = new State("Init");
 		AST ast = Parser.from_file("./resources/test.gal");
@@ -187,10 +188,56 @@ public abstract class Entity {
 		return keys.contains(key);
 	}
 
-	// vraie si l’entité de la Catégorie demandée, la plus proche est dans la
-	// Direction
-	public boolean eval_closest(String direction, String category) {
-		// TODO
+	public abstract boolean eval_cell(String dir, String cat);
+
+	public abstract boolean eval_closest(String dir, String cat);
+
+	public boolean isEntityInDirection(Entity e, String dir) {
+		switch (dir) {
+		
+		case Direction.N:
+			if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+				return true;
+			}
+			break;
+		case Direction.S:
+			if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+				return true;
+			}
+			break;
+		case Direction.E:
+			if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+				return true;
+			}
+			break;
+		case Direction.W:
+			if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+				return true;
+			}
+			break;
+		case Direction.NE:
+			if (e.x >= x && e.y <= y) {
+				return true;
+			}
+			break;
+		case Direction.NW:
+			if (e.x <= x && e.y <= y) {
+				return true;
+			}
+			break;
+		case Direction.SE:
+			if (e.x >= x && e.y >= y) {
+				return true;
+			}
+			break;
+		case Direction.SW:
+			if (e.x <= x && e.y >= y) {
+				return true;
+			}
+			break;
+		default:
+			break;
+		}
 		return false;
 	}
 
@@ -294,101 +341,15 @@ public abstract class Entity {
 		return Direction.E;
 	}
 
-	public boolean eval_cell(String dir, String cat) {
-		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, reach);
-		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
-		for (Entity e : listE) {
-			if (cat == null) {
-				listE_tri_cat = listE;
-			} else {
-				switch (cat) {
-				case Category.P:
-					if (pickable.contains(e.name)) {
-						listE_tri_cat.add(e);
-					}
-					break;
-				case Category.O:
-					if (e instanceof Bloc) {
-						listE_tri_cat.add(e);
-					}
-					break;
-				case Category.ALL:
-					listE_tri_cat.add(e);
-				
-				break;
-				default:
-					break;
-				}
-			}
-		}
-		if (listE_tri_cat.isEmpty())
-			return false;
-		if (dir == null) {
-
-			return true;
-		}
-		if (dir.equals(Direction.F) || dir.equals(Direction.L )|| dir.equals(Direction.R) || dir.equals(Direction.B))
-			dir = relativeToAbsolue(dir);
-		for (Entity e : listE_tri_cat) {
-			switch (dir) {
-
-			case Direction.N:
-				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-					return true;
-				}
-				break;
-			case Direction.S:
-				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-					return true;
-				}
-				break;
-			case Direction.E:
-				if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-					return true;
-				}
-				break;
-			case Direction.W:
-				if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-					return true;
-				}
-				break;
-			case Direction.NE:
-				if (e.x >= x && e.y <= y) {
-					return true;
-				}
-				break;
-			case Direction.NW:
-				if (e.x <= x && e.y <= y) {
-					return true;
-				}
-				break;
-			case Direction.SE:
-				if (e.x >= x && e.y >= y) {
-					return true;
-				}
-				break;
-			case Direction.SW:
-				if (e.x <= x && e.y >= y) {
-					return true;
-				}
-				break;
-			default:
-				break;
-			}
-		}
-		return false;
-
-	}
-
 	public void moveF() {
 		int dx = x;
 		int dy = y;
-		
-		if(this instanceof Player) {
+
+		if (this instanceof Player) {
 			((Player) this).isRunning = true;
 		}
-		
-		double disttemp = (double) this.speed/3.0f;
+
+		double disttemp = (double) this.speed / 3.0f;
 
 		switch (this.direction) {
 		case Direction.S:
@@ -424,7 +385,8 @@ public abstract class Entity {
 		}
 		// on regarde les collisions avec les voisins
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, hitbox);
-		if (listE.size() <= 1 && dx < parent.size && dy < parent.size && dx >= 0 && dy >= 0 && (listE.size() ==0 ||listE.get(0)==this)) {
+		if (listE.size() <= 1 && dx < parent.size && dy < parent.size && dx >= 0 && dy >= 0
+				&& (listE.size() == 0 || listE.get(0) == this)) {
 			this.parent.qt.remove(this);
 			x = dx;
 			y = dy;
@@ -559,62 +521,17 @@ public abstract class Entity {
 					return;
 				}
 				do_turn(direction);
-				switch (this.direction) {
-
-				case Direction.N:
-					if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.S:
-					if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.E:
-					if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.W:
-					if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.NE:
-					if (e.x >= x && e.y <= y) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.NW:
-					if (e.x <= x && e.y <= y) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.SE:
-					if (e.x >= x && e.y >= y) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				case Direction.SW:
-					if (e.x <= x && e.y >= y) {
-						spawnSpiral(e);
-						return;
-					}
-					break;
-				default:
-					break;
+				if (isEntityInDirection(e, this.direction)) {
+					spawnSpiral(e);
+					return;
 				}
 			}
-
 		}
+	}
+
+	public void do_die() {
+		parent.qt.remove(this);
+		parent = null;
 	}
 
 	public void spawnSpiral(Entity e) {
@@ -704,14 +621,13 @@ public abstract class Entity {
 
 	public void update(long elasped) {
 		this.elasped += elasped;
-		if(this.elasped > 70) {
-			if(this instanceof Player) {
+		if (this.elasped > 70) {
+			if (this instanceof Player) {
 				((Player) this).isRunning = false;
 			}
 			fsm.step(this);
 			this.elasped = 0;
 		}
-		
-	}
 
+	}
 }

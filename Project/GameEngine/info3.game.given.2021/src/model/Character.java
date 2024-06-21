@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import ai.Category;
+import ai.Direction;
 import ai.FSM;
 
 public class Character extends Entity {
@@ -43,12 +45,103 @@ public class Character extends Entity {
 		this.team = team;
 	}
 
-	
+	public boolean eval(String dir, String cat, int radius) {
+		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
+		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
+		for (Entity e : listE) {
+			if (cat == null || cat.equals(Category.ALL)) {
+				listE_tri_cat = listE;
+			} else {
+				switch (cat) {
+				case Category.P: // Pickable
+					if (pickable.contains(e.name)) {
+						listE_tri_cat.add(e);
+					}
+					break;
+				case Category.O: // Obstacle
+					if (e instanceof Bloc) {
+						listE_tri_cat.add(e);
+					}
+					break;
+				case Category.T: // Team
+					if (allies.contains(e.name)) {
+						listE_tri_cat.add(e);
+					}
+					break;
+				case Category.A: // Autre
+					if (ennemies.contains(e.name)) {
+						listE_tri_cat.add(e);
+					}
+					break;
+
+				default:
+					break;
+				}
+			}
+		}
+		if (listE_tri_cat.isEmpty())
+			return false;
+		if (dir == null) {
+
+			return true;
+		}
+		if (dir.equals(Direction.F) || dir.equals(Direction.L) || dir.equals(Direction.R) || dir.equals(Direction.B))
+			dir = relativeToAbsolue(dir);
+		
+		for (Entity e : listE_tri_cat) {
+			if(isEntityInDirection(e, dir))
+				return true;
+		}
+		return false;
+	}
+
+	// vraie si l’entité de la Catégorie demandée, la plus proche est dans la
+	// Direction
+	public boolean eval_closest(String dir, String cat) {
+		return eval(dir, cat, range);
+	}
+
+	public boolean eval_cell(String dir, String cat) {
+		return eval(dir, cat, reach);
+	}
 
 	@Override
-	public void do_hit(String direction) {
-		// TODO Auto-generated method stub
+	public void do_hit(String dir) {
+		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, reach);
+		ArrayList<Entity> toHit = new ArrayList<Entity>();
+		for (Entity e : listE) {
+			if (ennemies.contains(e.name) && e instanceof Character && !e.equals(this))
+				toHit.add(e);
+		}
 
+		if (toHit.isEmpty())
+			return;
+		if (dir == null) {
+			dir = Direction.F;
+		}
+
+		if (dir.equals(Direction.F) || dir.equals(Direction.L) || dir.equals(Direction.R) || dir.equals(Direction.B))
+			dir = relativeToAbsolue(dir);
+
+		for (Entity e : toHit) {
+			if (isEntityInDirection(e, dir)) {
+				Character c = (Character) e;
+				c.setHp(c.getHp() - this.damage);
+			}
+		}
+
+	}
+
+	void setHp(int hp) {
+		System.out.print(hp);
+		if (hp <= 0) {
+			this.do_die();
+		}
+		this.hp = hp;
+	}
+
+	int getHp() {
+		return this.hp;
 	}
 
 	@Override
@@ -64,13 +157,14 @@ public class Character extends Entity {
 	}
 
 	@Override
-	public void do_wait() {
+	public void do_wait() {	
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
+
 
 		// scale
 		float scale = (float) height / p.range;

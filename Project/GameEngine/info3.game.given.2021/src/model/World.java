@@ -15,22 +15,22 @@ public class World {
 	int size;
 	QuadTree qt;
 	BufferedImage background;
-	int maxHitbox;
+	int hitbox;
 	String name;
 
 	static final boolean debug = false;
 
-	public World(int hitbox,String name) {
+	public World(int hitbox, String name) {
 		size = 0;
-		maxHitbox = hitbox;
-		this.name=name;
+		this.hitbox = hitbox;
+		this.name = name;
 	}
 
-	public World(int size, String filename, int hitbox,String name) throws IOException {
-		maxHitbox = hitbox;
-		this.qt = new QuadTree(0, maxHitbox, new Boundary(0, 0, size, size));
+	public World(int size, String filename, int hitbox, String name) throws IOException {
+		this.hitbox = hitbox;
+		this.qt = new QuadTree(0, hitbox, new Boundary(0, 0, size, size));
 		this.size = size;
-		this.name=name;
+		this.name = name;
 
 		if (filename != null) {
 			File file = new File(filename);
@@ -49,11 +49,25 @@ public class World {
 		}
 	}
 
+	public void random_insert(Entity e) {
+		int x = (int) (Math.random() * size);
+		int y = (int) (Math.random() * size);
+		while (!qt.getEntitiesFromRadius(x, y, hitbox * 2).isEmpty()) { // on verifie que l'on peut insérer a ces
+																			// coordonées
+			x = (int) (Math.random() * size);
+			y = (int) (Math.random() * size);
+		}
+		e.x = x;
+		e.y = y;
+		qt.insert(e);
+
+	}
+
 	public void do_paint(Graphics g, int width, int height, Player P) {
-		
+
 		if (debug) {
 		}
-		
+
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on
 		// augmenterait la scale
 		// 2 par ce que c'est la moitié de l'écran
