@@ -127,9 +127,9 @@ public class Model {
 	 * m.mondes.get(1).qt.AffichageProfondeur(); }
 	 */
 
-	public void update() {
+	public void update(long elasped) {
 		for (World m : this.mondes) {
-			m.update();
+			m.update(elasped);
 		}
 	}
 
@@ -150,10 +150,5 @@ public class Model {
 	public void paint(Graphics g, int width, int height) {
 		p1.parent.do_paint(g, width, height, p1);
 		p2.parent.do_paint(g, width, height, p2);
-	}
-
-	public void tick(long elapsed) {
-		// TODO Auto-generated method stub
-		
 	}
 }

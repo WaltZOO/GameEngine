@@ -138,7 +138,7 @@ public class Game {
 	 */
 	void tick(long elapsed) {
 
-		model.update();
+		model.update(elapsed);
 
 		// Update every second
 		// the text on top of the frame: tick and fps

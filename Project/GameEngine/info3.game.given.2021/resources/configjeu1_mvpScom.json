@@ -234,7 +234,7 @@
             "Player2"
         ],
         "direction": "N",
-        "speed": 1,
+        "speed": 2,
         "sprite": "./resources/Player1.png",
         "CanRespawn": true,
         "reach": 10,
@@ -250,14 +250,14 @@
         "FSM": "./resources/player2.gal",
         "name": "Player2",
         "hp": 100,
-        "damage": 10,
+        "damage": 1,
         "position": [
             0,
             0
         ],
         "pickable": [],
         "direction": "N",
-        "speed": 1,
+        "speed": 10,
         "sprite": "./resources/Player2.png",
         "CanRespawn": true,
         "reach": 4,
