@@ -10,7 +10,8 @@ public class Bloc extends Entity {
 			ArrayList<String> pickable, String filename, String fsm, World world) throws Exception {
 		super(x, y, speed, direction, reach, world_dest, sprite, pickable, filename, fsm, world);
 
-		sprites = loadSprite("./resources/Tree.png", 9, 8);
+		sprites = loadSprite(sprite, 1, 4);
+		m_imageIndex = 0;
 
 	}
 
@@ -93,8 +94,9 @@ public class Bloc extends Entity {
 		// On dessine le sprite
 		sizex = (int) (sizex * 2);
 
-		g.drawImage(sprites[26], posxInWindow + offsetside - 4 * sizex / 6 , posyInWindow - 4 * sizex / 6, sizex,
+		g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside - 4 * sizex / 6 , posyInWindow - 4 * sizex / 6, sizex,
 				sizex, null);
+		m_imageIndex = (m_imageIndex +1)%4;
 
 	}
 
