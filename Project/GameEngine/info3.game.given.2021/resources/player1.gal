@@ -1,7 +1,7 @@
 Player(Init) {
     *(Init) 
-    | Cell(F,P) ?  Pick(F) : (Init)
-    | Key(e) ? Pick(F) : (Init)
+    | Key(r) & Cell(F) ? Hit(F) : (Init)
+    | Key(e)  & Cell(F) ? Pick(F) : (Init)
     | Key(z) & Key(q) ? Move(NW) : (Init)
     | Key(z) & Key(d) ? Move(NE) : (Init)
     | Key(s) & Key(q) ? Move(SW) : (Init)

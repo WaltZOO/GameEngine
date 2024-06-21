@@ -36,8 +36,40 @@ public class Player extends Character {
 		this.canRespawn = other.canRespawn;
 	}
 
-	public void do_paint(Graphics g, int width, int height, Player p) {
+	
+	
+	@Override 
+	public void do_die() {
+		parent.qt.remove(this);
+		if(canRespawn)
+			parent.random_insert(this);
+		else 
+			parent = null;
+		
+	}
 
+	@Override
+	public void do_get() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void do_egg(String direction, String category) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void do_wait() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void do_paint(Graphics g, int width, int height, Player p) {
+		if(this.parent == null)
+			return;
+		
 		// scale
 		float scale = (float) height / p.range;
 
@@ -114,30 +146,6 @@ public class Player extends Character {
 		g.setColor(Color.BLUE);
 		sizex = (int) (reach * scale);
 		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
-
-	}
-
-	@Override
-	public void do_hit(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_get() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_egg(String direction, String category) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void do_wait() {
-		// TODO Auto-generated method stub
 
 	}
 

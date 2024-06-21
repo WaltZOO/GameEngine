@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import ai.Category;
+import ai.Direction;
+
 public class Bloc extends Entity {
 
 	public Bloc(int x, int y, int speed, String direction, int reach, World world_dest, String sprite,
@@ -19,19 +22,96 @@ public class Bloc extends Entity {
 		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
 				new ArrayList<String>(other.pickable), other.name, other.fsm, other.parent);
 	}
+	
+	public boolean eval(String dir, String cat, int radius) {
+		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
+		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
+		for (Entity e : listE) {
+			if (cat == null) {
+				listE_tri_cat = listE;
+			} else {
+				switch (cat) {
+				case Category.P:
+					if (pickable.contains(e.name)) {
+						listE_tri_cat.add(e);
+					}
+					break;
+				case Category.O:
+					if (e instanceof Bloc) {
+						listE_tri_cat.add(e);
+					}
+					break;
+				case Category.ALL:
+					listE_tri_cat.add(e);
 
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		if (listE_tri_cat.isEmpty())
+			return false;
+		if (dir == null) {
 
-	@Override
-	public void do_move(String direction2) {
-		// TODO Auto-generated method stub
+			return true;
+		}
+		if (dir.equals(Direction.F) || dir.equals(Direction.L) || dir.equals(Direction.R) || dir.equals(Direction.B))
+			dir = relativeToAbsolue(dir);
+		for (Entity e : listE_tri_cat) {
+			switch (dir) {
 
+			case Direction.N:
+				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+					return true;
+				}
+				break;
+			case Direction.S:
+				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+					return true;
+				}
+				break;
+			case Direction.E:
+				if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+					return true;
+				}
+				break;
+			case Direction.W:
+				if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+					return true;
+				}
+				break;
+			case Direction.NE:
+				if (e.x >= x && e.y <= y) {
+					return true;
+				}
+				break;
+			case Direction.NW:
+				if (e.x <= x && e.y <= y) {
+					return true;
+				}
+				break;
+			case Direction.SE:
+				if (e.x >= x && e.y >= y) {
+					return true;
+				}
+				break;
+			case Direction.SW:
+				if (e.x <= x && e.y >= y) {
+					return true;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		return false;
 	}
 
-	@Override
-	public void do_pick(String direction) {
-		// TODO Auto-generated method stub
-
+	public boolean eval_cell(String dir, String cat) {
+		return eval(dir, cat, reach);
 	}
+	
 
 	@Override
 	public void do_hit(String direction) {
@@ -50,19 +130,13 @@ public class Bloc extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void do_turn(String direction) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	@Override
 	public void do_wait() {
 		// TODO Auto-generated method stub
-
+		
 	}
-
+	
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
 		// scale
@@ -92,5 +166,13 @@ public class Bloc extends Entity {
 				sizex, null);
 
 	}
+
+	@Override
+	public boolean eval_closest(String dir, String cat) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 
 }
