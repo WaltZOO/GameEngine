@@ -1,7 +1,7 @@
 {
     "seed": 0,
     "timer": 100000,
-    "hitbox": 1,
+    "hitbox": 4,
     "Tree": {
         "name": "Tree",
         "dest": null,
@@ -234,7 +234,7 @@
             "Player2"
         ],
         "direction": "N",
-        "speed": 2,
+        "speed": 3,
         "sprite": "./resources/Player1.png",
         "CanRespawn": true,
         "reach": 10,
@@ -244,7 +244,7 @@
             "Player2"
         ],
         "allies": [],
-        "range": 20
+        "range": 80
     },
     "Player2": {
         "FSM": "./resources/player2.gal",
@@ -257,7 +257,7 @@
         ],
         "pickable": [],
         "direction": "N",
-        "speed": 10,
+        "speed": 2,
         "sprite": "./resources/Player2.png",
         "CanRespawn": true,
         "reach": 4,
@@ -267,6 +267,6 @@
             "Player1"
         ],
         "allies": [],
-        "range": 15
+        "range": 60
     }
 }
