@@ -17,9 +17,18 @@ public class NPC extends Character {
 	}
 
 	public NPC(NPC other) throws Exception {
-		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
-				new ArrayList<>(other.pickable), other.team, other.hp, other.damage, new ArrayList<>(other.ennemies),
-				new ArrayList<>(other.allies), other.range, other.name, other.fsm, other.parent);
+        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites, 
+              new ArrayList<>(other.pickable), other.team, other.hp, other.damage, 
+              new ArrayList<>(other.ennemies), new ArrayList<>(other.allies), 
+              other.range, other.name, other.fsm, other.parent);
+    }
+
+
+
+	@Override
+	public void do_move(String direction2) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -87,7 +96,6 @@ public class NPC extends Character {
 
 	@Override
 	public void do_wait() {
-		// TODO Auto-generated method stub
 
 	}
 

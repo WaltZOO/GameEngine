@@ -25,7 +25,6 @@ public abstract class Entity {
 	World parent;
 	World dest; // Monde destination pour le pick
 	ArrayList<String> pickable; // Liste des entité prenable
-
 	boolean checked;
 
 	// Mouvement
@@ -42,7 +41,6 @@ public abstract class Entity {
 	// Automate
 	FSM fsm; // Automate de l'entité
 	State state; // Etat de départ
-
 	String name;
 
 	public Entity(int x, int y, int speed, String direction, int reach, World world_dest, String sprite,
@@ -178,7 +176,7 @@ public abstract class Entity {
 
 	public ArrayList<String> keys;
 
-	private double elasped;
+	public double elasped;
 
 	public boolean eval_key(String key) {
 		/*

@@ -10,8 +10,6 @@ import ai.Direction;
 public class Player extends Character {
 	boolean isPlayer1;
 	boolean canRespawn;
-	int col_sprite;
-	public boolean isRunning;
 
 	public Player(int x, int y, int speed, String direction, int reach, World dest, String filename,
 			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
@@ -20,9 +18,10 @@ public class Player extends Character {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
-
+		
 		sprites = loadSprite(filename, 10, 6);
 		col_sprite = 0;
+		
 		isRunning = false;
 
 		this.isPlayer1 = isPlayer1;
@@ -140,15 +139,17 @@ public class Player extends Character {
 
 		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
 		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
-
+		int sizex = (int) (hitbox * scale);
+		/*
 		// On dessine la hitbox
 		if (this.isPlayer1) {
 			g.setColor(Color.GREEN);
 		} else {
 			g.setColor(Color.RED);
 		}
-		int sizex = (int) (hitbox * scale);
+		
 		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+		*/
 
 		// On dessine le sprite
 		boolean isWest = false;
@@ -186,9 +187,9 @@ public class Player extends Character {
 		default:
 			break;
 		}
-		col_sprite = (col_sprite + 1) % 6;
+		
 		sizex = (int) (sizex * 1.8);
-
+		
 		if (isWest) {
 			g.drawImage(sprites[m_imageIndex * 6 + col_sprite], posxInWindow + offsetside + sizex / 2,
 					posyInWindow - 4 * sizex / 6, -sizex, sizex, null);
@@ -196,9 +197,14 @@ public class Player extends Character {
 			g.drawImage(sprites[m_imageIndex * 6 + col_sprite], posxInWindow + offsetside - sizex / 2,
 					posyInWindow - 4 * sizex / 6, sizex, sizex, null);
 		}
+		
+		// on change le sprite
+		if (elasped > 80)
+			col_sprite = (col_sprite+1)%6;
 
 		// dessin de la reach
-		g.setColor(Color.BLUE);
+		Color c = new Color(100,100,100,40);
+		g.setColor(c);
 		sizex = (int) (reach * scale);
 		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 

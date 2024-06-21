@@ -68,10 +68,7 @@ public class World {
 	}
 
 	public void do_paint(Graphics g, int width, int height, Player P) {
-
-		if (debug) {
-		}
-
+		
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on
 		// augmenterait la scale
 		// 2 par ce que c'est la moitié de l'écran

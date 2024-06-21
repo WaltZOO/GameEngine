@@ -135,8 +135,11 @@ public class Bloc extends Entity {
 	
 	@Override
 	public void do_wait() {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		
+=======
+>>>>>>> e510ed5 (ajout de sprites)
 	}
 	
 	@Override
@@ -158,15 +161,19 @@ public class Bloc extends Entity {
 		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
 
 		int sizex = (int) (hitbox * scale);
+		/*
 		g.setColor(Color.blue);
 		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+		*/
 
 		// On dessine le sprite
 		sizex = (int) (sizex * 2);
 
 		g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside - 4 * sizex / 6 , posyInWindow - 4 * sizex / 6, sizex,
 				sizex, null);
-		m_imageIndex = (m_imageIndex +1)%4;
+		// on change le sprite
+		if (elasped > 80)
+			m_imageIndex = (m_imageIndex+1)%4;
 
 	}
 
