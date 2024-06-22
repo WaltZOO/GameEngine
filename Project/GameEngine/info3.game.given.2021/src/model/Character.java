@@ -80,7 +80,7 @@ public abstract class Character extends Entity {
 			}
 		}
 		if (listE_tri_cat.isEmpty()) {
-			if (dir.equals(Category.V))
+			if (cat.equals(Category.V))
 				return true;
 			return false;
 		}

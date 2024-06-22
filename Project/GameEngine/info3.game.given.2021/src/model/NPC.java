@@ -23,12 +23,6 @@ public class NPC extends Character {
 	}
 
 	@Override
-	public void do_move(String direction2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void do_pick(String direction) {
 		// TODO Auto-generated method stub
 
@@ -48,7 +42,7 @@ public class NPC extends Character {
 
 	@Override
 	public void do_egg(String direction, String category) {
-		if ((parent.size * parent.size) / (parent.qt.nbEntity * hitbox * hitbox * 3) >= Model.pourcenatge_remplissage)
+		if (((parent.size * parent.size) / (parent.qt.nbEntity * hitbox * hitbox * 3))/100 >= Model.pourcenatge_remplissage)
 			return;
 		int dist = hitbox + 1;
 		if (eval(direction, Category.V, dist)) {
