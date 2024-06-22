@@ -3,23 +3,24 @@ package model;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import ai.Category;
+import ai.Direction;
+
 public class NPC extends Character {
 
-	public NPC(int x, int y, int speed, String direction, int reach, World dest,
-			String filename, ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+	public NPC(int x, int y, int speed, String direction, int reach, World dest, String filename,
+			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
-		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies,
-				range, name, fsm, parent);
+		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
+				fsm, parent);
 		// TODO Auto-generated constructor stub
 	}
+
 	public NPC(NPC other) throws Exception {
-        super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites, 
-              new ArrayList<>(other.pickable), other.team, other.hp, other.damage, 
-              new ArrayList<>(other.ennemies), new ArrayList<>(other.allies), 
-              other.range, other.name, other.fsm, other.parent);
-    }
-
-
+		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
+				new ArrayList<>(other.pickable), other.team, other.hp, other.damage, new ArrayList<>(other.ennemies),
+				new ArrayList<>(other.allies), other.range, other.name, other.fsm, other.parent);
+	}
 
 	@Override
 	public void do_move(String direction2) {
@@ -47,8 +48,53 @@ public class NPC extends Character {
 
 	@Override
 	public void do_egg(String direction, String category) {
-		// TODO Auto-generated method stub
+		if ((parent.size * parent.size) / (parent.qt.nbEntity * hitbox * hitbox * 3) >= Model.pourcenatge_remplissage)
+			return;
+		int dist = hitbox + 1;
+		if (eval(direction, Category.V, dist)) {
+			direction = relativeToAbsolue(direction);
+			NPC temp;
+			switch (direction) {
+			case Direction.N:
+				try {
+					temp = new NPC(this);
+					temp.y -= dist;
+					temp.parent.qt.insert(temp);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
+			case Direction.S:
+				try {
+					temp = new NPC(this);
+					temp.y += dist;
+					temp.parent.qt.insert(temp);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			case Direction.W:
+				try {
+					temp = new NPC(this);
+					temp.x += dist;
+					temp.parent.qt.insert(temp);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			case Direction.E:
+				try {
+					temp = new NPC(this);
+					temp.x -= dist;
+					temp.parent.qt.insert(temp);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			default:
+				break;
+			}
+		}
 	}
 
 	@Override

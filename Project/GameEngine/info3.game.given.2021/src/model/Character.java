@@ -9,7 +9,7 @@ import ai.Category;
 import ai.Direction;
 import ai.FSM;
 
-public class Character extends Entity {
+public abstract class Character extends Entity {
 	String team;
 	int hp;
 	int damage;
@@ -154,16 +154,8 @@ public class Character extends Entity {
 	}
 
 	@Override
-	public void do_egg(String direction, String category) {
-		/*if(eval(direction, Category.V, hitbox+1)) {
-			direction=relativeToAbsolue(direction);
-			switch(direction) {
-			case Direction.N :
-				if ()
-			}
-		}*/
-		
-	}
+	public abstract void do_egg(String direction, String category);
+	
 
 	@Override
 	public void do_wait() {	

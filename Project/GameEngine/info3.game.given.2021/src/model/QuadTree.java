@@ -9,7 +9,7 @@ public class QuadTree {
 	int level = 0;
 	int hitbox;
 	List<Entity> nodes;
-
+	int nbEntity;
 	QuadTree NW = null;
 	QuadTree NE = null;
 	QuadTree SW = null;
@@ -22,6 +22,7 @@ public class QuadTree {
 		this.hitbox = hitbox;
 		this.bdr = bdr;
 		this.nodes = new ArrayList<Entity>();
+		nbEntity=0;
 	}
 
 	public void AffichageProfondeur() {
@@ -64,11 +65,12 @@ public class QuadTree {
 
 		if (!bdr.inBoundary(x, y))
 			return;
-
+		nbEntity++;
 		// Si l'entity cap n'est pas dépassé
 		if ((hitbox * Entity_Cap >= bdr.getxMax() - bdr.getxMin()
 				|| hitbox * Entity_Cap >= bdr.getyMax() - bdr.getyMin() || nodes.size() < Entity_Cap) && NW == null) {
 			nodes.add(e);
+			
 			return;
 		}
 
@@ -124,9 +126,10 @@ public class QuadTree {
 
 		if (!bdr.inBoundary(x, y))
 			return;
-
+		nbEntity--;
 		if (NW == null) {
 			nodes.remove(e);
+			
 			return;
 		}
 

@@ -1,0 +1,5 @@
+Player(Init) {
+    *(Init) 
+
+    | True ? Move(F)/ Move(R)/ Move(L) / Move(B) / 50%Egg(F) /Wait : (Init)
+}
