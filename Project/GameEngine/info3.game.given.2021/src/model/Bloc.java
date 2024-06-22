@@ -135,11 +135,6 @@ public class Bloc extends Entity {
 	
 	@Override
 	public void do_wait() {
-<<<<<<< HEAD
-		// TODO Auto-generated method stub
-		
-=======
->>>>>>> e510ed5 (ajout de sprites)
 	}
 	
 	@Override

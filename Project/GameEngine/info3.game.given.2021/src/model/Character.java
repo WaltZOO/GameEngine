@@ -31,6 +31,9 @@ public abstract class Character extends Entity {
 		this.allies = allies;
 		this.range = range;
 		this.team = team;
+
+		sprites = loadSprite(filename, 10, 6);
+		col_sprite = 0;
 	}
 
 	public Character(int x, int y, int speed, String direction, int reach, World dest, BufferedImage[] filename,
@@ -171,7 +174,6 @@ public abstract class Character extends Entity {
 
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
-
 		// scale
 		float scale = (float) height / p.range;
 
@@ -187,16 +189,72 @@ public abstract class Character extends Entity {
 
 		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
 		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
-
 		int sizex = (int) (hitbox * scale);
-		g.setColor(Color.BLUE);
-		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
+		/*
+		 * // On dessine la hitbox if (this.isPlayer1) { g.setColor(Color.GREEN); } else
+		 * { g.setColor(Color.RED); }
+		 * 
+		 * g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2,
+		 * sizex, sizex);
+		 */
+
+		// On dessine le sprite
+		boolean isWest = false;
+		switch (direction) {
+		case "N":
+			m_imageIndex = 2;
+			if (isRunning) {
+				m_imageIndex = 5;
+			}
+			break;
+		case "S":
+		case "SW":
+		case "SE":
+			m_imageIndex = 0;
+			if (isRunning) {
+				m_imageIndex = 3;
+			}
+			break;
+		case "W":
+		case "NW":
+			isWest = true;
+			m_imageIndex = 1;
+			if (isRunning) {
+				m_imageIndex = 4;
+			}
+			break;
+		case "E":
+		case "NE":
+			m_imageIndex = 1;
+			if (isRunning) {
+				m_imageIndex = 4;
+			}
+			break;
+
+		default:
+			break;
+		}
+
+		sizex = (int) (sizex * 1.8);
+
+		if (isWest) {
+			g.drawImage(sprites[m_imageIndex * 6 + col_sprite], posxInWindow + offsetside + sizex / 2,
+					posyInWindow - 4 * sizex / 6, -sizex, sizex, null);
+		} else {
+			g.drawImage(sprites[m_imageIndex * 6 + col_sprite], posxInWindow + offsetside - sizex / 2,
+					posyInWindow - 4 * sizex / 6, sizex, sizex, null);
+		}
+
+		// on change le sprite
+		if (elasped > 80)
+			col_sprite = (col_sprite + 1) % 6;
 
 		// dessin de la reach
-		g.setColor(Color.BLUE);
+		Color c = new Color(100, 0, 0, 30);
+		g.setColor(c);
 		sizex = (int) (reach * scale);
 		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
-
+		g.drawOval(posxInWindow + offsetside - sizex / 2+1, posyInWindow - sizex / 2+1, sizex-2, sizex-2);
 	}
 
 }

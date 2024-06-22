@@ -73,7 +73,7 @@
         ],
         "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 5,
+        "reach": 6,
         "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
@@ -87,7 +87,7 @@
         ],
         "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 5,
+        "reach": 6,
         "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
@@ -101,7 +101,7 @@
         ],
         "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 5,
+        "reach": 6,
         "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
@@ -115,7 +115,7 @@
         ],
         "pickable": ["Player1","Player2"],
         "direction": "N",
-        "reach": 5,
+        "reach": 6,
         "FSM": "./resources/portal.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
@@ -278,4 +278,3 @@
         "range": 60
     }
 }
-
