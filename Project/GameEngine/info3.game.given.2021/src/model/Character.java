@@ -18,8 +18,6 @@ public abstract class Character extends Entity {
 	int range;
 	public boolean isRunning;
 	int col_sprite;
-	public boolean isRunning;
-	int col_sprite;
 
 	public Character(int x, int y, int speed, String direction, int reach, World dest, String filename,
 			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
