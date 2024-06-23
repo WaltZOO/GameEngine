@@ -187,7 +187,7 @@ public class JSONReader {
 				densities.add(entity_density.doubleValue());
 			}
 			ArrayList<Integer> size_int = jsonArrayToIntList(size);
-			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background,getHitbox(),world), categories, densities));
+			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background,getHitbox(),world,100,false), categories, densities));
 		}
 		return worlds_conf;
 	}

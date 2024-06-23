@@ -561,6 +561,7 @@ public abstract class Entity {
 							e.x = x;
 							e.y = y;
 							dest.qt.insert(e);
+							e.parent = dest;
 							return;
 						}
 					}
@@ -568,7 +569,7 @@ public abstract class Entity {
 			}
 			cpt++;
 
-			for (int i = 2; i < 4; i++) {
+			for (int i = 2; i < 4; i++) {	
 				for (int j = 0; j < cpt; j++) {
 					x += directions[i][0] * hitbox * 0.5;
 					y += directions[i][1] * hitbox * 0.5;
@@ -578,6 +579,7 @@ public abstract class Entity {
 							e.x = x;
 							e.y = y;
 							dest.qt.insert(e);
+							e.parent = dest;
 							return;
 						}
 					}

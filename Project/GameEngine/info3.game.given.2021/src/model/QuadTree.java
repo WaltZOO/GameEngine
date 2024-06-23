@@ -66,11 +66,11 @@ public class QuadTree {
 		if (!bdr.inBoundary(x, y))
 			return;
 		nbEntity++;
+		
 		// Si l'entity cap n'est pas dépassé
 		if ((hitbox * Entity_Cap >= bdr.getxMax() - bdr.getxMin()
 				|| hitbox * Entity_Cap >= bdr.getyMax() - bdr.getyMin() || nodes.size() < Entity_Cap) && NW == null) {
 			nodes.add(e);
-			
 			return;
 		}
 

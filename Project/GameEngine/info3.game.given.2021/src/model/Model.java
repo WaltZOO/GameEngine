@@ -128,7 +128,8 @@ public class Model {
 
 	public void update(long elasped) {
 		for (World m : this.mondes) {
-			m.update(elasped);
+			if (m==p1.parent || m==p2.parent || m.chargedIfNoPlayer)
+				m.update(elasped);
 		}
 	}
 

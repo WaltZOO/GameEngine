@@ -17,6 +17,8 @@ public class World {
 	BufferedImage background;
 	int hitbox;
 	String name;
+	int Entity_Cap;
+	boolean chargedIfNoPlayer;
 
 	static final boolean debug = false;
 
@@ -26,11 +28,13 @@ public class World {
 		this.name = name;
 	}
 
-	public World(int size, String filename, int hitbox, String name) throws IOException {
+	public World(int size, String filename, int hitbox, String name,int Entity_Cap,boolean chargedIfNoPlayer) throws IOException {
 		this.hitbox = hitbox;
 		this.qt = new QuadTree(0, hitbox, new Boundary(0, 0, size, size));
 		this.size = size;
 		this.name = name;
+		this.chargedIfNoPlayer=chargedIfNoPlayer;
+		this.Entity_Cap = Entity_Cap;
 
 		if (filename != null) {
 			File file = new File(filename);

@@ -42,52 +42,46 @@ public class NPC extends Character {
 
 	@Override
 	public void do_egg(String direction, String category) {
-		if (((parent.size * parent.size) / (parent.qt.nbEntity * hitbox * hitbox * 3))/100 >= Model.pourcenatge_remplissage)
+		if (parent.Entity_Cap < parent.qt.nbEntity)
 			return;
+		
 		int dist = hitbox + 1;
-		if (eval(direction, Category.V, dist)) {
-			direction = relativeToAbsolue(direction);
-			NPC temp;
+		if (direction==null) 
+			direction=Direction.F;
+		direction = relativeToAbsolue(direction);	
+		NPC temp;
+			try {
+					temp=new NPC(this);
+				} catch (Exception e) {
+					temp=null;
+					e.printStackTrace();
+				}
+			
 			switch (direction) {
 			case Direction.N:
-				try {
-					temp = new NPC(this);
 					temp.y -= dist;
-					temp.parent.qt.insert(temp);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+					break;
+				
 			case Direction.S:
-				try {
-					temp = new NPC(this);
+	
 					temp.y += dist;
-					temp.parent.qt.insert(temp);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+					break;
 
 			case Direction.W:
-				try {
-					temp = new NPC(this);
+				
 					temp.x += dist;
-					temp.parent.qt.insert(temp);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+					break;
 
 			case Direction.E:
-				try {
-					temp = new NPC(this);
+			
 					temp.x -= dist;
-					temp.parent.qt.insert(temp);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
+					break;
 			default:
 				break;
 			}
+		if (temp.eval(direction, Category.V, hitbox)) {
+			parent.qt.insert(temp);
+			
 		}
 	}
 

@@ -47,6 +47,12 @@ public abstract class Character extends Entity {
 
 	public boolean eval(String dir, String cat, int radius) {
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
+		if (cat !=null && cat.equals(Category.V)) {
+				if (listE.isEmpty())
+					return true;
+				else
+					return false;
+		}
 		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
 		for (Entity e : listE) {
 			if (cat == null || cat.equals(Category.ALL)) {
@@ -80,8 +86,7 @@ public abstract class Character extends Entity {
 			}
 		}
 		if (listE_tri_cat.isEmpty()) {
-			if (cat.equals(Category.V))
-				return true;
+			
 			return false;
 		}
 		if (dir == null) {

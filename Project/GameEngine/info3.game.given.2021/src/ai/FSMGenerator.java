@@ -137,9 +137,19 @@ public class FSMGenerator implements IVisitor {
 			}
 			case "Egg": {
 				if (direction != null) {
-					a = new Egg(direction, true);
+					if (category!=null) {
+						a= new Egg(direction, category);
+					}
+					else {
+						a = new Egg(direction, true);
+					}	
 				} else {
-					a = new Egg();
+					if (category!=null) {
+						a=new Egg(category,false);
+					}
+					else {
+						a = new Egg();
+					}
 				}
 				break;
 			}
