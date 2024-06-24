@@ -18,6 +18,7 @@
         },
         "cond_final" : "Cond1 || Timer"
     },
+
     "Tree": {
         "name": "Tree",
         "dest": null,
@@ -142,6 +143,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Tree",
@@ -172,6 +175,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Rock",
@@ -193,6 +198,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Sand",
@@ -214,6 +221,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Sand",
@@ -241,6 +250,8 @@
             10,
             10
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": []
     },
     "Player1": {

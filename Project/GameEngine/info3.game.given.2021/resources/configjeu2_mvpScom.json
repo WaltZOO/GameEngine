@@ -1,7 +1,36 @@
 {
     "seed": 0,
-    "timer": 100000,
     "hitbox": 5,
+    "Win": {
+        "Cond1": {
+                "Entity": [
+                    "Zombie"
+                ],
+                "World": "Niveau_1",
+            "present" : "false",
+            "win_cond": "cond1",
+            "win_msg": "VICTOIRE DU PLAYER 1 !"
+        },
+        "Cond2": {
+                "Entity": [
+                    "Zombie"
+                ],
+                "World": "Niveau_2",
+            "present" : "false",
+            "win_cond": "cond2",
+            "win_msg": "VICTOIRE DU PLAYER 1 !"
+        },
+        "Cond3": {
+                "Entity": [
+                    "Zombie"
+                ],
+                "World": "Niveau_final",
+            "present" : "false",
+            "win_cond": "cond1",
+            "win_msg": "VICTOIRE DU PLAYER 1 !"
+        },
+        "cond_final" : "Cond1 && Cond2 && Cond3"
+    },
     "Zombie": {
         "name": "Zombie",
         "team": "villains",
@@ -22,7 +51,7 @@
             "Boss"
         ],
         "pickable": [],
-        "FSM": "zombie.gal",
+        "FSM": "./resources/zombie.gal",
         "sprite": "./resources/Skeleton.png",
         "range": 10,
         "reach": 3
@@ -61,7 +90,7 @@
             "Zombie"
         ],
         "pickable": [],
-        "FSM": "./resources/Boss.gal",
+        "FSM": "./resources/boss.gal",
         "sprite": "./resources/Boss.png",
         "range": 15,
         "reach": 5

@@ -113,19 +113,21 @@ public class Model {
 
 		}
 		this.victory = JP.getVictory();
-		ArrayList<WinCondition> conditions = new ArrayList<WinCondition>();
-		conditions = this.victory.getWinConditions();
-		for(WinCondition wc: conditions) {
-			if(wc instanceof EntityCondition) {
-				EntityCondition ec = (EntityCondition) wc;
-				String name = ec.getWorld().getName();
-				for(World w: worlds) {
-					if(w.getName().equals(name))
-						ec.w = w;
+		if (victory != null) {
+			ArrayList<WinCondition> conditions = new ArrayList<WinCondition>();
+			conditions = this.victory.getWinConditions();
+			for (WinCondition wc : conditions) {
+				if (wc instanceof EntityCondition) {
+					EntityCondition ec = (EntityCondition) wc;
+					String name = ec.getWorld().getName();
+					for (World w : worlds) {
+						if (w.getName().equals(name))
+							ec.w = w;
+					}
 				}
 			}
 		}
-		System.out.println("Fichier chargé");
+		System.out.println("Fichier chargÃ©");
 	}
 
 	/*
@@ -138,7 +140,7 @@ public class Model {
 	 */
 
 	public void update(long elapsed) {
-		if(!this.victory.evalCond(elapsed)) {
+		if((this.victory != null && !this.victory.evalCond(elapsed) || this.victory == null)) {
 			for (World m : this.worlds) {
 				if (m==p1.parent || m==p2.parent || m.chargedIfNoPlayer)
 				m.update(elapsed);

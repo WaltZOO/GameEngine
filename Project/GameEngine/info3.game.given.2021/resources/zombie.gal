@@ -1,0 +1,35 @@
+Zombie(Init){
+* (Init)
+
+	| Cell(N,A) ? Hit(N) :(Init)
+	| Cell(E,A) ? Hit(E) :(Init)
+	| Cell(S,A) ? Hit(S) :(Init)
+	| Cell(W,A) ? Hit(W) :(Init)
+
+	| Cell(NE,A) ? Hit(NE) :(Init)
+	| Cell(SE,A) ? Hit(SE) :(Init)
+	| Cell(SW,A) ? Hit(SW) :(Init)
+	| Cell(NW,A) ? Hit(NW) :(Init)
+
+
+	| Closest(A,N) ? Move(N) : (Init)
+	| Closest(A,E) ? Move(E) : (Init)
+	| Closest(A,S) ? Move(S) : (Init)
+	| Closest(A,W) ? Move(W) : (Init)
+
+	| Closest(A,NE) ? Move(NE) : (Init)
+	| Closest(A,SE) ? Move(SE) : (Init)
+	| Closest(A,SW) ? Move(SW) : (Init)
+	| Closest(A,NW) ? Move(NW) : (Init)
+
+
+	| Cell(F,V) & Cell(L,V) & Cell(R,V) ? Move(F) / Move(L) / Move(R) / 80% Wait :(Init)
+	| Cell(F,V) & Cell(L,V) ? Move(F) / Move(L) / 80% Wait :(Init)
+	| Cell(F,V) & Cell(R,V) ? Move(F) / Move(R) / 80% Wait :(Init)
+	| Cell(L,V) & Cell(R,V) ? Move(L) / Move(R) / 80% Wait :(Init)
+	| Cell(F,V) ? Move(F) / 80% Wait :(Init)
+	| Cell(L,V) ? Move(L) / 80% Wait :(Init)
+	| Cell(R,V) ? Move(R) / 80% Wait :(Init)
+
+	| True() ? :(Init)
+}

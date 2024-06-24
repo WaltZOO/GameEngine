@@ -77,6 +77,8 @@ public class JSONReader {
 		ArrayList<String> booleanOperations = new ArrayList<String>();
 
 		JSONObject winObject = (JSONObject) jo.get("Win");
+		if (winObject == null)
+			return null;
 		for (Object key : winObject.keySet()) {
 			if (key.equals("cond_final")) {
 				String condFinal = (String) winObject.get("cond_final");
