@@ -1,7 +1,23 @@
 {
     "seed": 0,
-    "timer": 100000,
     "hitbox": 4,
+    "Win": {
+        "Cond1": {
+                "Entity": [
+                    "Player2"
+                ],
+                "World": "Bag1",
+            "present" : "true",
+            "win_cond": "cond1",
+            "win_msg": "VICTOIRE DU PLAYER 1 !"
+        },
+        "Timer": {
+		"timer": 30,
+		"win_cond": "timer",
+		"win_msg": "VICTOIRE DU PLAYER 2 !"
+        },
+        "cond_final" : "Cond1 || Timer"
+    },
     "Tree": {
         "name": "Tree",
         "dest": null,
@@ -278,5 +294,3 @@
         "range": 60
     }
 }
-
-
