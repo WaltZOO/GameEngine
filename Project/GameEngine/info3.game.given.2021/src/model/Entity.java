@@ -529,7 +529,7 @@ public abstract class Entity {
 
 	public void do_die() {
 		parent.qt.remove(this);
-		parent = null;
+		//parent = null;
 	}
 
 	public void spawnSpiral(Entity e) {

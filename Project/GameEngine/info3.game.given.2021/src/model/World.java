@@ -32,14 +32,14 @@ public class World {
 		size = 0;
 		this.name = name;
 	}
-	
-	public World(int size, String filename, int hitbox, String name, 
-			int Entity_Cap,boolean chargedIfNoPlayer) throws IOException {
+
+	public World(int size, String filename, int hitbox, String name, int Entity_Cap, boolean chargedIfNoPlayer)
+			throws IOException {
 		this.hitbox = hitbox;
 		this.qt = new QuadTree(0, hitbox, new Boundary(0, 0, size, size));
 		this.size = size;
 		this.name = name;
-		this.chargedIfNoPlayer=chargedIfNoPlayer;
+		this.chargedIfNoPlayer = chargedIfNoPlayer;
 		this.Entity_Cap = Entity_Cap;
 
 		if (filename != null) {
@@ -51,7 +51,7 @@ public class World {
 		}
 
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -67,7 +67,7 @@ public class World {
 		int x = (int) (Math.random() * size);
 		int y = (int) (Math.random() * size);
 		while (!qt.getEntitiesFromRadius(x, y, hitbox * 2).isEmpty()) { // on verifie que l'on peut insérer a ces
-																			// coordonées
+																		// coordonées
 			x = (int) (Math.random() * size);
 			y = (int) (Math.random() * size);
 		}
@@ -78,7 +78,7 @@ public class World {
 	}
 
 	public void do_paint(Graphics g, int width, int height, Player P) {
-		
+
 		// on multiplie d'abord la range par 2 car si on faisait l'inverse on
 		// augmenterait la scale
 		// 2 par ce que c'est la moitié de l'écran
