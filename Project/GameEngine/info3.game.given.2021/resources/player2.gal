@@ -1,5 +1,6 @@
 Player(Init) {
     *(Init) 
+    | Key(0) & Cell(F) ? Hit(F) : (Init)
     | Key(FU) & Key(FL) ? Move(NW) : (Init)
     | Key(FU) & Key(FR) ? Move(NE) : (Init)
     | Key(FD) & Key(FL) ? Move(SW) : (Init)

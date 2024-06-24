@@ -59,7 +59,7 @@
         "speed": 1,
         "team": "Cat",
         "allies": ["Cat"],
-        "hp": 25,
+        "hp": 20,
         "damage": 0,
         "enemies": [],
         "range": 7
@@ -166,7 +166,7 @@
                 "density": -1
             },
             {
-                "type": "PortaltoSand",
+                "type": "PortaltoCat",
                 "density": -1
             }
         ]
@@ -247,7 +247,8 @@
         "dest": "Bag1",
         "team": "Player1",
         "enemies": [
-            "Player2"
+            "Player2",
+            "Cat"
         ],
         "allies": [],
         "range": 80
@@ -256,7 +257,7 @@
         "FSM": "./resources/player2.gal",
         "name": "Player2",
         "hp": 100,
-        "damage": 1,
+        "damage": 5,
         "position": [
             0,
             0
@@ -266,11 +267,12 @@
         "speed": 2,
         "sprite": "./resources/Player2.png",
         "CanRespawn": true,
-        "reach": 4,
+        "reach": 10,
         "dest": null,
         "team": "Player2",
         "enemies": [
-            "Player1"
+            "Player1",
+            "Cat"
         ],
         "allies": [],
         "range": 60
