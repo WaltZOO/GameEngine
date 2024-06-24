@@ -173,7 +173,7 @@ public class Bloc extends Entity {
 		g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside - 4 * sizex / 6 , posyInWindow - 4 * sizex / 6, sizex,
 				sizex, null);
 		// on change le sprite
-		if (elasped > 80)
+		if (elasped > 40)
 			m_imageIndex = (m_imageIndex+1)%4;
 
 	}

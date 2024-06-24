@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,10 +143,10 @@ public class Model {
 	 */
 
 	public void update(long elapsed) {
-		if((this.victory != null && !this.victory.evalCond(elapsed) || this.victory == null)) {
+		if ((this.victory != null && !this.victory.evalCond(elapsed) || this.victory == null)) {
 			for (World m : this.worlds) {
-				if (m==p1.parent || m==p2.parent || m.chargedIfNoPlayer)
-				m.update(elapsed);
+				if (m == p1.parent || m == p2.parent || m.chargedIfNoPlayer)
+					m.update(elapsed);
 			}
 		}
 		else {
@@ -153,6 +155,7 @@ public class Model {
 	}
 
 	public void paint(Graphics g, int width, int height) {
+
 		if (p1.parent != null) {
 			p1.parent.do_paint(g, width, height, p1);
 
@@ -160,5 +163,17 @@ public class Model {
 		if (p2.parent != null) {
 			p2.parent.do_paint(g, width, height, p2);
 		}
+		TimerCondition tc = victory.getTimer();
+		if(tc != null) {
+			g.setClip(0, 0, width, height);
+			g.setColor(Color.black);
+			Font f = new Font("Arial", 0, 38);
+			g.setFont(f);
+			String message = Long.toString(tc.getTimer()/1000L);
+			int offset = width / 2 - f.getSize()*message.length()/2 + width/100;
+			g.drawString(message,offset,35);
+		}
+		
+
 	}
 }

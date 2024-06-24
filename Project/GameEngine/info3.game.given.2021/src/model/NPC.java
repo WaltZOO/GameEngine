@@ -109,7 +109,7 @@ public class NPC extends Character {
 		if (category == null || category.equals(Category.M)) {
 			return this;
 		}
-		for (World world : m.mondes) {
+		for (World world : m.worlds) {
 			List<Entity> listE = world.qt.updateEntities();
 			if (category.equals(Category.ALL)) {
 				int index = (int) Math.random() * listE.size();
