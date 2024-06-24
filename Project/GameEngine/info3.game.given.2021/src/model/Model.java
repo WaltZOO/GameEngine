@@ -15,6 +15,7 @@ public class Model {
 	public Player p1;
 	public Player p2;
 	final static float pourcenatge_remplissage = 0.7f;
+	boolean isFinished;
 
 	public Model(String configFileName) throws Exception {
 		JSONReader JP = new JSONReader(configFileName);
@@ -26,6 +27,8 @@ public class Model {
 		p1 = JP.getPlayers().get(1);
 		p2 = JP.getPlayers().get(0);
 		int nb_player = 0;
+
+		isFinished = false;
 
 		// on ajoute les mondes au model
 		this.worlds = new ArrayList<World>();
@@ -143,14 +146,13 @@ public class Model {
 	 */
 
 	public void update(long elapsed) {
-		if ((this.victory != null && !this.victory.evalCond(elapsed) || this.victory == null)) {
+		if ((this.victory == null || !this.victory.evalCond(elapsed))) {
 			for (World m : this.worlds) {
 				if (m == p1.parent || m == p2.parent || m.chargedIfNoPlayer)
 					m.update(elapsed);
 			}
-		}
-		else {
-			System.out.println(victory.printVictoryMsg());
+		} else {
+			isFinished = true;
 		}
 	}
 
@@ -163,17 +165,29 @@ public class Model {
 		if (p2.parent != null) {
 			p2.parent.do_paint(g, width, height, p2);
 		}
-		TimerCondition tc = victory.getTimer();
-		if(tc != null) {
-			g.setClip(0, 0, width, height);
-			g.setColor(Color.black);
-			Font f = new Font("Arial", 0, 38);
-			g.setFont(f);
-			String message = Long.toString(tc.getTimer()/1000L);
-			int offset = width / 2 - f.getSize()*message.length()/2 + width/100;
-			g.drawString(message,offset,35);
-		}
 		
+		
+
+		if (isFinished) {
+			g.setClip(0, 0, width, height);
+			g.setColor(Color.RED);
+			Font f = new Font("Arial", 0, 80);
+			g.setFont(f);
+			String message = this.victory.VictoryMsg();
+			int offset = width / 2 - f.getSize() * message.length() / 2 + width / 4 + 10;
+			g.drawString(message, offset, height/2 -100);
+		}else {
+			TimerCondition tc = victory.getTimer();
+			if (tc != null) {
+				g.setClip(0, 0, width, height);
+				g.setColor(Color.black);
+				Font f = new Font("Arial", 0, 38);
+				g.setFont(f);
+				String message = Long.toString(tc.getTimer() / 1000L);
+				int offset = width / 2 - f.getSize() * message.length() / 2 + width / 100;
+				g.drawString(message, offset, 35);
+			}
+		}
 
 	}
 }

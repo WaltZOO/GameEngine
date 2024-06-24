@@ -19,7 +19,7 @@ public class Victory {
 		return this.conditions;
 	}
     
-    public String printVictoryMsg() {
+    public String VictoryMsg() {
     	if (this.msg != null) {
     		return msg;
     	}
