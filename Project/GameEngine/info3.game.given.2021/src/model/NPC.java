@@ -3,24 +3,30 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.List;
 
 import ai.Category;
 import ai.Direction;
 
 public class NPC extends Character {
 
+	Model m;
+
 	public NPC(int x, int y, int speed, String direction, int reach, World dest, String filename,
 			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
-		// TODO Auto-generated constructor stub
 	}
 
 	public NPC(NPC other) throws Exception {
 		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
 				new ArrayList<>(other.pickable), other.team, other.hp, other.damage, new ArrayList<>(other.ennemies),
 				new ArrayList<>(other.allies), other.range, other.name, other.fsm, other.parent);
+	}
+
+	public void setModel(Model m) {
+		this.m = m;
 	}
 
 	@Override
@@ -53,25 +59,25 @@ public class NPC extends Character {
 		if (direction == null)
 			direction = Direction.F;
 		direction = relativeToAbsolue(direction);
-		NPC temp;
+		Entity temp;
 		try {
-			temp = new NPC(this);
+			temp = getEntitybyCat(category);
+			if (temp instanceof NPC) {
+				temp = new NPC((NPC) temp);
+				temp.parent = parent;
+				((NPC) temp).setModel(m);
+			} else if (temp instanceof Bloc) {
+				temp = new Bloc((Bloc) temp);
+				temp.parent = parent;
+			} else {
+				temp = null;
+			}
 		} catch (Exception e) {
 			temp = null;
 			e.printStackTrace();
 		}
-
-		switch (direction) {
-		case Direction.N:
-			temp.y -= dist;
-			break;
-
-		case Direction.S:
-
-			temp.y += dist;
-			break;
-		}
-
+		temp.x=x;
+		temp.y=y;
 		switch (direction) {
 		case Direction.N:
 			temp.y -= dist;
@@ -97,6 +103,39 @@ public class NPC extends Character {
 		if (temp.eval(direction, Category.V, hitbox)) {
 			parent.qt.insert(temp);
 		}
+	}
+
+	private Entity getEntitybyCat(String category) {
+		if (category == null || category.equals(Category.M)) {
+			return this;
+		}
+		for (World world : m.mondes) {
+			List<Entity> listE = world.qt.updateEntities();
+			if (category.equals(Category.ALL)) {
+				int index = (int) Math.random() * listE.size();
+				return listE.get(index);
+			}
+			for (Entity e : listE) {
+
+				switch (category) {
+				case Category.A:
+					if (!allies.contains(e.name)) {
+						return e;
+					}
+					break;
+				case Category.P:
+				case Category.T:
+					if (allies.contains(e.name) && e != this) {
+						return e;
+					}
+					break;
+				case Category.ALL:
+					return e;
+
+				}
+			}
+		}
+		return this;
 	}
 
 	@Override
@@ -204,6 +243,6 @@ public class NPC extends Character {
 	@Override
 	public void do_throw(String direction, String category) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

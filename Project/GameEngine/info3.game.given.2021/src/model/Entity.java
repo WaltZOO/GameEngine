@@ -631,4 +631,6 @@ public abstract class Entity {
 		}
 
 	}
+
+	protected abstract boolean eval(String direction2, String v, int hitbox2);
 }

@@ -66,6 +66,7 @@ public class Model {
 						}
 						for (int j = 0; j < quantity; j++) {
 							NPC tempb = new NPC(b);
+							tempb.setModel(this);
 							tempb.parent = temp;
 							for (WorldConfig tempw : worlds_conf) {
 								if (tempw.world.name.equals(b.dest.name)) {
