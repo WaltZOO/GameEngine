@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,15 +31,17 @@ public class JSONReader {
 		for (int i = 0; i < keysArray.length; i++) {
 			String key = keysArray[i];
 			Object value = jo.get(key);
-			if (!value.toString().contains("sprite") && !value.toString().contains("FSM")) {
+			if (!key.toString().equals("Win") && !value.toString().contains("sprite")
+					&& !value.toString().contains("FSM")) {
 				if (value instanceof JSONObject)
 					worlds_string.add(key);
-			} else if (!value.toString().contains("CanRespawn") && !value.toString().contains("hp")
-					&& value instanceof JSONObject) {
+			} else if (!key.toString().equals("Win") && !value.toString().contains("CanRespawn")
+					&& !value.toString().contains("hp") && value instanceof JSONObject) {
 				blocs_string.add(key);
-			} else if (!value.toString().contains("CanRespawn") && value instanceof JSONObject) {
+			} else if (!key.toString().equals("Win") && !value.toString().contains("CanRespawn")
+					&& value instanceof JSONObject) {
 				npcs_string.add(key);
-			} else if (value instanceof JSONObject) {
+			} else if (!key.toString().equals("Win") && value instanceof JSONObject) {
 				players_string.add(key);
 			}
 		}
@@ -51,22 +52,82 @@ public class JSONReader {
 		return tmp.doubleValue();
 	}
 
-	public Double getTimer() {
-		Number tmp = (Number) jo.get("timer");
-		return tmp.doubleValue();
-	}
+	// public Double getTimer() {
+	// Number tmp = (Number) jo.get("timer");
+	// return tmp.doubleValue();
+	// }
 
 	public int getHitbox() {
 		Number tmp = (Number) jo.get("hitbox");
 		return tmp.intValue();
 	}
 
+	private ArrayList<String> parseEntityNames(JSONArray entityArray) {
+		ArrayList<String> entityNames = new ArrayList<>();
+		for (Object entityName : entityArray) {
+			entityNames.add((String) entityName);
+		}
+		return entityNames;
+	}
+
+	public Victory getVictory() {
+
+		ArrayList<WinCondition> winConditions = new ArrayList<>();
+		TimerCondition timer_cond = null;
+		ArrayList<String> booleanOperations = new ArrayList<String>();
+
+		JSONObject winObject = (JSONObject) jo.get("Win");
+		for (Object key : winObject.keySet()) {
+			if (key.equals("cond_final")) {
+				String condFinal = (String) winObject.get("cond_final");
+				String[] parts = condFinal.split(" ");
+				for (String part : parts) {
+					if (part.equals("||") || part.equals("&&")) {
+						booleanOperations.add(part);
+					}
+				}
+			} else {
+				JSONObject cond = (JSONObject) winObject.get(key);
+				String winMsg = (String) cond.get("win_msg");
+
+				if (key.equals("Timer")) {
+					int timer = ((Number) cond.get("timer")).intValue();
+					winConditions.add(new TimerCondition(winMsg, timer*1000));
+				} else {
+					ArrayList<String> entityNames = new ArrayList<>();
+					boolean isPresent = false;
+					if (cond.containsKey("Entity")) {
+						JSONArray entityArray = (JSONArray) cond.get("Entity");
+						entityNames = parseEntityNames(entityArray);
+						isPresent = Boolean.parseBoolean((String) cond.get("present"));
+					}
+
+					String world = null;
+					if (cond.containsKey("World")) {
+						world = (String) cond.get("World");
+					}
+
+					World world_dest = new World(world);
+					winConditions.add(new EntityCondition(winMsg, world_dest, entityNames, isPresent));
+				}
+			}
+		}
+		Victory v = new Victory(winConditions, booleanOperations, timer_cond);
+
+		return v;
+	}
+
+	public String getFinalCondition() {
+		JSONObject winObject = (JSONObject) jo.get("Win");
+		return (String) winObject.get("cond_final");
+	}
+
 	public ArrayList<Bloc> getBlocs() throws Exception { // Récupération des blocs reconnus
 		ArrayList<Bloc> blocs = new ArrayList<Bloc>();
-		//System.out.println("Blocs :");
+		// System.out.println("Blocs :");
 		for (int i = 0; i < blocs_string.size(); i++) {
 			String bloc = blocs_string.get(i);
-			//System.out.println(blocs_string);
+			// System.out.println(blocs_string);
 			JSONObject blocDetails = (JSONObject) jo.get(bloc);
 			JSONArray position = (JSONArray) blocDetails.get("position");
 			String name = (String) blocDetails.get("name");
@@ -80,9 +141,10 @@ public class JSONReader {
 			Number speed = (Number) blocDetails.get("speed");
 
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
-			World world_dest = new World(getHitbox(),dest);
+			World world_dest = new World(getHitbox(), dest);
 			blocs.add(new Bloc(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(),
-					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm, new World(getHitbox(),"")));
+					speed.intValue(), direction, reach.intValue(), world_dest, sprite, pickable, name, fsm,
+					new World(getHitbox(), "")));
 		}
 		return blocs;
 	}
@@ -91,7 +153,7 @@ public class JSONReader {
 		ArrayList<NPC> npcs = new ArrayList<NPC>();
 		for (int i = 0; i < npcs_string.size(); i++) {
 			String NPC = npcs_string.get(i);
-			//System.out.println(npcs_string);
+			// System.out.println(npcs_string);
 			JSONObject NPCDetails = (JSONObject) jo.get(NPC);
 			JSONArray position = (JSONArray) NPCDetails.get("position");
 			String name = (String) NPCDetails.get("name");
@@ -113,11 +175,11 @@ public class JSONReader {
 			ArrayList<String> pickable = jsonArrayToStringList(pickableArray);
 			ArrayList<String> allies = jsonArrayToStringList(alliesArray);
 			ArrayList<String> enemies = jsonArrayToStringList(enemiesArray);
-			World world_dest = new World(getHitbox(),dest);
+			World world_dest = new World(getHitbox(), dest);
 
 			npcs.add(new NPC(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(), speed.intValue(),
 					direction, reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(),
-					enemies, allies, range.intValue(), name, fsm, new World(getHitbox(),"")));
+					enemies, allies, range.intValue(), name, fsm, new World(getHitbox(), "")));
 
 		}
 		return npcs;
@@ -155,12 +217,12 @@ public class JSONReader {
 			ArrayList<String> allies = jsonArrayToStringList(alliesArray);
 			ArrayList<String> enemies = jsonArrayToStringList(enemiesArray);
 
-			World world_dest = new World(getHitbox(),dest);
+			World world_dest = new World(getHitbox(), dest);
 			ArrayList<Integer> position_int = jsonArrayToIntList(position);
 			players.add(new Player(position_int.get(0), position_int.get(1), speed.intValue(), direction,
 					reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(), enemies,
-					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World(getHitbox(),"")));
-			
+					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World(getHitbox(), "")));
+
 		}
 		return players;
 	}
@@ -176,6 +238,8 @@ public class JSONReader {
 			String parent = (String) worldDetails.get("Parent");
 			JSONArray size = (JSONArray) worldDetails.get("size");
 			JSONArray world_entities = (JSONArray) worldDetails.get("entities");
+			boolean isLoaded = (boolean) Boolean.parseBoolean((String)worldDetails.get("isLoaded"));
+			Number max_entities = (Number) worldDetails.get("max_entities");
 
 			ArrayList<String> categories = new ArrayList<String>();
 			ArrayList<Double> densities = new ArrayList<Double>();
@@ -187,7 +251,8 @@ public class JSONReader {
 				densities.add(entity_density.doubleValue());
 			}
 			ArrayList<Integer> size_int = jsonArrayToIntList(size);
-			worlds_conf.add(new WorldConfig(new World(size_int.get(0), background,getHitbox(),world), categories, densities));
+			worlds_conf.add(
+					new WorldConfig(new World(size_int.get(0), background, getHitbox(), world, isLoaded, max_entities.intValue()), categories, densities));
 		}
 		return worlds_conf;
 	}

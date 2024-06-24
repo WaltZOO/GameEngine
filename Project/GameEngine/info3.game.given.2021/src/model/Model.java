@@ -5,19 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-	double timer;
+	Victory victory;
 	double seed;
 	int hitbox;
 	int nworlds;
-	List<World> worlds;
+	ArrayList<World> worlds;
 	public Player p1;
 	public Player p2;
-	ArrayList<World> mondes;
 	final static float pourcenatge_remplissage = 0.7f;
 
 	public Model(String configFileName) throws Exception {
 		JSONReader JP = new JSONReader(configFileName);
-		this.timer = JP.getTimer();
 		this.seed = JP.getSeed();
 		this.hitbox = JP.getHitbox();
 		List<WorldConfig> worlds_conf = JP.getWorldsConfig();
@@ -28,7 +26,7 @@ public class Model {
 		int nb_player = 0;
 
 		// on ajoute les mondes au model
-		this.mondes = new ArrayList<World>();
+		this.worlds = new ArrayList<World>();
 		for (WorldConfig w : worlds_conf) {
 
 			World temp = w.world;
@@ -111,8 +109,21 @@ public class Model {
 
 				}
 			}
-			mondes.add(temp);
+			worlds.add(temp);
 
+		}
+		this.victory = JP.getVictory();
+		ArrayList<WinCondition> conditions = new ArrayList<WinCondition>();
+		conditions = this.victory.getWinConditions();
+		for(WinCondition wc: conditions) {
+			if(wc instanceof EntityCondition) {
+				EntityCondition ec = (EntityCondition) wc;
+				String name = ec.getWorld().getName();
+				for(World w: worlds) {
+					if(w.getName().equals(name))
+						ec.w = w;
+				}
+			}
 		}
 		System.out.println("Fichier chargé");
 	}
@@ -126,9 +137,11 @@ public class Model {
 	 * m.mondes.get(1).qt.AffichageProfondeur(); }
 	 */
 
-	public void update(long elasped) {
-		for (World m : this.mondes) {
-			m.update(elasped);
+	public void update(long elapsed) {
+		if(!this.victory.evalCond(elapsed)) {
+			for (World m : this.worlds) {
+				m.update(elapsed);
+			}
 		}
 	}
 

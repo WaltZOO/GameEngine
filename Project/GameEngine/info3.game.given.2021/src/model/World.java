@@ -17,7 +17,9 @@ public class World {
 	BufferedImage background;
 	int hitbox;
 	String name;
-
+	boolean isLoaded;
+	int max_entities;
+	
 	static final boolean debug = false;
 
 	public World(int hitbox, String name) {
@@ -26,11 +28,19 @@ public class World {
 		this.name = name;
 	}
 
-	public World(int size, String filename, int hitbox, String name) throws IOException {
+	public World(String name) {
+		size = 0;
+		this.name = name;
+	}
+	
+	public World(int size, String filename, int hitbox, String name, boolean isLoaded, 
+			int max_entities) throws IOException {
 		this.hitbox = hitbox;
 		this.qt = new QuadTree(0, hitbox, new Boundary(0, 0, size, size));
 		this.size = size;
 		this.name = name;
+		this.isLoaded = isLoaded;
+		this.max_entities = max_entities;
 
 		if (filename != null) {
 			File file = new File(filename);
@@ -40,6 +50,10 @@ public class World {
 			background = ImageIO.read(file);
 		}
 
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	public void update(long elasped) {

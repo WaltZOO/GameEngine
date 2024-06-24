@@ -1,7 +1,23 @@
 {
     "seed": 0,
-    "timer": 100000,
-    "hitbox": 4,
+    "hitbox": 1,
+    "Win": {
+        "Cond1": {
+                "Entity": [
+                    "Player2"
+                ],
+                "World": "Bag1",
+            "present" : "true",
+            "win_cond": "cond1",
+            "win_msg": "VICTOIRE DU PLAYER 1 !"
+        },
+        "Timer": {
+		"timer": 20,
+		"win_cond": "timer",
+		"win_msg": "VICTOIRE DU PLAYER 2 !"
+        },
+        "cond_final" : "Cond1 || Timer"
+    },
     "Tree": {
         "name": "Tree",
         "dest": null,
@@ -27,7 +43,7 @@
         "direction": "N",
         "reach": 4,
         "FSM": "./resources/rien.gal",
-        "sprite": "./resources/Tree.png",
+        "sprite": "spriteRock.png",
         "speed": 0
     },
     "Sand": {
@@ -41,7 +57,7 @@
         "direction": "N",
         "reach": 4,
         "FSM": "./resources/rien.gal",
-        "sprite": "./resources/Tree.png",
+        "sprite": "spriteSand.png",
         "speed": 0
     },
     "Cat": {
@@ -54,9 +70,9 @@
         ],
         "direction": "N",
         "reach": 4,
-        "FSM": "./resources/cat.gal",
-        "sprite": "./resources/Cat.png",
-        "speed": 1,
+        "FSM": "./resources/rien.gal",
+        "sprite": "spriteCat.png",
+        "speed": 1.5,
         "team": "Cat",
         "allies": [],
         "hp": 25,
@@ -71,10 +87,10 @@
             0,
             0
         ],
-        "pickable": ["Player1","Player2"],
+        "pickable": [],
         "direction": "N",
-        "reach": 6,
-        "FSM": "./resources/portal.gal",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -85,10 +101,10 @@
             0,
             0
         ],
-        "pickable": ["Player1","Player2"],
+        "pickable": [],
         "direction": "N",
-        "reach": 6,
-        "FSM": "./resources/portal.gal",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -99,10 +115,10 @@
             0,
             0
         ],
-        "pickable": ["Player1","Player2"],
+        "pickable": [],
         "direction": "N",
-        "reach": 6,
-        "FSM": "./resources/portal.gal",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
@@ -113,15 +129,17 @@
             0,
             0
         ],
-        "pickable": ["Player1","Player2"],
+        "pickable": [],
         "direction": "N",
-        "reach": 6,
-        "FSM": "./resources/portal.gal",
+        "reach": 4,
+        "FSM": "./resources/rien.gal",
         "sprite": "./resources/Portal.png",
         "speed": 0
     },
     "TreeWorld": {
         "background": "./resources/TreeWorld.png",
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "size": [
             100,
             100
@@ -139,13 +157,12 @@
                 "type": "PortaltoSand",
                 "density": -1
             },
-          
             {
-                "type": "Player2",
+                "type": "Player1",
                 "density": -1
             },
             {
-                "type": "Player1",
+                "type": "Player2",
                 "density": -1
             }
         ]
@@ -156,6 +173,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Rock",
@@ -177,6 +196,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Sand",
@@ -198,6 +219,8 @@
             100,
             100
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": [
             {
                 "type": "Sand",
@@ -210,12 +233,7 @@
             {
                 "type": "PortaltoSand",
                 "density": -1
-            },
-            {
-                "type": "Cat",
-                "density": 0.1
             }
-
         ]
     },
     "Bag1": {
@@ -225,6 +243,8 @@
             10,
             10
         ],
+        "isLoaded" : "false",
+        "max_entities" : 10,
         "entities": []
     },
     "Player1": {
@@ -240,7 +260,7 @@
             "Player2"
         ],
         "direction": "N",
-        "speed": 3,
+        "speed": 2,
         "sprite": "./resources/Player1.png",
         "CanRespawn": true,
         "reach": 10,
@@ -250,7 +270,7 @@
             "Player2"
         ],
         "allies": [],
-        "range": 80
+        "range": 20
     },
     "Player2": {
         "FSM": "./resources/player2.gal",
@@ -263,7 +283,7 @@
         ],
         "pickable": [],
         "direction": "N",
-        "speed": 2,
+        "speed": 10,
         "sprite": "./resources/Player2.png",
         "CanRespawn": true,
         "reach": 4,
@@ -273,7 +293,6 @@
             "Player1"
         ],
         "allies": [],
-        "range": 60
+        "range": 15
     }
 }
-
