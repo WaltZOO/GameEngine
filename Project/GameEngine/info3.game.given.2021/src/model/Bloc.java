@@ -176,6 +176,12 @@ public class Bloc extends Entity {
 		return false;
 	}
 
+	@Override
+	public void do_throw(String direction, String category) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

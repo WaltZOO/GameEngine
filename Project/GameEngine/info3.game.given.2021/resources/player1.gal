@@ -1,5 +1,6 @@
 Player(Init) {
     *(Init) 
+    | Key(a) & Cell(F) ? Throw(F) : (Init) 
     | Key(r) & Cell(F) ? Hit(F) : (Init)
     | Key(e)  & Cell(F) ? Pick(F) : (Init)
     | Key(z) & Key(q) ? Move(NW) : (Init)

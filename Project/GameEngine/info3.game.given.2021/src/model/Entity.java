@@ -194,7 +194,7 @@ public abstract class Entity {
 
 	public boolean isEntityInDirection(Entity e, String dir) {
 		switch (dir) {
-		
+
 		case Direction.N:
 			if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
 				return true;
@@ -569,7 +569,7 @@ public abstract class Entity {
 			}
 			cpt++;
 
-			for (int i = 2; i < 4; i++) {	
+			for (int i = 2; i < 4; i++) {
 				for (int j = 0; j < cpt; j++) {
 					x += directions[i][0] * hitbox * 0.5;
 					y += directions[i][1] * hitbox * 0.5;
@@ -588,20 +588,18 @@ public abstract class Entity {
 			cpt++;
 		}
 	}
-
+	
+	public abstract void do_throw(String direction, String category);
+	
 	public abstract void do_get();
-
-	// public abstract void do_store();
-
+	
 	public abstract void do_hit(String direction);
-
 
 	public abstract void do_wait();
 
 	public abstract void do_paint(Graphics g, int width, int height, Player p);
-	
-	public abstract void do_egg(String direction, String category);
 
+	public abstract void do_egg(String direction, String category);
 
 	public static BufferedImage[] loadSprite(String filename, int nrows, int ncols) throws IOException {
 		File imageFile = new File(filename);

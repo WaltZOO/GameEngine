@@ -44,51 +44,45 @@ public class NPC extends Character {
 	public void do_egg(String direction, String category) {
 		if (parent.Entity_Cap < parent.qt.nbEntity)
 			return;
-		
+
 		int dist = hitbox + 1;
-		if (direction==null) 
-			direction=Direction.F;
-		direction = relativeToAbsolue(direction);	
+		if (direction == null)
+			direction = Direction.F;
+		direction = relativeToAbsolue(direction);
 		NPC temp;
-			try {
-					temp=new NPC(this);
-				} catch (Exception e) {
-					temp=null;
-					e.printStackTrace();
-				}
-			
-			switch (direction) {
-			case Direction.N:
-					temp.y -= dist;
-					break;
-				
-			case Direction.S:
-	
-					temp.y += dist;
-					break;
+		try {
+			temp = new NPC(this);
+		} catch (Exception e) {
+			temp = null;
+			e.printStackTrace();
+		}
 
-			case Direction.W:
-				
-					temp.x += dist;
-					break;
+		switch (direction) {
+		case Direction.N:
+			temp.y -= dist;
+			break;
 
-			case Direction.E:
-			
-					temp.x -= dist;
-					break;
-			default:
-				break;
-			}
+		case Direction.S:
+
+			temp.y += dist;
+			break;
+
+		case Direction.W:
+
+			temp.x += dist;
+			break;
+
+		case Direction.E:
+
+			temp.x -= dist;
+			break;
+		default:
+			break;
+		}
 		if (temp.eval(direction, Category.V, hitbox)) {
 			parent.qt.insert(temp);
-			
+
 		}
-	}
-
-	@Override
-	public void do_turn(String direction) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -100,6 +94,12 @@ public class NPC extends Character {
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
 		super.do_paint(g, width, height, p);
+	}
+
+	@Override
+	public void do_throw(String direction, String category) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

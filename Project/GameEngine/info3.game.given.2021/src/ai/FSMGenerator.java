@@ -98,125 +98,127 @@ public class FSMGenerator implements IVisitor {
 		}
 		Object a;
 		switch (funcall.name) {
-			// ACTIONS ----------------------------
-			case "Move": {
-				if (direction != null) {
-					a = new Move(direction);
+		// ACTIONS ----------------------------
+		case "Move": {
+			if (direction != null) {
+				a = new Move(direction);
+			} else {
+				a = new Move();
+			}
+			break;
+		}
+		case "Pick": {
+			if (direction != null) {
+				a = new Pick(direction);
+			} else {
+				a = new Pick();
+			}
+			break;
+		}
+		case "Hit": {
+			if (direction != null) {
+				a = new Hit(direction);
+			} else {
+				a = new Hit();
+			}
+			break;
+		}
+		case "Turn": {
+			if (direction != null) {
+				a = new Turn(direction);
+			} else {
+				a = new Turn();
+			}
+			break;
+		}
+		case "Get": {
+			a = new Get();
+			break;
+		}
+		case "Egg": {
+			if (direction != null) {
+				if (category != null) {
+					a = new Egg(direction, category);
 				} else {
-					a = new Move();
+					a = new Egg(direction, true);
 				}
-				break;
-			}
-			case "Pick": {
-				if (direction != null) {
-					a = new Pick(direction);
+			} else {
+				if (category != null) {
+					a = new Egg(category, false);
 				} else {
-					a = new Pick();
+					a = new Egg();
 				}
-				break;
 			}
-			case "Hit": {
-				if (direction != null) {
-					a = new Hit(direction);
-				} else {
-					a = new Hit();
-				}
-				break;
-			}
-			case "Turn": {
-				if (direction != null) {
-					a = new Turn(direction);
-				} else {
-					a = new Turn();
-				}
-				break;
-			}
-			case "Get": {
-				a = new Get();
-				break;
-			}
-			case "Egg": {
-				if (direction != null) {
-					if (category!=null) {
-						a= new Egg(direction, category);
-					}
-					else {
-						a = new Egg(direction, true);
-					}	
-				} else {
-					if (category!=null) {
-						a=new Egg(category,false);
-					}
-					else {
-						a = new Egg();
-					}
-				}
-				break;
-			}
-			case "Wait": {
-				a = new Wait();
-				break;
+			break;
+		}
+		case "Throw": {
+			a = new Throw(direction, category);
+			break;
+		}
+		case "Wait": {
+			a = new Wait();
+			break;
 
+		}
+
+		// CONDITIONS ----------------------------
+
+		case "Cell": {
+			if (direction != null) {
+				if (category != null) {
+					a = new Cell(direction, category);
+				} else {
+					a = new Cell(direction, true);
+				}
+			} else {
+				if (category != null) {
+					a = new Cell(category, false);
+				} else {
+					a = new Cell();
+				}
+			}
+			break;
+		}
+		case "Closest": {
+			if (direction != null) {
+				if (category != null) {
+					a = new Closest(direction, category);
+				} else {
+					a = new Closest(direction, true);
+				}
+			} else {
+				if (category != null) {
+					a = new Closest(category, false);
+				} else {
+					a = new Closest();
+				}
 			}
 
-			// CONDITIONS ----------------------------
+			break;
+		}
+		case "Key": {
+			if (key != null) {
+				a = new ai.Key(key);
+			} else {
+				a = new ai.Key();
+			}
+			break;
 
-			case "Cell": {
-				if (direction != null) {
-					if (category != null) {
-						a = new Cell(direction, category);
-					} else {
-						a = new Cell(direction, true);
-					}
-				} else {
-					if (category != null) {
-						a = new Cell(category, false);
-					} else {
-						a = new Cell();
-					}
-				}
-				break;
+		}
+		case "MyDir": {
+			if (direction != null) {
+				a = new MyDir(direction);
+			} else {
+				a = new MyDir();
 			}
-			case "Closest": {
-				if (direction != null) {
-					if (category != null) {
-						a = new Closest(direction, category);
-					} else {
-						a = new Closest(direction, true);
-					}
-				} else {
-					if (category != null) {
-						a = new Closest(category, false);
-					} else {
-						a = new Closest();
-					}
-				}
-
-				break;
-			}
-			case "Key": {
-				if (key != null) {
-					a = new ai.Key(key);
-				} else {
-					a = new ai.Key();
-				}
-				break;
-
-			}
-			case "MyDir": {
-				if (direction != null) {
-					a = new MyDir(direction);
-				} else {
-					a = new MyDir();
-				}
-				break;
-			}
-			case "True": {
-				a = new True();
-				break;
-			}
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + funcall.name);
+			break;
+		}
+		case "True": {
+			a = new True();
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + funcall.name);
 
 		}
 

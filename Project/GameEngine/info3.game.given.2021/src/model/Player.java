@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import ai.Category;
+import ai.Direction;
+
 public class Player extends Character {
 	boolean isPlayer1;
 	boolean canRespawn;
@@ -36,16 +39,16 @@ public class Player extends Character {
 		this.canRespawn = other.canRespawn;
 	}
 
-	
-	
-	@Override 
+	@Override
 	public void do_die() {
 		parent.qt.remove(this);
-		if(canRespawn)
+		if (canRespawn) {
+			this.setHp(100);
 			parent.random_insert(this);
-		else 
+		} else {
 			parent = null;
-		
+		}
+
 	}
 
 	@Override
@@ -63,13 +66,63 @@ public class Player extends Character {
 	@Override
 	public void do_wait() {
 		// TODO Auto-generated method stub
-
 	}
-	
-	public void do_paint(Graphics g, int width, int height, Player p) {
-		if(this.parent == null)
-			return;
+
+	public void do_throw(String direction, String category) {
+		ArrayList<Entity> ListE = (ArrayList<Entity>) dest.qt.updateEntities();
+		int dist = hitbox+1;
 		
+		if (direction == null)
+			direction = Direction.F;
+		if (category == null)
+			category = Category.ALL;
+		direction = relativeToAbsolue(direction);
+
+		Player temp;
+		
+		try {
+			temp = new Player(this);
+		} catch (Exception e) {
+			temp = null;
+			e.printStackTrace();
+		}
+
+		switch (direction) {
+		case Direction.N:
+			temp.y -= dist;
+			break;
+
+		case Direction.S:
+			temp.y += dist;
+			break;
+
+		case Direction.W:
+			temp.x += dist;
+			break;
+
+		case Direction.E:
+			temp.x -= dist;
+			break;
+		default:
+			break;
+		}
+		
+		for(Entity e : ListE) {
+			if(pickable.contains(e.name)) {
+				if (temp.eval(direction, Category.V, hitbox)) {
+					e.x = temp.x;
+					e.y = temp.y;
+					parent.qt.insert(e);
+					e.parent = this.parent;
+				}
+			}
+		}
+	}
+
+	public void do_paint(Graphics g, int width, int height, Player p) {
+		if (this.parent == null)
+			return;
+
 		// scale
 		float scale = (float) height / p.range;
 
@@ -148,6 +201,5 @@ public class Player extends Character {
 		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 
 	}
-
 
 }

@@ -141,7 +141,6 @@ public abstract class Character extends Entity {
 	}
 
 	void setHp(int hp) {
-		System.out.print(hp);
 		if (hp <= 0) {
 			this.do_die();
 		}
@@ -170,7 +169,6 @@ public abstract class Character extends Entity {
 
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
-
 
 		// scale
 		float scale = (float) height / p.range;

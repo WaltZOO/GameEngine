@@ -217,6 +217,7 @@ public class QuadTree {
 	 * 
 	 * }
 	 */
+	
 	// Update all Entities in the QuadTree*/
 	public List<Entity> updateEntities() {
 		if (NW == null) {
