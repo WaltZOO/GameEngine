@@ -97,11 +97,11 @@ public class Player extends Character {
 			break;
 
 		case Direction.W:
-			temp.x += dist;
+			temp.x -= dist;
 			break;
 
 		case Direction.E:
-			temp.x -= dist;
+			temp.x += dist;
 			break;
 		default:
 			break;
@@ -110,10 +110,12 @@ public class Player extends Character {
 		for(Entity e : ListE) {
 			if(pickable.contains(e.name)) {
 				if (temp.eval(direction, Category.V, hitbox)) {
+					e.parent.qt.remove(e);
 					e.x = temp.x;
 					e.y = temp.y;
 					parent.qt.insert(e);
 					e.parent = this.parent;
+					return;
 				}
 			}
 		}

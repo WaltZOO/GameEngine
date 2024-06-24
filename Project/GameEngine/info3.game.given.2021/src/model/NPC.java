@@ -69,12 +69,12 @@ public class NPC extends Character {
 
 		case Direction.W:
 
-			temp.x += dist;
+			temp.x -= dist;
 			break;
 
 		case Direction.E:
 
-			temp.x -= dist;
+			temp.x += dist;
 			break;
 		default:
 			break;
