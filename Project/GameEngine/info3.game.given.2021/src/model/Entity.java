@@ -621,9 +621,10 @@ public abstract class Entity {
 
 	public void update(long elasped) {
 		this.elasped += elasped;
-		if (this.elasped > 70) {
+		if (this.elasped > 80) {
 			if (this instanceof Player) {
 				((Player) this).isRunning = false;
+				((Player) this).ishitting = false;
 			}
 			fsm.step(this);
 			this.elasped = 0;

@@ -19,6 +19,7 @@ public class Player extends Character {
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
 				
+				
 		isRunning = false;
 
 		this.isPlayer1 = isPlayer1;
@@ -39,12 +40,11 @@ public class Player extends Character {
 	public void do_die() {
 		parent.qt.remove(this);
 		if (canRespawn) {
-			this.setHp(100);
 			parent.random_insert(this);
+			hp = maxHp;
 		} else {
 			parent = null;
 		}
-
 	}
 
 	@Override
@@ -115,96 +115,6 @@ public class Player extends Character {
 				}
 			}
 		}
-	}
-
-	public void do_paint(Graphics g, int width, int height, Player p) {
-		if (this.parent == null)
-			return;
-
-		// scale
-		float scale = (float) height / p.range;
-
-		// offsetside
-		int offsetside = 0;
-		if (p != null) {
-			if (p.isPlayer1) {
-				offsetside = -width / 4;
-			} else {
-				offsetside = width / 4;
-			}
-		}
-
-		int posxInWindow = (int) ((x - p.x) * scale + width / 2);
-		int posyInWindow = (int) ((y - p.y) * scale + height / 2);
-		int sizex = (int) (hitbox * scale);
-		/*
-		// On dessine la hitbox
-		if (this.isPlayer1) {
-			g.setColor(Color.GREEN);
-		} else {
-			g.setColor(Color.RED);
-		}
-		
-		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
-		*/
-
-		// On dessine le sprite
-		boolean isWest = false;
-		switch (direction) {
-		case "N":
-			m_imageIndex = 2;
-			if (isRunning) {
-				m_imageIndex = 5;
-			}
-			break;
-		case "S":
-		case "SW":
-		case "SE":
-			m_imageIndex = 0;
-			if (isRunning) {
-				m_imageIndex = 3;
-			}
-			break;
-		case "W":
-		case "NW":
-			isWest = true;
-			m_imageIndex = 1;
-			if (isRunning) {
-				m_imageIndex = 4;
-			}
-			break;
-		case "E":
-		case "NE":
-			m_imageIndex = 1;
-			if (isRunning) {
-				m_imageIndex = 4;
-			}
-			break;
-
-		default:
-			break;
-		}
-		
-		sizex = (int) (sizex * 1.8);
-		
-		if (isWest) {
-			g.drawImage(sprites[m_imageIndex * 6 + col_sprite], posxInWindow + offsetside + sizex / 2,
-					posyInWindow - 4 * sizex / 6, -sizex, sizex, null);
-		} else {
-			g.drawImage(sprites[m_imageIndex * 6 + col_sprite], posxInWindow + offsetside - sizex / 2,
-					posyInWindow - 4 * sizex / 6, sizex, sizex, null);
-		}
-		
-		// on change le sprite
-		if (elasped > 80)
-			col_sprite = (col_sprite+1)%6;
-
-		// dessin de la reach
-		Color c = new Color(100,100,100,40);
-		g.setColor(c);
-		sizex = (int) (reach * scale);
-		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
-
 	}
 
 }

@@ -241,7 +241,7 @@
         ],
         "direction": "N",
         "speed": 3,
-        "sprite": "./resources/Player1.png",
+        "sprite": "./resources/Boss.png",
         "CanRespawn": true,
         "reach": 10,
         "dest": "Bag1",
