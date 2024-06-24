@@ -24,12 +24,6 @@ public class NPC extends Character {
 	}
 
 	@Override
-	public void do_move(String direction2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void do_pick(String direction) {
 		// TODO Auto-generated method stub
 
@@ -51,7 +45,6 @@ public class NPC extends Character {
 	public void do_egg(String direction, String category) {
 		if (parent.Entity_Cap < parent.qt.nbEntity)
 			return;
-
 
 		int dist = hitbox + 1;
 		if (direction == null)
@@ -77,11 +70,6 @@ public class NPC extends Character {
 
 			temp.y += dist;
 			break;
-		try {
-			temp = new NPC(this);
-		} catch (Exception e) {
-			temp = null;
-			e.printStackTrace();
 		}
 
 		switch (direction) {
@@ -108,8 +96,6 @@ public class NPC extends Character {
 		}
 		if (temp.eval(direction, Category.V, hitbox)) {
 			parent.qt.insert(temp);
-
-
 		}
 	}
 
@@ -213,5 +199,11 @@ public class NPC extends Character {
 		if (col_sprite > 3) {
 			ishitting = false;
 		}
+	}
+
+	@Override
+	public void do_throw(String direction, String category) {
+		// TODO Auto-generated method stub
+		
 	}
 }

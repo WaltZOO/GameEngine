@@ -150,7 +150,6 @@ public abstract class Character extends Entity {
 	}
 
 	void setHp(int hp) {
-		System.out.print(hp);
 		this.hp = hp;
 		if (hp <= 0) {
 			this.do_die();
@@ -280,11 +279,18 @@ public abstract class Character extends Entity {
 		g.drawOval(posxInWindow + offsetside - sizex / 2 + 1, posyInWindow - sizex / 2 + 1, sizex - 2, sizex - 2);
 
 		// dessin de la vie
+
+		int sizehp = (int) (sizex * hp) / maxHp;
+
 		c = Color.red;
 		g.setColor(c);
-		int sizehp = (int) (sizex * hp) / maxHp;
-		g.drawLine(posxInWindow + offsetside - sizex / 2, posyInWindow + sizex / 3,
-				posxInWindow + offsetside - sizex / 2 + sizehp, posyInWindow + sizex / 3);
+		g.drawLine(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2,
+				posxInWindow + offsetside - sizex / 2 + sizehp, posyInWindow - sizex / 2);
+		g.drawLine(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2 + 1,
+				posxInWindow + offsetside - sizex / 2 + sizehp, posyInWindow - sizex / 2 + 1);
+		c = Color.black;
+		g.setColor(c);
+		g.drawRect((posxInWindow + offsetside - sizex / 2) - 1, (posyInWindow - sizex / 2) - 1, sizex+1, 3);
 	}
 
 }
