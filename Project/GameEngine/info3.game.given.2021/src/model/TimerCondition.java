@@ -9,14 +9,14 @@ public class TimerCondition implements WinCondition {
         this.timer = timer;
     }
 
-    public String getMsg() {
-        return this.msg;
-    }
-
     public long getTimer() {
         return timer;
     }
 
+    @Override
+    public String getMsg() {
+    	return msg;
+    }
     
 	@Override
 	public boolean evalCond(long elapsed) {

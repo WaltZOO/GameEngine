@@ -2,6 +2,7 @@
     "seed": 0,
     "hitbox": 5,
     "Win": {
+    	"msg": "Victoire",
         "Cond1": {
                 "Entity": [
                     "Zombie"
@@ -9,7 +10,7 @@
                 "World": "Niveau_1",
             "present" : "false",
             "win_cond": "cond1",
-            "win_msg": "VICTOIRE DU PLAYER 1 !"
+            "win_msg": ""
         },
         "Cond2": {
                 "Entity": [
@@ -18,7 +19,7 @@
                 "World": "Niveau_2",
             "present" : "false",
             "win_cond": "cond2",
-            "win_msg": "VICTOIRE DU PLAYER 1 !"
+            "win_msg": " "
         },
         "Cond3": {
                 "Entity": [
@@ -27,8 +28,9 @@
                 "World": "Niveau_final",
             "present" : "false",
             "win_cond": "cond1",
-            "win_msg": "VICTOIRE DU PLAYER 1 !"
+            "win_msg": " "
         },
+        "msg" : "Victoire des players",
         "cond_final" : "Cond1 && Cond2 && Cond3"
     },
     "Zombie": {

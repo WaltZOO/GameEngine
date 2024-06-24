@@ -4,17 +4,32 @@ import java.util.ArrayList;
 
 public class Victory {
 
+	String msg;
     ArrayList<WinCondition> conditions;
     ArrayList<String> ops;
     long elapsed;
 
-    Victory(ArrayList<WinCondition> conditions, ArrayList<String> ops, TimerCondition timerCond) {
+    Victory(String msg, ArrayList<WinCondition> conditions, ArrayList<String> ops) {
         this.conditions = conditions;
         this.ops = ops;
+        this.msg = msg;
     }
 
     public ArrayList<WinCondition> getWinConditions(){
     	return this.conditions;
+    }
+    
+    public String printVictoryMsg() {
+    	if (this.msg != null) {
+    		return msg;
+    	}
+    	else {
+    		for(WinCondition wc: conditions) {
+    			if(wc.evalCond(elapsed))
+    				return wc.getMsg();
+    		}
+    	}
+    	return " ";
     }
     
     boolean evalCond(long elapsed) {

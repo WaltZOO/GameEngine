@@ -16,6 +16,7 @@ public class EntityCondition implements WinCondition {
         this.present = present;
     }
     
+    @Override
     public String getMsg() {
     	return msg;
     }

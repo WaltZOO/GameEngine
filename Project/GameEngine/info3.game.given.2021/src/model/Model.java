@@ -127,7 +127,7 @@ public class Model {
 				}
 			}
 		}
-		System.out.println("Fichier chargÃ©");
+		System.out.println("Fichier chargé");
 	}
 
 	/*
@@ -145,6 +145,9 @@ public class Model {
 				if (m==p1.parent || m==p2.parent || m.chargedIfNoPlayer)
 				m.update(elapsed);
 			}
+		}
+		else {
+			System.out.println(victory.printVictoryMsg());
 		}
 	}
 

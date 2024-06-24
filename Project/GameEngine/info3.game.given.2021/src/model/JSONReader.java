@@ -73,15 +73,20 @@ public class JSONReader {
 	public Victory getVictory() {
 
 		ArrayList<WinCondition> winConditions = new ArrayList<>();
-		TimerCondition timer_cond = null;
 		ArrayList<String> booleanOperations = new ArrayList<String>();
+		String msg = null;
 
 		JSONObject winObject = (JSONObject) jo.get("Win");
 		if (winObject == null)
 			return null;
 		for (Object key : winObject.keySet()) {
-			if (key.equals("cond_final")) {
+			if(key.equals("msg")) {
+				msg = (String) winObject.get(key);
+			}
+			else if (key.equals("cond_final")) {
 				String condFinal = (String) winObject.get("cond_final");
+				if(condFinal.isEmpty())
+                    return null;
 				String[] parts = condFinal.split(" ");
 				for (String part : parts) {
 					if (part.equals("||") || part.equals("&&")) {
@@ -114,7 +119,7 @@ public class JSONReader {
 				}
 			}
 		}
-		Victory v = new Victory(winConditions, booleanOperations, timer_cond);
+		Victory v = new Victory(msg, winConditions, booleanOperations);
 
 		return v;
 	}
@@ -236,7 +241,7 @@ public class JSONReader {
 			JSONArray size = (JSONArray) worldDetails.get("size");
 			JSONArray world_entities = (JSONArray) worldDetails.get("entities");
 			boolean isLoaded = (boolean) Boolean.parseBoolean((String)worldDetails.get("isLoaded"));
-			Number max_entities = (Number) worldDetails.get("max_entwities");
+			Number max_entities = (Number) worldDetails.get("max_entities");
 			if(max_entities == null)
 				max_entities = 0;
 
