@@ -9,7 +9,7 @@
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="audio"/>
 	<classpathentry kind="src" path="game"/>
-	<classpathentry kind="lib" path="resources/json-20240303.jar"/>
-	<classpathentry kind="lib" path="resources/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="resources/json/json-20240303.jar"/>
+	<classpathentry kind="lib" path="resources/json/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

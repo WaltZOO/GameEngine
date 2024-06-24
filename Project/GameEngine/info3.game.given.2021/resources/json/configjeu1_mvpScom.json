@@ -30,8 +30,8 @@
         "speed": 1,
         "direction": "N",
         "reach": 4,
-        "FSM": "./resources/rien.gal",
-        "sprite": "./resources/Tree.png"
+        "FSM": "./resources/gal/rien.gal",
+        "sprite": "./resources/png/Tree.png"
     },
     "Rock": {
         "name": "Rock",
@@ -43,8 +43,8 @@
         ],
         "direction": "N",
         "reach": 4,
-        "FSM": "./resources/rien.gal",
-        "sprite": "./resources/Tree.png",
+        "FSM": "./resources/gal/rien.gal",
+        "sprite": "./resources/png/Tree.png",
         "speed": 0
     },
     "Sand": {
@@ -57,8 +57,8 @@
         ],
         "direction": "N",
         "reach": 4,
-        "FSM": "./resources/rien.gal",
-        "sprite": "./resources/Tree.png",
+        "FSM": "./resources/gal/rien.gal",
+        "sprite": "./resources/png/Tree.png",
         "speed": 0
     },
     "Cat": {
@@ -71,8 +71,8 @@
         ],
         "direction": "N",
         "reach": 4,
-        "FSM": "./resources/cat.gal",
-        "sprite": "./resources/Cat.png",
+        "FSM": "./resources/gal/cat.gal",
+        "sprite": "./resources/png/Cat.png",
         "speed": 1,
         "team": "Cat",
         "allies": ["Cat"],
@@ -91,8 +91,8 @@
         "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Portal.png",
         "speed": 0
     },
     "PortaltoTree": {
@@ -105,8 +105,8 @@
         "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Portal.png",
         "speed": 0
     },
     "PortaltoCat": {
@@ -119,8 +119,8 @@
         "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Portal.png",
         "speed": 0
     },
     "PortaltoSand": {
@@ -133,12 +133,12 @@
         "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Portal.png",
         "speed": 0
     },
     "TreeWorld": {
-        "background": "./resources/TreeWorld.png",
+        "background": "./resources/png/TreeWorld.png",
         "size": [
             100,
             100
@@ -170,7 +170,7 @@
         ]
     },
     "RockWorld": {
-        "background": "./resources/RockWorld.png",
+        "background": "./resources/png/RockWorld.png",
         "size": [
             100,
             100
@@ -193,7 +193,7 @@
         ]
     },
     "SandWorld": {
-        "background": "./resources/SandWorld.png",
+        "background": "./resources/png/SandWorld.png",
         "size": [
             100,
             100
@@ -216,7 +216,7 @@
         ]
     },
     "CatWorld": {
-        "background": "./resources/CatWorld.png",
+        "background": "./resources/png/CatWorld.png",
         "size": [
             100,
             100
@@ -245,7 +245,7 @@
     },
     "Bag1": {
         "background": null,
-        "background": "./resources/BagWorld.png",
+        "background": "./resources/png/BagWorld.png",
         "size": [
             10,
             10
@@ -255,7 +255,7 @@
         "entities": []
     },
     "Player1": {
-        "FSM": "./resources/player1.gal",
+        "FSM": "./resources/gal/player1.gal",
         "name": "Player1",
         "hp": 100,
         "damage": 10,
@@ -268,7 +268,7 @@
         ],
         "direction": "N",
         "speed": 3,
-        "sprite": "./resources/Boss.png",
+        "sprite": "./resources/png/Boss.png",
         "CanRespawn": true,
         "reach": 10,
         "dest": "Bag1",
@@ -281,7 +281,7 @@
         "range": 80
     },
     "Player2": {
-        "FSM": "./resources/player2.gal",
+        "FSM": "./resources/gal/player2.gal",
         "name": "Player2",
         "hp": 100,
         "damage": 5,
@@ -292,7 +292,7 @@
         "pickable": [],
         "direction": "N",
         "speed": 2,
-        "sprite": "./resources/Player2.png",
+        "sprite": "./resources/png/Player2.png",
         "CanRespawn": true,
         "reach": 10,
         "dest": null,
