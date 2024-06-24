@@ -12,11 +12,11 @@
             "win_msg": "VICTOIRE DU PLAYER 1 !"
         },
         "Timer": {
-		"timer": 30,
+		"timer": 3,
 		"win_cond": "timer",
 		"win_msg": "VICTOIRE DU PLAYER 2 !"
         },
-        "cond_final" : "Cond1 || Timer"
+        "cond_final" : "Cond1"
     },
 
     "Tree": {
@@ -144,7 +144,7 @@
             100
         ],
         "isLoaded" : "false",
-        "max_entities" : 10,
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Tree",
@@ -176,7 +176,7 @@
             100
         ],
         "isLoaded" : "false",
-        "max_entities" : 10,
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Rock",
@@ -199,7 +199,7 @@
             100
         ],
         "isLoaded" : "false",
-        "max_entities" : 10,
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Sand",
@@ -222,7 +222,7 @@
             100
         ],
         "isLoaded" : "false",
-        "max_entities" : 10,
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Sand",
@@ -250,8 +250,8 @@
             10,
             10
         ],
-        "isLoaded" : "false",
-        "max_entities" : 10,
+        "isLoaded" : "true",
+        "max_entities" : 100,
         "entities": []
     },
     "Player1": {

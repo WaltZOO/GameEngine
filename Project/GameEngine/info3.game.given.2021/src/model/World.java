@@ -20,7 +20,7 @@ public class World {
 	int Entity_Cap;
 	boolean chargedIfNoPlayer;
 
-	static final boolean debug = false;
+	static final boolean debug = true;
 
 	public World(int hitbox, String name) {
 		size = 0;

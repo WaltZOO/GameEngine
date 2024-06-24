@@ -20,7 +20,8 @@ public class TimerCondition implements WinCondition {
     
 	@Override
 	public boolean evalCond(long elapsed) {
-		timer -= elapsed;
+		if (elapsed<1000)
+			timer -= elapsed;
 		if(timer <= 0) {
 			return true;
 		}

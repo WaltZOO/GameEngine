@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class Model {
 	Victory victory;
 	double seed;
@@ -16,8 +18,14 @@ public class Model {
 	public Player p2;
 	final static float pourcenatge_remplissage = 0.7f;
 	boolean isFinished;
+	String configFileName;
 
 	public Model(String configFileName) throws Exception {
+		initGame(configFileName);
+	}
+
+	public void initGame(String configFileName) throws Exception {
+		this.configFileName = configFileName;
 		JSONReader JP = new JSONReader(configFileName);
 		this.seed = JP.getSeed();
 		this.hitbox = JP.getHitbox();
@@ -135,7 +143,6 @@ public class Model {
 		}
 		System.out.println("Fichier chargé");
 	}
-
 	/*
 	 * public static void main(String args[]) throws IOException, ParseException {
 	 * Model m = new Model(0,0); m.Init_Game();
@@ -165,18 +172,31 @@ public class Model {
 		if (p2.parent != null) {
 			p2.parent.do_paint(g, width, height, p2);
 		}
-		
-		
 
 		if (isFinished) {
-			g.setClip(0, 0, width, height);
-			g.setColor(Color.RED);
-			Font f = new Font("Arial", 0, 80);
-			g.setFont(f);
-			String message = this.victory.VictoryMsg();
-			int offset = width / 2 - f.getSize() * message.length() / 2 + width / 4 + 10;
-			g.drawString(message, offset, height/2 -100);
-		}else {
+			/*
+			 * g.setClip(0, 0, width, height); g.setColor(Color.RED); Font f = new
+			 * Font("Arial", 0, 80); g.setFont(f); String message =
+			 * this.victory.VictoryMsg(); int offset = width / 2 - f.getSize() *
+			 * message.length() / 2 + width / 4 + 10; g.drawString(message, offset, height/2
+			 * -100);
+			 */
+			String[] options = { "Femer", "Rejouer" };
+
+			// Affiche la boîte de dialogue et récupère le choix de l'utilisateur
+			int choix = JOptionPane.showOptionDialog(null, this.victory.VictoryMsg(), "Titre de la Boîte de Dialogue",
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+			if (choix == 1) {
+				try {
+					initGame(this.configFileName);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				System.exit(0);
+			}
+		} else {
 			TimerCondition tc = victory.getTimer();
 			if (tc != null) {
 				g.setClip(0, 0, width, height);
