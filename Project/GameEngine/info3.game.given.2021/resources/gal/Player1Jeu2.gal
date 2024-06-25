@@ -1,0 +1,14 @@
+Player(Init) {
+    *(Init) 
+    | Key(a) & Cell(F) ? Hit(F) : (Init)
+    | Key(z) & Key(q) ? Move(NW) : (Init)
+    | Key(z) & Key(d) ? Move(NE) : (Init)
+    | Key(s) & Key(q) ? Move(SW) : (Init)
+    | Key(s) & Key(d) ? Move(SE) : (Init)
+    | Key(z) ? Move(N) : (Init)
+    | Key(q) ? Move(W) : (Init)
+    | Key(s) ? Move(S) : (Init)
+    | Key(d) ? Move(E) : (Init)
+    
+    | True ? Wait : (Init)
+}

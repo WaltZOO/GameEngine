@@ -1,37 +1,45 @@
 {
     "seed": 0,
-    "hitbox": 5,
+    "hitbox": 4,
     "Win": {
-    	"msg": "Victoire",
+        "msg": "Victoire",
         "Cond1": {
-                "Entity": [
-                    "Zombie"
-                ],
-                "World": "Niveau_1",
-            "present" : "false",
+            "Entity": [
+                "Zombie"
+            ],
+            "World": "Niv1",
+            "present": "false",
             "win_cond": "cond1",
             "win_msg": ""
         },
         "Cond2": {
-                "Entity": [
-                    "Zombie"
-                ],
-                "World": "Niveau_2",
-            "present" : "false",
+            "Entity": [
+                "Zombie"
+            ],
+            "World": "Niv2",
+            "present": "false",
             "win_cond": "cond2",
             "win_msg": " "
         },
         "Cond3": {
-                "Entity": [
-                    "Zombie"
-                ],
-                "World": "Niveau_final",
-            "present" : "false",
-            "win_cond": "cond1",
+            "Entity": [
+                "Zombie"
+            ],
+            "World": "NivFinal",
+            "present": "false",
+            "win_cond": "cond3",
             "win_msg": " "
         },
-        "msg" : "Victoire des players",
-        "cond_final" : "Cond1 && Cond2 && Cond3"
+        "Cond4": {
+            "Entity": [
+                "Boss"
+            ],
+            "World": "NivFinal",
+            "present": "false",
+            "win_cond": "cond4",
+            "win_msg": " "
+        },
+        "cond_final": "Cond1 && Cond2 && Cond3 && Cond4"
     },
     "Zombie": {
         "name": "Zombie",
@@ -53,24 +61,10 @@
             "Boss"
         ],
         "pickable": [],
-        "FSM": "./resources/zombie.gal",
-        "sprite": "./resources/Skeleton.png",
+        "FSM": "./resources/gal/cat.gal",
+        "sprite": "./resources/png/Skeleton.png",
         "range": 10,
         "reach": 3
-    },
-    "Rock": {
-        "name": "Rock",
-        "dest": null,
-        "pickable": [],
-        "position": [
-            0,
-            0
-        ],
-        "direction": "N",
-        "reach": 3,
-        "FSM": "./resources/rien.gal",
-        "sprite": "./resources/Rock.png",
-        "speed": 0
     },
     "Boss": {
         "name": "Boss",
@@ -92,14 +86,28 @@
             "Zombie"
         ],
         "pickable": [],
-        "FSM": "./resources/boss.gal",
-        "sprite": "./resources/Boss.png",
-        "range": 15,
-        "reach": 5
+        "FSM": "./resources/gal/boss.gal",
+        "sprite": "./resources/png/Boss.png",
+        "range": 300,
+        "reach": 10
     },
-    "PortalTo1": {
-        "name": "PortalTo1",
-        "dest": "Niveau_1",
+    "Magasin": {
+        "name": "Magasin",
+        "dest": null,
+        "pickable": [],
+        "position": [
+            0,
+            0
+        ],
+        "speed": 1,
+        "direction": "N",
+        "reach": 4,
+        "FSM": "./resources/gal/rien.gal",
+        "sprite": "./resources/png/Magasin.png"
+    },
+    "PortaltoNiv1": {
+        "name": "PortaltoNiv1",
+        "dest": "Niv1",
         "position": [
             0,
             0
@@ -109,14 +117,14 @@
             "Player2"
         ],
         "direction": "N",
-        "reach": 3,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "reach": 6,
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Pickup.png",
         "speed": 0
     },
-    "PortalTo2": {
-        "name": "PortalTo2",
-        "dest": "Niveau_2",
+    "PortaltoNiv2": {
+        "name": "PortaltoNiv2",
+        "dest": "Niv2",
         "position": [
             0,
             0
@@ -126,14 +134,14 @@
             "Player2"
         ],
         "direction": "N",
-        "reach": 3,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "reach": 6,
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Pickup.png",
         "speed": 0
     },
-    "PortalToFinal": {
-        "name": "PortalToFinal",
-        "dest": "Niveau_final",
+    "PortaltoNivFinal": {
+        "name": "PortaltoNivFinal",
+        "dest": "NivFinal",
         "position": [
             0,
             0
@@ -143,85 +151,89 @@
             "Player2"
         ],
         "direction": "N",
-        "reach": 3,
-        "FSM": "./resources/portal.gal",
-        "sprite": "./resources/Portal.png",
+        "reach": 6,
+        "FSM": "./resources/gal/portal.gal",
+        "sprite": "./resources/png/Pickup.png",
         "speed": 0
     },
-    "Spawn": {
-        "background": "./resources/RockWorld.png",
+    "spawn": {
+        "background": "./resources/png/Jeu2m1.png",
         "size": [
-            10,
-            10
+            150,
+            150
         ],
+        "isLoaded": "false",
+        "max_entities": 10,
         "entities": [
             {
-                "type": "Player1",
-                "density": 1
+                "type": "PortaltoNiv1",
+                "density": -1
             },
             {
                 "type": "Player2",
-                "density": 1
+                "density": -1
             },
             {
-                "type": "Portalto1",
+                "type": "Player1",
                 "density": -1
             }
         ]
     },
-    "Niveau_1": {
-        "background": "./resources/RockWorld.png",
+    "Niv1": {
+        "background": "./resources/png/Jeu2m2.png",
         "size": [
-            100,
-            100
+            150,
+            150
         ],
+        "isLoaded": "false",
+        "max_entities": 10,
         "entities": [
             {
-                "type": "Zombie",
-                "density": 0.1
+                "type": "PortaltoNiv2",
+                "density": -1
             },
             {
-                "type": "Rock",
-                "density": 0.1
-            },           
+                "type": "Zombie",
+                "density": 0.03
+            },
             {
-                "type": "Portalto2",
-                "density": -1
+                "type": "Magasin",
+                "density": 0.01
             }
         ]
     },
-    "Niveau_2": {
-        "background": "./resources/RockWorld.png",
+    "Niv2": {
+        "background": "./resources/png/Jeu2m3.png",
         "size": [
-            100,
-            100
+            200,
+            200
         ],
+        "isLoaded": "false",
+        "max_entities": 10,
         "entities": [
             {
-                "type": "Zombie",
-                "density": 0.1
+                "type": "PortaltoNivFinal",
+                "density": -1
             },
             {
-                "type": "Rock",
-                "density": 0.1
-            },     
+                "type": "Zombie",
+                "density": 0.04
+            },
             {
-                "type": "PortaltoFinal",
-                "density": -1
+                "type": "Magasin",
+                "density": 0.01
             }
         ]
     },
-    "Niveau_final": {
-        "background": "./resources/RockWorld.png",
+    "NivFinal": {
+        "background": "./resources/png/Jeu2m4.png",
         "size": [
             100,
             100
         ],
+        "isLoaded": "false",
+        "max_entities": 30,
         "entities": [
-            {
-                "type": "Zombie",
-                "density": 0.1
-            },
             {
                 "type": "Rock",
                 "density": 0.1
@@ -233,7 +245,7 @@
         ]
     },
     "Player1": {
-        "FSM": "./resources/player1.gal",
+        "FSM": "./resources/gal/Player1Jeu2.gal",
         "name": "Player1",
         "hp": 100,
         "damage": 10,
@@ -241,41 +253,47 @@
             0,
             0
         ],
-        "pickable": null,
+        "pickable": [
+            "Player2"
+        ],
         "direction": "N",
         "speed": 3,
-        "sprite": "./resources/Player1.png",
+        "sprite": "./resources/png/Player1.png",
         "CanRespawn": true,
-        "reach": 3,
+        "reach": 10,
         "dest": null,
         "team": "Player1",
         "enemies": [
-            "Player2"
+            "Player2",
+            "Zombie",
+            "Boss"
         ],
         "allies": [],
-        "range": 15
+        "range": 100
     },
     "Player2": {
-        "FSM": "./resources/player2.gal",
-        "name": "Player1",
+        "FSM": "./resources/gal/player2.gal",
+        "name": "Player2",
         "hp": 100,
-        "damage": 10,
+        "damage": 5,
         "position": [
             0,
             0
         ],
-        "pickable": null,
+        "pickable": [],
         "direction": "N",
         "speed": 3,
-        "sprite": "./resources/Player2.png",
+        "sprite": "./resources/png/Player2.png",
         "CanRespawn": true,
-        "reach": 3,
+        "reach": 10,
         "dest": null,
         "team": "Player2",
         "enemies": [
-            "Player1"
+            "Player1",
+            "Zombie",
+            "Boss"
         ],
         "allies": [],
-        "range": 15
+        "range": 100
     }
 }

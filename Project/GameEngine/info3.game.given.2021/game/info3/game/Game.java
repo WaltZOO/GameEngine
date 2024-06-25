@@ -52,9 +52,9 @@ public class Game {
 	JLabel m_text;
 	GameCanvas m_canvas;
 	CanvasListener m_listener;
-	//Cowboy m_cowboy;
+	// Cowboy m_cowboy;
 	Sound m_music;
-	Model model;
+	public Model model;
 	int seed = 1738;
 	int timer = 10000;
 	Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -62,8 +62,8 @@ public class Game {
 	Game() throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
-		//m_cowboy = new Cowboy();
-		model = new Model("./resources/json/configjeu1_mvpScom.json");
+		// m_cowboy = new Cowboy();
+		model = new Model("./resources/json/configjeu2_mvpScom.json");
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
@@ -117,8 +117,8 @@ public class Game {
 		m_musicName = m_musicNames[m_musicIndex];
 		String filename = "resources/" + m_musicName + ".ogg";
 		m_musicIndex = (m_musicIndex + 1) % m_musicNames.length;
-		try { 
-			RandomAccessFile file = new RandomAccessFile(filename,"r");
+		try {
+			RandomAccessFile file = new RandomAccessFile(filename, "r");
 			RandomFileInputStream fis = new RandomFileInputStream(file);
 			m_canvas.playMusic(fis, 0, 1.0F);
 		} catch (Throwable th) {
@@ -128,7 +128,7 @@ public class Game {
 	}
 
 	private int m_musicIndex = 0;
-	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" }; 
+	private String[] m_musicNames = new String[] { "Runaway-Food-Truck" };
 
 	private long m_textElapsed;
 
@@ -136,7 +136,7 @@ public class Game {
 	 * This method is invoked almost periodically, given the number of milli-seconds
 	 * that elapsed since the last time this method was invoked.
 	 */
-	void tick(long elapsed) {
+	public void tick(long elapsed) {
 
 		model.update(elapsed);
 
@@ -160,11 +160,11 @@ public class Game {
 	 * This request is to paint the Game Canvas, using the given graphics. This is
 	 * called from the GameCanvasListener, called from the GameCanvas.
 	 */
-	void paint(Graphics g) {
+	public void paint(Graphics g) {
 
 		// get the size of the canvas
 		int width = m_frame.getWidth();
-		int height = m_frame.getHeight() -52;
+		int height = m_frame.getHeight() - 52;
 
 		// erase background
 		g.setColor(Color.gray);
@@ -172,7 +172,7 @@ public class Game {
 
 		// paint
 		model.paint(g, width, height);
-		
+
 	}
 
 }
