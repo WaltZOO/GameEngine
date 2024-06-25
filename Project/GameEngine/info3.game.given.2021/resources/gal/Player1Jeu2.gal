@@ -1,10 +1,22 @@
 Player(Init) {
     *(Init) 
+    | Key(z) & Key(q) & Key(a) ? Hit(NW);Move(NW) : (Init)
+    | Key(z) & Key(d) & Key(a) ? Hit(NE);Move(NE) : (Init)
+    | Key(s) & Key(q) & Key(a) ? Hit(SW);Move(SW) : (Init)
+    | Key(s) & Key(d) & Key(a) ? Hit(SE);Move(SE) : (Init)
+    
+    | Key(z) & Key(a) ? Hit(N);Move(N) : (Init)
+    | Key(q) & Key(a) ? Hit(W);Move(W) : (Init)
+    | Key(s) & Key(a) ? Hit(S);Move(S) : (Init)
+    | Key(d) & Key(a) ? Hit(E);Move(E) : (Init)
+
     | Key(a) & Cell(F) ? Hit(F) : (Init)
+
     | Key(z) & Key(q) ? Move(NW) : (Init)
     | Key(z) & Key(d) ? Move(NE) : (Init)
     | Key(s) & Key(q) ? Move(SW) : (Init)
     | Key(s) & Key(d) ? Move(SE) : (Init)
+
     | Key(z) ? Move(N) : (Init)
     | Key(q) ? Move(W) : (Init)
     | Key(s) ? Move(S) : (Init)
