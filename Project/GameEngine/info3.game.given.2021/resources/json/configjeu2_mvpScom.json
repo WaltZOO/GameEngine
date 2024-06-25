@@ -270,7 +270,7 @@
         "range": 100
     },
     "Player2": {
-        "FSM": "./resources/gal/player2.gal",
+        "FSM": "./resources/gal/Player2Jeu2.gal",
         "name": "Player2",
         "hp": 100,
         "damage": 5,
