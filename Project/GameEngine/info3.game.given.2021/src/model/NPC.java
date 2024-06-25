@@ -29,17 +29,7 @@ public class NPC extends Character {
 		this.m = m;
 	}
 
-	@Override
-	public void do_pick(String direction) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void do_hit(String direction) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void do_get() {

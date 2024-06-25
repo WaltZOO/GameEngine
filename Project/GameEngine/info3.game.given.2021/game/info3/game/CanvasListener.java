@@ -111,8 +111,8 @@ public class CanvasListener implements GameCanvasListener {
 				this.m_game.model.p1.keys.add("FR");
 			}
 		} else {
-			if (!this.m_game.model.p1.keys.contains(e.getKeyChar() + "")) {
-				this.m_game.model.p1.keys.add(e.getKeyChar() + "");
+			if (!this.m_game.model.p1.keys.contains((e.getKeyChar() + "").toLowerCase())) {
+				this.m_game.model.p1.keys.add((e.getKeyChar() + "").toLowerCase());
 			}
 
 		}
@@ -134,8 +134,8 @@ public class CanvasListener implements GameCanvasListener {
 				this.m_game.model.p2.keys.add("FR");
 			}
 		} else {
-			if (!this.m_game.model.p2.keys.contains(e.getKeyChar() + "")) {
-				this.m_game.model.p2.keys.add(e.getKeyChar() + "");
+			if (!this.m_game.model.p2.keys.contains((e.getKeyChar() + "").toLowerCase())) {
+				this.m_game.model.p2.keys.add((e.getKeyChar() + "").toLowerCase());
 			}
 		}
 		
@@ -148,12 +148,12 @@ public class CanvasListener implements GameCanvasListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// System.out.println("Key released: "+e.getKeyChar()+" code="+e.getKeyCode());
-		if (this.m_game.model.p1.keys.contains(e.getKeyChar() + "")) {
-			this.m_game.model.p1.keys.remove(e.getKeyChar() + "");
+		if (this.m_game.model.p1.keys.contains((e.getKeyChar() + "").toLowerCase())) {
+			this.m_game.model.p1.keys.remove((e.getKeyChar() + "").toLowerCase());
 		}
 		
-		if (this.m_game.model.p2.keys.contains(e.getKeyChar() + "")) {
-			this.m_game.model.p2.keys.remove(e.getKeyChar() + "");
+		if (this.m_game.model.p2.keys.contains((e.getKeyChar() + "").toLowerCase())) {
+			this.m_game.model.p2.keys.remove((e.getKeyChar() + "").toLowerCase());
 		}
 		
 		if (e.getKeyCode() == 38) {
