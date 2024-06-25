@@ -94,30 +94,22 @@ public class NPC extends Character {
 		if (category == null || category.equals(Category.M)) {
 			return this;
 		}
-		for (World world : m.worlds) {
-			List<Entity> listE = world.qt.updateEntities();
-			if (category.equals(Category.ALL)) {
-				int index = (int) Math.random() * listE.size();
-				return listE.get(index);
-			}
-			for (Entity e : listE) {
-
-				switch (category) {
-				case Category.A:
-					if (!allies.contains(e.name)) {
-						return e;
-					}
-					break;
-				case Category.P:
-				case Category.T:
-					if (allies.contains(e.name) && e != this) {
-						return e;
-					}
-					break;
-				case Category.ALL:
+		for (Entity e : m.allInstances) {
+			switch (category) {
+			case Category.A:
+				if (!allies.contains(e.name)) {
 					return e;
-
 				}
+				break;
+			case Category.P:
+			case Category.T:
+				if (allies.contains(e.name) && e != this) {
+					return e;
+				}
+				break;
+			case Category.ALL:
+				return e;
+
 			}
 		}
 		return this;

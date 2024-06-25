@@ -19,6 +19,7 @@ public class Model {
 	final static float pourcenatge_remplissage = 0.7f;
 	boolean isFinished;
 	String configFileName;
+	ArrayList<Entity> allInstances;
 
 	public Model(String configFileName) throws Exception {
 		initGame(configFileName);
@@ -31,6 +32,7 @@ public class Model {
 		this.hitbox = JP.getHitbox();
 		List<WorldConfig> worlds_conf = JP.getWorldsConfig();
 		this.nworlds = worlds_conf.size();
+		allInstances = new ArrayList<Entity>();
 
 		p1 = JP.getPlayers().get(1);
 		p2 = JP.getPlayers().get(0);
@@ -53,8 +55,9 @@ public class Model {
 							quantity = (int) (((temp.size * temp.size) / (hitbox * hitbox * 3))
 									* pourcenatge_remplissage * w.densities.get(i));
 						}
+						Bloc tempb = new Bloc(b);
 						for (int j = 0; j < quantity; j++) {
-							Bloc tempb = new Bloc(b);
+							tempb = new Bloc(b);
 							tempb.parent = temp;
 							for (WorldConfig tempw : worlds_conf) {
 								if (tempw.world.name.equals(b.dest.name)) {
@@ -64,6 +67,7 @@ public class Model {
 							}
 							temp.random_insert(tempb);
 						}
+						allInstances.add(new Bloc(tempb));
 
 					}
 
@@ -77,8 +81,9 @@ public class Model {
 							quantity = (int) (((temp.size * temp.size) / (hitbox * hitbox * 3))
 									* pourcenatge_remplissage * w.densities.get(i));
 						}
+						NPC tempb = new NPC(b);
 						for (int j = 0; j < quantity; j++) {
-							NPC tempb = new NPC(b);
+							tempb = new NPC(b);
 							tempb.setModel(this);
 							tempb.parent = temp;
 							for (WorldConfig tempw : worlds_conf) {
@@ -89,6 +94,7 @@ public class Model {
 							}
 							temp.random_insert(tempb);
 						}
+						allInstances.add(tempb);
 
 					}
 
