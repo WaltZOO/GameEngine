@@ -55,6 +55,9 @@ public abstract class Character extends Entity {
 	}
 
 	public boolean eval(String dir, String cat, int radius) {
+		if (parent==null) {
+			return false;
+		}
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
 		if (cat != null && cat.equals(Category.V)) {
 			if (listE.isEmpty())

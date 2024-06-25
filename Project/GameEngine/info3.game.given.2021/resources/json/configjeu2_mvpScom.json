@@ -63,7 +63,7 @@
         "pickable": [],
         "FSM": "./resources/gal/zombie.gal",
         "sprite": "./resources/png/Skeleton.png",
-        "range": 500,
+        "range": 100,
         "reach": 5
     },
     "Boss": {
@@ -247,7 +247,7 @@
     "Player1": {
         "FSM": "./resources/gal/Player1Jeu2.gal",
         "name": "Player1",
-        "hp": 100,
+        "hp": 1000,
         "damage": 10,
         "position": [
             0,
@@ -259,7 +259,7 @@
         "direction": "N",
         "speed": 3,
         "sprite": "./resources/png/Player1.png",
-        "CanRespawn": true,
+        "CanRespawn": false,
         "reach": 10,
         "dest": null,
         "team": "Player1",
