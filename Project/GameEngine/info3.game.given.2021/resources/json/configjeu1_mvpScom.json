@@ -3,21 +3,22 @@
     "hitbox": 4,
     "Win": {
         "Cond1": {
-            "Entity": [
-                "Player2"
-            ],
-            "World": "Bag1",
-            "present": "true",
+                "Entity": [
+                    "Player2"
+                ],
+                "World": "Bag1",
+            "present" : "true",
             "win_cond": "cond1",
             "win_msg": "VICTOIRE DU PLAYER 1 !"
         },
         "Timer": {
-            "timer": 30,
-            "win_cond": "timer",
-            "win_msg": "VICTOIRE DU PLAYER 2 !"
+		"timer": 30,
+		"win_cond": "timer",
+		"win_msg": "VICTOIRE DU PLAYER 2 !"
         },
-        "cond_final": "Cond1"
+        "cond_final" : "Cond1 || timer"
     },
+
     "Tree": {
         "name": "Tree",
         "dest": null,
@@ -73,10 +74,7 @@
         "FSM": "./resources/gal/cat.gal",
         "sprite": "./resources/png/Cat.png",
         "speed": 1,
-        "team": "Cat",
-        "allies": [
-            "Cat"
-        ],
+        "allies": ["Cat"],
         "hp": 20,
         "damage": 0,
         "enemies": [],
@@ -89,10 +87,7 @@
             0,
             0
         ],
-        "pickable": [
-            "Player1",
-            "Player2"
-        ],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
         "FSM": "./resources/gal/portal.gal",
@@ -106,10 +101,7 @@
             0,
             0
         ],
-        "pickable": [
-            "Player1",
-            "Player2"
-        ],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
         "FSM": "./resources/gal/portal.gal",
@@ -123,10 +115,7 @@
             0,
             0
         ],
-        "pickable": [
-            "Player1",
-            "Player2"
-        ],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
         "FSM": "./resources/gal/portal.gal",
@@ -140,10 +129,7 @@
             0,
             0
         ],
-        "pickable": [
-            "Player1",
-            "Player2"
-        ],
+        "pickable": ["Player1","Player2"],
         "direction": "N",
         "reach": 6,
         "FSM": "./resources/gal/portal.gal",
@@ -156,8 +142,8 @@
             100,
             100
         ],
-        "isLoaded": "false",
-        "max_entities": 100,
+        "isLoaded" : "false",
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Tree",
@@ -171,6 +157,7 @@
                 "type": "PortaltoSand",
                 "density": -1
             },
+          
             {
                 "type": "Player2",
                 "density": -1
@@ -187,8 +174,8 @@
             100,
             100
         ],
-        "isLoaded": "false",
-        "max_entities": 100,
+        "isLoaded" : "false",
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Rock",
@@ -210,8 +197,8 @@
             100,
             100
         ],
-        "isLoaded": "false",
-        "max_entities": 100,
+        "isLoaded" : "false",
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Sand",
@@ -233,8 +220,8 @@
             100,
             100
         ],
-        "isLoaded": "false",
-        "max_entities": 100,
+        "isLoaded" : "false",
+        "max_entities" : 100,
         "entities": [
             {
                 "type": "Sand",
@@ -252,16 +239,18 @@
                 "type": "Cat",
                 "density": 0.1
             }
+
         ]
     },
     "Bag1": {
+        "background": null,
         "background": "./resources/png/BagWorld.png",
         "size": [
             10,
             10
         ],
-        "isLoaded": "true",
-        "max_entities": 100,
+        "isLoaded" : "true",
+        "max_entities" : 100,
         "entities": []
     },
     "Player1": {
@@ -282,7 +271,6 @@
         "CanRespawn": true,
         "reach": 10,
         "dest": "Bag1",
-        "team": "Player1",
         "enemies": [
             "Player2",
             "Cat"
@@ -306,7 +294,6 @@
         "CanRespawn": true,
         "reach": 10,
         "dest": null,
-        "team": "Player2",
         "enemies": [
             "Player1",
             "Cat"

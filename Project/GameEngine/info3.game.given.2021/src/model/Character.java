@@ -10,7 +10,6 @@ import ai.Direction;
 import ai.FSM;
 
 public abstract class Character extends Entity {
-	String team;
 	int hp;
 	public int maxHp;
 	int damage;
@@ -22,7 +21,7 @@ public abstract class Character extends Entity {
 	int col_sprite;
 
 	public Character(int x, int y, int speed, String direction, int reach, World dest, String filename,
-			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> pickable,  int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
@@ -33,14 +32,13 @@ public abstract class Character extends Entity {
 		this.ennemies = ennemies;
 		this.allies = allies;
 		this.range = range;
-		this.team = team;
 
 		sprites = loadSprite(filename, 10, 6);
 		col_sprite = 0;
 	}
 
 	public Character(int x, int y, int speed, String direction, int reach, World dest, BufferedImage[] filename,
-			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> pickable, int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, FSM fsm, World parent) throws Exception {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, name, fsm, parent);
@@ -51,19 +49,21 @@ public abstract class Character extends Entity {
 		this.ennemies = ennemies;
 		this.allies = allies;
 		this.range = range;
-		this.team = team;
 	}
 
 	public boolean eval(String dir, String cat, int radius) {
 		if (parent==null) {
 			return false;
 		}
+		if (dir.equals(Direction.F) || dir.equals(Direction.L) || dir.equals(Direction.R) || dir.equals(Direction.B))
+			dir = relativeToAbsolue(dir);
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
 		if (cat != null && cat.equals(Category.V)) {
-			if (listE.isEmpty())
-				return true;
-			else
-				return false;
+			for (Entity e : listE) {
+				if (isEntityInDirection(e, dir) && e!=this)
+					return false;
+			}
+			return true;
 		}
 		ArrayList<Entity> listE_tri_cat = new ArrayList<Entity>();
 		for (Entity e : listE) {
@@ -105,8 +105,7 @@ public abstract class Character extends Entity {
 
 			return true;
 		}
-		if (dir.equals(Direction.F) || dir.equals(Direction.L) || dir.equals(Direction.R) || dir.equals(Direction.B))
-			dir = relativeToAbsolue(dir);
+		
 
 		for (Entity e : listE_tri_cat) {
 			if (isEntityInDirection(e, dir))
@@ -122,6 +121,8 @@ public abstract class Character extends Entity {
 	}
 
 	public boolean eval_cell(String dir, String cat) {
+		if (cat!=null && cat.equals(Category.V))
+			return eval(dir,cat,hitbox*2);
 		return eval(dir, cat, reach);
 	}
 

@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +13,23 @@ public class NPC extends Character {
 	Model m;
 
 	public NPC(int x, int y, int speed, String direction, int reach, World dest, String filename,
-			ArrayList<String> pickable, String team, int hp, int damage, ArrayList<String> ennemies,
+			ArrayList<String> pickable,  int hp, int damage, ArrayList<String> ennemies,
 			ArrayList<String> allies, int range, String name, String fsm, World parent) throws Exception {
-		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
+		super(x, y, speed, direction, reach, dest, filename, pickable, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
 	}
 
 	public NPC(NPC other) throws Exception {
 		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
-				new ArrayList<>(other.pickable), other.team, other.hp, other.damage, new ArrayList<>(other.ennemies),
+				new ArrayList<>(other.pickable), other.hp, other.damage, new ArrayList<>(other.ennemies),
 				new ArrayList<>(other.allies), other.range, other.name, other.fsm, other.parent);
 	}
 
 	public void setModel(Model m) {
 		this.m = m;
 	}
+
+
 
 	@Override
 	public void do_get() {
@@ -40,9 +43,6 @@ public class NPC extends Character {
 			return;
 
 		int dist = hitbox + 1;
-		if (direction == null)
-			direction = Direction.F;
-		direction = relativeToAbsolue(direction);
 		if (direction == null)
 			direction = Direction.F;
 		direction = relativeToAbsolue(direction);
@@ -63,33 +63,31 @@ public class NPC extends Character {
 			temp = null;
 			e.printStackTrace();
 		}
-		temp.x = x;
-		temp.y = y;
+		temp.x=x;
+		temp.y=y;
 		switch (direction) {
-			case Direction.N:
-				temp.y -= dist;
-				break;
+		case Direction.N:
+			temp.y -= dist;
+			break;
 
-			case Direction.S:
+		case Direction.S:
 
-				temp.y += dist;
-				break;
+			temp.y += dist;
+			break;
 
-			case Direction.W:
+		case Direction.W:
 
-				temp.x += dist;
-				break;
+			temp.x += dist;
+			break;
 
-			case Direction.E:
+		case Direction.E:
 
-				temp.x -= dist;
-				break;
-			default:
-				break;
+			temp.x -= dist;
+			break;
+		default:
+			break;
 		}
-		if (temp.eval(direction, Category.V, hitbox)) {
-			parent.qt.insert(temp);
-		}
+		spawnSpiral(temp,temp.x, temp.y);
 	}
 
 	private Entity getEntitybyCat(String category) {
@@ -105,19 +103,19 @@ public class NPC extends Character {
 			for (Entity e : listE) {
 
 				switch (category) {
-					case Category.A:
-						if (!allies.contains(e.name)) {
-							return e;
-						}
-						break;
-					case Category.P:
-					case Category.T:
-						if (allies.contains(e.name) && e != this) {
-							return e;
-						}
-						break;
-					case Category.ALL:
+				case Category.A:
+					if (!allies.contains(e.name)) {
 						return e;
+					}
+					break;
+				case Category.P:
+				case Category.T:
+					if (allies.contains(e.name) && e != this) {
+						return e;
+					}
+					break;
+				case Category.ALL:
+					return e;
 
 				}
 			}
@@ -159,54 +157,54 @@ public class NPC extends Character {
 		// On dessine le sprite
 		boolean isWest = false;
 		switch (direction) {
-			case "N":
-				m_imageIndex = 2;
-				if (isRunning) {
-					m_imageIndex = 5;
-				}
-				if (ishitting) {
-					m_imageIndex = 8;
-					col_sprite = col_sprite % 4;
-				}
-				break;
-			case "S":
-			case "SW":
-			case "SE":
-				m_imageIndex = 0;
-				if (isRunning) {
-					m_imageIndex = 3;
-				}
-				if (ishitting) {
-					m_imageIndex = 6;
-					col_sprite = col_sprite % 4;
-				}
-				break;
-			case "W":
-			case "NW":
-				isWest = true;
-				m_imageIndex = 1;
-				if (isRunning) {
-					m_imageIndex = 4;
-				}
-				if (ishitting) {
-					m_imageIndex = 7;
-					col_sprite = col_sprite % 4;
-				}
-				break;
-			case "E":
-			case "NE":
-				m_imageIndex = 1;
-				if (isRunning) {
-					m_imageIndex = 4;
-				}
-				if (ishitting) {
-					m_imageIndex = 7;
-					col_sprite = col_sprite % 4;
-				}
-				break;
+		case "N":
+			m_imageIndex = 2;
+			if (isRunning) {
+				m_imageIndex = 5;
+			}
+			if (ishitting) {
+				m_imageIndex = 8;
+				col_sprite = col_sprite % 4;
+			}
+			break;
+		case "S":
+		case "SW":
+		case "SE":
+			m_imageIndex = 0;
+			if (isRunning) {
+				m_imageIndex = 3;
+			}
+			if (ishitting) {
+				m_imageIndex = 6;
+				col_sprite = col_sprite % 4;
+			}
+			break;
+		case "W":
+		case "NW":
+			isWest = true;
+			m_imageIndex = 1;
+			if (isRunning) {
+				m_imageIndex = 4;
+			}
+			if (ishitting) {
+				m_imageIndex = 7;
+				col_sprite = col_sprite % 4;
+			}
+			break;
+		case "E":
+		case "NE":
+			m_imageIndex = 1;
+			if (isRunning) {
+				m_imageIndex = 4;
+			}
+			if (ishitting) {
+				m_imageIndex = 7;
+				col_sprite = col_sprite % 4;
+			}
+			break;
 
-			default:
-				break;
+		default:
+			break;
 		}
 
 		sizex = (int) (sizex * 1.8);

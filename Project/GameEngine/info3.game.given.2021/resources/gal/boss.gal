@@ -1,26 +1,20 @@
 Boss(Init){
 	*(Init)
 
-	| Cell(N,A) ? Hit(N) ; Egg(T) :(Init)
-	| Cell(E,A) ? Hit(E) ; Egg(T) :(Init)
-	| Cell(S,A) ? Hit(S) ; Egg(T) :(Init)
-	| Cell(W,A) ? Hit(W) ; Egg(T) :(Init)
+	| Cell(N,A) ? Hit(N) ; Egg(B,T) :(Init)
+	| Cell(E,A) ? Hit(E) ; Egg(B,T) :(Init)
+	| Cell(S,A) ? Hit(S) ; Egg(B,T) :(Init)
+	| Cell(W,A) ? Hit(W) ; Egg(B,T) :(Init)
 
-	| Cell(NE,A) ? Hit(NE) ; Egg(T) :(Init)
-	| Cell(SE,A) ? Hit(SE) ; Egg(T) :(Init)
-	| Cell(SW,A) ? Hit(SW) ; Egg(T) :(Init)
-	| Cell(NW,A) ? Hit(NW) ; Egg(T) :(Init)
-
-
-	| Closest(A,N) ? Move(N) : (Init)
-	| Closest(A,E) ? Move(E) : (Init)
-	| Closest(A,S) ? Move(S) : (Init)
-	| Closest(A,W) ? Move(W) : (Init)
-
-	| Closest(A,NE) ? Move(NE) : (Init)
-	| Closest(A,SE) ? Move(SE) : (Init)
-	| Closest(A,SW) ? Move(SW) : (Init)
-	| Closest(A,NW) ? Move(NW) : (Init)
+	|Closest(A,N) & Cell(V,N)? Move(N) /80%Wait: (Init)
+	| Closest(A,E) & Cell(V,E)? Move(E) /80%Wait: (Init)
+	| Closest(A,S) & Cell(V,S)? Move(S)/80%Wait : (Init)
+	| Closest(A,W) & Cell(V,W)? Move(W)/80%Wait : (Init)
+	
+	| Closest(A,NE) & Cell(NE,V)? Move(NE) : (Init)
+	| Closest(A,SE) & Cell(SE,V)? Move(SE) : (Init)
+	| Closest(A,SW) & Cell(SW,V)? Move(SW) : (Init)
+	| Closest(A,NW) & Cell(NW,V)? Move(NW) : (Init)
 
 	| True() ? :(Init)
 }

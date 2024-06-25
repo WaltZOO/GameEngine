@@ -169,7 +169,6 @@ public class JSONReader {
 			Number hp = (Number) NPCDetails.get("hp");
 			String dest = (String) NPCDetails.get("dest");
 			JSONArray pickableArray = (JSONArray) NPCDetails.get("pickable");
-			String team = (String) NPCDetails.get("team");
 			Number range = (Number) NPCDetails.get("range");
 			JSONArray alliesArray = (JSONArray) NPCDetails.get("allies");
 			JSONArray enemiesArray = (JSONArray) NPCDetails.get("enemies");
@@ -180,7 +179,7 @@ public class JSONReader {
 			World world_dest = new World(getHitbox(), dest);
 
 			npcs.add(new NPC(((Long) position.get(0)).intValue(), ((Long) position.get(1)).intValue(), speed.intValue(),
-					direction, reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(),
+					direction, reach.intValue(), world_dest, sprite, pickable, hp.intValue(), damage.intValue(),
 					enemies, allies, range.intValue(), name, fsm, new World(getHitbox(), "")));
 
 		}
@@ -207,7 +206,6 @@ public class JSONReader {
 			Number range = (Number) playerDetails.get("range");
 			JSONArray pickableArray = (JSONArray) playerDetails.get("pickable");
 			String dest = (String) playerDetails.get("dest");
-			String team = (String) playerDetails.get("team");
 			JSONArray alliesArray = (JSONArray) playerDetails.get("allies");
 			JSONArray enemiesArray = (JSONArray) playerDetails.get("enemies");
 
@@ -222,7 +220,7 @@ public class JSONReader {
 			World world_dest = new World(getHitbox(), dest);
 			ArrayList<Integer> position_int = jsonArrayToIntList(position);
 			players.add(new Player(position_int.get(0), position_int.get(1), speed.intValue(), direction,
-					reach.intValue(), world_dest, sprite, pickable, team, hp.intValue(), damage.intValue(), enemies,
+					reach.intValue(), world_dest, sprite, pickable, hp.intValue(), damage.intValue(), enemies,
 					allies, range.intValue(), name, isPlayer1, can_respawn, fsm, new World(getHitbox(), "")));
 
 		}

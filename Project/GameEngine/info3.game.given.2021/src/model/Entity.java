@@ -3,9 +3,14 @@ package model;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.awt.Color;
+
+import ai.Category;
 import ai.Direction;
 import ai.FSM;
 import ai.FSMGenerator;
@@ -188,48 +193,48 @@ public abstract class Entity {
 	public boolean isEntityInDirection(Entity e, String dir) {
 		switch (dir) {
 
-			case Direction.N:
-				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-					return true;
-				}
-				break;
-			case Direction.S:
-				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-					return true;
-				}
-				break;
-			case Direction.E:
-				if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-					return true;
-				}
-				break;
-			case Direction.W:
-				if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-					return true;
-				}
-				break;
-			case Direction.NE:
-				if (e.x >= x && e.y <= y) {
-					return true;
-				}
-				break;
-			case Direction.NW:
-				if (e.x <= x && e.y <= y) {
-					return true;
-				}
-				break;
-			case Direction.SE:
-				if (e.x >= x && e.y >= y) {
-					return true;
-				}
-				break;
-			case Direction.SW:
-				if (e.x <= x && e.y >= y) {
-					return true;
-				}
-				break;
-			default:
-				break;
+		case Direction.N:
+			if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+				return true;
+			}
+			break;
+		case Direction.S:
+			if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+				return true;
+			}
+			break;
+		case Direction.E:
+			if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+				return true;
+			}
+			break;
+		case Direction.W:
+			if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+				return true;
+			}
+			break;
+		case Direction.NE:
+			if (e.x >= x && e.y <= y) {
+				return true;
+			}
+			break;
+		case Direction.NW:
+			if (e.x <= x && e.y <= y) {
+				return true;
+			}
+			break;
+		case Direction.SE:
+			if (e.x >= x && e.y >= y) {
+				return true;
+			}
+			break;
+		case Direction.SW:
+			if (e.x <= x && e.y >= y) {
+				return true;
+			}
+			break;
+		default:
+			break;
 		}
 		return false;
 	}
@@ -242,94 +247,94 @@ public abstract class Entity {
 	public String relativeToAbsolue(String d) {
 
 		switch (direction) {
-			case Direction.N:
-				switch (d) {
-					case Direction.R:
-						return Direction.E;
-					case Direction.L:
-						return Direction.W;
-					case Direction.B:
-						return Direction.S;
-					default:
-						return Direction.N;
-				}
-			case Direction.S:
-				switch (d) {
-					case Direction.R:
-						return Direction.W;
-					case Direction.L:
-						return Direction.E;
-					case Direction.B:
-						return Direction.N;
-					default:
-						return Direction.S;
-				}
-			case Direction.E:
-				switch (d) {
-					case Direction.R:
-						return Direction.S;
-					case Direction.L:
-						return Direction.N;
-					case Direction.B:
-						return Direction.W;
-					default:
-						return Direction.E;
-				}
-			case Direction.W:
-				switch (d) {
-					case Direction.R:
-						return Direction.N;
-					case Direction.L:
-						return Direction.S;
-					case Direction.B:
-						return Direction.E;
-					default:
-						return Direction.W;
-				}
-			case Direction.NW:
-				switch (d) {
-					case Direction.R:
-						return Direction.NE;
-					case Direction.L:
-						return Direction.SW;
-					case Direction.B:
-						return Direction.SE;
-					default:
-						return Direction.NW;
-				}
-			case Direction.NE:
-				switch (d) {
-					case Direction.R:
-						return Direction.SE;
-					case Direction.L:
-						return Direction.NW;
-					case Direction.B:
-						return Direction.SW;
-					default:
-						return Direction.NE;
-				}
-			case Direction.SW:
-				switch (d) {
-					case Direction.R:
-						return Direction.NW;
-					case Direction.L:
-						return Direction.SE;
-					case Direction.B:
-						return Direction.NE;
-					default:
-						return Direction.SW;
-				}
-			case Direction.SE:
-				switch (d) {
-					case Direction.R:
-						return Direction.SW;
-					case Direction.L:
-						return Direction.NE;
-					case Direction.B:
-						return Direction.NW;
-					default:
-						return Direction.SE;
-				}
+		case Direction.N:
+			switch (d) {
+			case Direction.R:
+				return Direction.E;
+			case Direction.L:
+				return Direction.W;
+			case Direction.B:
+				return Direction.S;
+			default:
+				return Direction.N;
+			}
+		case Direction.S:
+			switch (d) {
+			case Direction.R:
+				return Direction.W;
+			case Direction.L:
+				return Direction.E;
+			case Direction.B:
+				return Direction.N;
+			default:
+				return Direction.S;
+			}
+		case Direction.E:
+			switch (d) {
+			case Direction.R:
+				return Direction.S;
+			case Direction.L:
+				return Direction.N;
+			case Direction.B:
+				return Direction.W;
+			default:
+				return Direction.E;
+			}
+		case Direction.W:
+			switch (d) {
+			case Direction.R:
+				return Direction.N;
+			case Direction.L:
+				return Direction.S;
+			case Direction.B:
+				return Direction.E;
+			default:
+				return Direction.W;
+			}
+		case Direction.NW:
+			switch (d) {
+			case Direction.R:
+				return Direction.NE;
+			case Direction.L:
+				return Direction.SW;
+			case Direction.B:
+				return Direction.SE;
+			default:
+				return Direction.NW;
+			}
+		case Direction.NE:
+			switch (d) {
+			case Direction.R:
+				return Direction.SE;
+			case Direction.L:
+				return Direction.NW;
+			case Direction.B:
+				return Direction.SW;
+			default:
+				return Direction.NE;
+			}
+		case Direction.SW:
+			switch (d) {
+			case Direction.R:
+				return Direction.NW;
+			case Direction.L:
+				return Direction.SE;
+			case Direction.B:
+				return Direction.NE;
+			default:
+				return Direction.SW;
+			}
+		case Direction.SE:
+			switch (d) {
+			case Direction.R:
+				return Direction.SW;
+			case Direction.L:
+				return Direction.NE;
+			case Direction.B:
+				return Direction.NW;
+			default:
+				return Direction.SE;
+			}
 		}
 		return Direction.E;
 	}
@@ -345,36 +350,36 @@ public abstract class Entity {
 		double disttemp = (double) this.speed / 3.0f;
 
 		switch (this.direction) {
-			case Direction.S:
-				dy += (int) Math.ceil(disttemp);
-				break;
-			case Direction.N:
-				dy -= (int) Math.ceil(disttemp);
-				break;
-			case Direction.E:
-				dx += (int) Math.ceil(disttemp);
-				break;
-			case Direction.W:
-				dx -= (int) Math.ceil(disttemp);
-				break;
-			case Direction.SE:
-				dy += (int) Math.ceil(disttemp * CDD);
-				dx += (int) Math.ceil(disttemp * CDD);
-				break;
-			case Direction.SW:
-				dy += (int) Math.ceil(disttemp * CDD);
-				dx -= (int) Math.ceil(disttemp * CDD);
-				break;
-			case Direction.NE:
-				dy -= (int) Math.ceil(disttemp * CDD);
-				dx += (int) Math.ceil(disttemp * CDD);
-				break;
-			case Direction.NW:
-				dy -= (int) Math.ceil(disttemp * CDD);
-				dx -= (int) Math.ceil(disttemp * CDD);
-				break;
-			default:
-				break;
+		case Direction.S:
+			dy += (int) Math.ceil(disttemp);
+			break;
+		case Direction.N:
+			dy -= (int) Math.ceil(disttemp);
+			break;
+		case Direction.E:
+			dx += (int) Math.ceil(disttemp);
+			break;
+		case Direction.W:
+			dx -= (int) Math.ceil(disttemp);
+			break;
+		case Direction.SE:
+			dy += (int) Math.ceil(disttemp * CDD);
+			dx += (int) Math.ceil(disttemp * CDD);
+			break;
+		case Direction.SW:
+			dy += (int) Math.ceil(disttemp * CDD);
+			dx -= (int) Math.ceil(disttemp * CDD);
+			break;
+		case Direction.NE:
+			dy -= (int) Math.ceil(disttemp * CDD);
+			dx += (int) Math.ceil(disttemp * CDD);
+			break;
+		case Direction.NW:
+			dy -= (int) Math.ceil(disttemp * CDD);
+			dx -= (int) Math.ceil(disttemp * CDD);
+			break;
+		default:
+			break;
 		}
 		// on regarde les collisions avec les voisins
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(dx, dy, hitbox);
@@ -402,106 +407,106 @@ public abstract class Entity {
 			direction = Direction.L;
 		}
 		switch (direction) {
-			case Direction.F:
+		case Direction.F:
+			break;
+
+		case Direction.B:
+			switch (this.direction) {
+			case Direction.S:
+				this.direction = Direction.N;
 				break;
-
-			case Direction.B:
-				switch (this.direction) {
-					case Direction.S:
-						this.direction = Direction.N;
-						break;
-					case Direction.N:
-						this.direction = Direction.S;
-						break;
-					case Direction.E:
-						this.direction = Direction.W;
-						break;
-					case Direction.W:
-						this.direction = Direction.E;
-
-						break;
-					case Direction.SE:
-						this.direction = Direction.NW;
-						break;
-					case Direction.SW:
-						this.direction = Direction.NE;
-						break;
-					case Direction.NE:
-						this.direction = Direction.SW;
-						break;
-					case Direction.NW:
-						this.direction = Direction.SE;
-						break;
-					default:
-						break;
-				}
+			case Direction.N:
+				this.direction = Direction.S;
 				break;
-
-			case Direction.L:
-				switch (this.direction) {
-					case Direction.S:
-						this.direction = Direction.E;
-						break;
-					case Direction.N:
-						this.direction = Direction.W;
-						break;
-					case Direction.E:
-						this.direction = Direction.N;
-						break;
-					case Direction.W:
-						this.direction = Direction.S;
-						break;
-					case Direction.SE:
-						this.direction = Direction.NE;
-						break;
-					case Direction.SW:
-						this.direction = Direction.SE;
-						break;
-					case Direction.NE:
-						this.direction = Direction.NW;
-						break;
-					case Direction.NW:
-						this.direction = Direction.SW;
-						break;
-					default:
-						break;
-				}
+			case Direction.E:
+				this.direction = Direction.W;
 				break;
+			case Direction.W:
+				this.direction = Direction.E;
 
-			case Direction.R:
-				switch (this.direction) {
-					case Direction.S:
-						this.direction = Direction.W;
-						break;
-					case Direction.N:
-						this.direction = Direction.E;
-						break;
-					case Direction.E:
-						this.direction = Direction.S;
-						break;
-					case Direction.W:
-						this.direction = Direction.N;
-						break;
-					case Direction.SE:
-						this.direction = Direction.SW;
-						break;
-					case Direction.SW:
-						this.direction = Direction.NW;
-						break;
-					case Direction.NE:
-						this.direction = Direction.SE;
-						break;
-					case Direction.NW:
-						this.direction = Direction.NE;
-						break;
-					default:
-						break;
-				}
 				break;
-
+			case Direction.SE:
+				this.direction = Direction.NW;
+				break;
+			case Direction.SW:
+				this.direction = Direction.NE;
+				break;
+			case Direction.NE:
+				this.direction = Direction.SW;
+				break;
+			case Direction.NW:
+				this.direction = Direction.SE;
+				break;
 			default:
-				this.direction = direction;
 				break;
+			}
+			break;
+
+		case Direction.L:
+			switch (this.direction) {
+			case Direction.S:
+				this.direction = Direction.E;
+				break;
+			case Direction.N:
+				this.direction = Direction.W;
+				break;
+			case Direction.E:
+				this.direction = Direction.N;
+				break;
+			case Direction.W:
+				this.direction = Direction.S;
+				break;
+			case Direction.SE:
+				this.direction = Direction.NE;
+				break;
+			case Direction.SW:
+				this.direction = Direction.SE;
+				break;
+			case Direction.NE:
+				this.direction = Direction.NW;
+				break;
+			case Direction.NW:
+				this.direction = Direction.SW;
+				break;
+			default:
+				break;
+			}
+			break;
+
+		case Direction.R:
+			switch (this.direction) {
+			case Direction.S:
+				this.direction = Direction.W;
+				break;
+			case Direction.N:
+				this.direction = Direction.E;
+				break;
+			case Direction.E:
+				this.direction = Direction.S;
+				break;
+			case Direction.W:
+				this.direction = Direction.N;
+				break;
+			case Direction.SE:
+				this.direction = Direction.SW;
+				break;
+			case Direction.SW:
+				this.direction = Direction.NW;
+				break;
+			case Direction.NE:
+				this.direction = Direction.SE;
+				break;
+			case Direction.NW:
+				this.direction = Direction.NE;
+				break;
+			default:
+				break;
+			}
+			break;
+
+		default:
+			this.direction = direction;
+			break;
 		}
 	}
 
@@ -510,12 +515,12 @@ public abstract class Entity {
 		for (Entity e : listE) {
 			if (pickable.contains(e.name)) {
 				if (direction == null) {
-					spawnSpiral(e);
+					spawnSpiral(e,dest.size/2,dest.size/2);
 					return;
 				}
 				do_turn(direction);
 				if (isEntityInDirection(e, this.direction)) {
-					spawnSpiral(e);
+					spawnSpiral(e,dest.size/2,dest.size/2);
 					return;
 				}
 			}
@@ -524,16 +529,16 @@ public abstract class Entity {
 
 	public void do_die() {
 		parent.qt.remove(this);
-		// parent = null;
+		//parent = null;
 	}
 
-	public void spawnSpiral(Entity e) {
-		int x = dest.size / 2;
-		int y = dest.size / 2;
+	public void spawnSpiral(Entity e, int x,  int y) {
 
 		int[][] directions = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
 		int cpt = 1;
-
+		if (dest==null || dest.qt==null) {
+			dest=parent;
+		}
 		if (dest.qt.getEntitiesFromRadius(x, y, hitbox).isEmpty()) {
 			parent.qt.remove(e);
 			e.x = x;
@@ -581,11 +586,11 @@ public abstract class Entity {
 			cpt++;
 		}
 	}
-
+	
 	public abstract void do_throw(String direction, String category);
-
+	
 	public abstract void do_get();
-
+	
 	public abstract void do_hit(String direction);
 
 	public abstract void do_wait();

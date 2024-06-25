@@ -43,7 +43,6 @@
     },
     "Zombie": {
         "name": "Zombie",
-        "team": "villains",
         "dest": null,
         "position": [
             0,
@@ -64,11 +63,10 @@
         "FSM": "./resources/gal/zombie.gal",
         "sprite": "./resources/png/Skeleton.png",
         "range": 100,
-        "reach": 5
+        "reach": 8
     },
     "Boss": {
         "name": "Boss",
-        "team": "villains",
         "dest": null,
         "position": [
             0,
@@ -177,6 +175,7 @@
                 "type": "Player1",
                 "density": -1
             }
+            
         ]
     },
     "Niv1": {
@@ -247,7 +246,7 @@
     "Player1": {
         "FSM": "./resources/gal/Player1Jeu2.gal",
         "name": "Player1",
-        "hp": 1000,
+        "hp": 100,
         "damage": 10,
         "position": [
             0,
@@ -259,10 +258,9 @@
         "direction": "N",
         "speed": 3,
         "sprite": "./resources/png/Player1.png",
-        "CanRespawn": false,
+        "CanRespawn": true,
         "reach": 10,
         "dest": null,
-        "team": "Player1",
         "enemies": [
             "Player2",
             "Zombie",
@@ -287,7 +285,6 @@
         "CanRespawn": true,
         "reach": 10,
         "dest": null,
-        "team": "Player2",
         "enemies": [
             "Player1",
             "Zombie",
