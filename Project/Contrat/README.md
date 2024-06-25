@@ -7,7 +7,8 @@
 - Cloner le repository ```git clone git@gricad-gitlab.univ-grenoble-alpes.fr:michael_perin_private_project/2023_info3_ple/g2.git```
 - faire un ```make``` dans le dossier ```Project/GameEngine/info3.game.given.2021/src/gal/parser```
 - En cas d'erreur d'import des librairies json, il faut ajouter les dépendances aux fichiers .jar présent dans le dossier ```resources/json```.
-
+- Lancer Eclipse dans le workspace g2
+- `import projects -> General -> Existing project into workspace -> Project/GameEngine/info3.game.given.2021`
 
 ## 2. Structuration du code :
 
@@ -268,7 +269,7 @@ Le Boss est atiré par le personnage le plus proche, il frappe et fait apparaitr
 
 ## 4. Lien vers la vidéo :
 
-
+https://www.youtube.com/watch?v=EuqstNzkaPg
 
 ## 5. Pourcentages de participation :
 
