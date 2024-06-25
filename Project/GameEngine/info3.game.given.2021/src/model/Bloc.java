@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -23,10 +22,10 @@ public class Bloc extends Entity {
 		super(other.x, other.y, other.speed, other.direction, other.reach, other.dest, other.sprites,
 				new ArrayList<String>(other.pickable), other.name, other.fsm, other.parent);
 	}
-	
+
 	public boolean eval(String dir, String cat, int radius) {
 		ArrayList<Entity> listE = (ArrayList<Entity>) parent.qt.getEntitiesFromRadius(x, y, radius);
-		
+
 		if (cat != null && cat.equals(Category.V)) {
 			if (listE.isEmpty())
 				return true;
@@ -39,22 +38,22 @@ public class Bloc extends Entity {
 				listE_tri_cat = listE;
 			} else {
 				switch (cat) {
-				case Category.P:
-					if (pickable.contains(e.name)) {
+					case Category.P:
+						if (pickable.contains(e.name)) {
+							listE_tri_cat.add(e);
+						}
+						break;
+					case Category.O:
+						if (e instanceof Bloc) {
+							listE_tri_cat.add(e);
+						}
+						break;
+					case Category.ALL:
 						listE_tri_cat.add(e);
-					}
-					break;
-				case Category.O:
-					if (e instanceof Bloc) {
-						listE_tri_cat.add(e);
-					}
-					break;
-				case Category.ALL:
-					listE_tri_cat.add(e);
 
-					break;
-				default:
-					break;
+						break;
+					default:
+						break;
 				}
 			}
 		}
@@ -69,48 +68,48 @@ public class Bloc extends Entity {
 		for (Entity e : listE_tri_cat) {
 			switch (dir) {
 
-			case Direction.N:
-				if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-					return true;
-				}
-				break;
-			case Direction.S:
-				if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
-					return true;
-				}
-				break;
-			case Direction.E:
-				if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-					return true;
-				}
-				break;
-			case Direction.W:
-				if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
-					return true;
-				}
-				break;
-			case Direction.NE:
-				if (e.x >= x && e.y <= y) {
-					return true;
-				}
-				break;
-			case Direction.NW:
-				if (e.x <= x && e.y <= y) {
-					return true;
-				}
-				break;
-			case Direction.SE:
-				if (e.x >= x && e.y >= y) {
-					return true;
-				}
-				break;
-			case Direction.SW:
-				if (e.x <= x && e.y >= y) {
-					return true;
-				}
-				break;
-			default:
-				break;
+				case Direction.N:
+					if (e.y <= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+						return true;
+					}
+					break;
+				case Direction.S:
+					if (e.y >= y && Math.abs(e.y - y) >= Math.abs(e.x - x)) {
+						return true;
+					}
+					break;
+				case Direction.E:
+					if (e.x >= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+						return true;
+					}
+					break;
+				case Direction.W:
+					if (e.x <= x && Math.abs(e.x - x) >= Math.abs(e.y - y)) {
+						return true;
+					}
+					break;
+				case Direction.NE:
+					if (e.x >= x && e.y <= y) {
+						return true;
+					}
+					break;
+				case Direction.NW:
+					if (e.x <= x && e.y <= y) {
+						return true;
+					}
+					break;
+				case Direction.SE:
+					if (e.x >= x && e.y >= y) {
+						return true;
+					}
+					break;
+				case Direction.SW:
+					if (e.x <= x && e.y >= y) {
+						return true;
+					}
+					break;
+				default:
+					break;
 			}
 		}
 		return false;
@@ -119,7 +118,6 @@ public class Bloc extends Entity {
 	public boolean eval_cell(String dir, String cat) {
 		return eval(dir, cat, reach);
 	}
-	
 
 	@Override
 	public void do_hit(String direction) {
@@ -138,11 +136,11 @@ public class Bloc extends Entity {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void do_wait() {
 	}
-	
+
 	@Override
 	public void do_paint(Graphics g, int width, int height, Player p) {
 		// scale
@@ -163,18 +161,20 @@ public class Bloc extends Entity {
 
 		int sizex = (int) (hitbox * scale);
 		/*
-		g.setColor(Color.blue);
-		g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
-		*/
+		 * g.setColor(Color.blue);
+		 * g.fillOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2,
+		 * sizex, sizex);
+		 */
 
 		// On dessine le sprite
 		sizex = (int) (sizex * 2);
 
-		g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside - 4 * sizex / 6 , posyInWindow - 4 * sizex / 6, sizex,
+		g.drawImage(sprites[m_imageIndex], posxInWindow + offsetside - 4 * sizex / 6, posyInWindow - 4 * sizex / 6,
+				sizex,
 				sizex, null);
 		// on change le sprite
 		if (elasped > 40)
-			m_imageIndex = (m_imageIndex+1)%4;
+			m_imageIndex = (m_imageIndex + 1) % 4;
 
 	}
 
@@ -187,9 +187,7 @@ public class Bloc extends Entity {
 	@Override
 	public void do_throw(String direction, String category) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 }

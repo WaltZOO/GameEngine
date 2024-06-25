@@ -12,7 +12,7 @@
             "win_msg": "VICTOIRE DU PLAYER 1 !"
         },
         "Timer": {
-            "timer": 3,
+            "timer": 30,
             "win_cond": "timer",
             "win_msg": "VICTOIRE DU PLAYER 2 !"
         },

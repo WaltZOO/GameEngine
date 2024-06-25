@@ -25,8 +25,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import info3.game.sound.AudioPlayer;
-
 /*
  * A single listener grouping all the callbacks from the GameCanvas.
  */
@@ -51,14 +49,14 @@ public interface GameCanvasListener extends MouseListener, MouseMotionListener, 
   public void paint(Graphics g);
 
   /*
-   * Last callback, the window has been closed, 
+   * Last callback, the window has been closed,
    * this is the end of the game, after this call,
    * the Java Runtime Environment will exit.
    */
   public void exit();
-  
+
   /*
-   * The music that was playing stopped playing, because the player 
+   * The music that was playing stopped playing, because the player
    * reached the end of the music and looping was not requested.
    */
   public void endOfPlay(String name);

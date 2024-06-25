@@ -25,8 +25,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import info3.game.graphics.GameCanvas;
-import info3.game.sound.AudioPlayer;
-import info3.game.sound.AudioPlayerListener;
 
 public class Sound {
   GameCanvas m_canvas;
@@ -42,6 +40,6 @@ public class Sound {
     m_filename = filename;
     File file = new File(filename);
     FileInputStream fis = new FileInputStream(file);
-    m_canvas.playSound(name, fis, duration,volume);
+    m_canvas.playSound(name, fis, duration, volume);
   }
 }

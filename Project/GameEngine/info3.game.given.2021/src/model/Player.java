@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 import ai.Category;
@@ -18,8 +16,7 @@ public class Player extends Character {
 
 		super(x, y, speed, direction, reach, dest, filename, pickable, team, hp, damage, ennemies, allies, range, name,
 				fsm, parent);
-				
-				
+
 		isRunning = false;
 
 		this.isPlayer1 = isPlayer1;
@@ -66,8 +63,8 @@ public class Player extends Character {
 
 	public void do_throw(String direction, String category) {
 		ArrayList<Entity> ListE = (ArrayList<Entity>) dest.qt.updateEntities();
-		int dist = hitbox+1;
-		
+		int dist = hitbox + 1;
+
 		if (direction == null)
 			direction = Direction.F;
 		if (category == null)
@@ -75,7 +72,7 @@ public class Player extends Character {
 		direction = relativeToAbsolue(direction);
 
 		Player temp;
-		
+
 		try {
 			temp = new Player(this);
 		} catch (Exception e) {
@@ -84,27 +81,27 @@ public class Player extends Character {
 		}
 
 		switch (direction) {
-		case Direction.N:
-			temp.y -= dist;
-			break;
+			case Direction.N:
+				temp.y -= dist;
+				break;
 
-		case Direction.S:
-			temp.y += dist;
-			break;
+			case Direction.S:
+				temp.y += dist;
+				break;
 
-		case Direction.W:
-			temp.x -= dist;
-			break;
+			case Direction.W:
+				temp.x -= dist;
+				break;
 
-		case Direction.E:
-			temp.x += dist;
-			break;
-		default:
-			break;
+			case Direction.E:
+				temp.x += dist;
+				break;
+			default:
+				break;
 		}
-		
-		for(Entity e : ListE) {
-			if(pickable.contains(e.name)) {
+
+		for (Entity e : ListE) {
+			if (pickable.contains(e.name)) {
 				if (temp.eval(direction, Category.V, hitbox)) {
 					e.parent.qt.remove(e);
 					e.x = temp.x;
