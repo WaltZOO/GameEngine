@@ -39,9 +39,22 @@ public class Game {
 	static Game game;
 
 	public static void main(String args[]) throws Exception {
+		
 		try {
+			String argument;
+			if (args.length > 0) {
+	            argument = args[0];
+	            System.out.println("Argument fourni : " + argument);
+	        } else {
+	        	// -------------- ICI LE NOM DU FICHIER DE CONFIG--------------
+	        	
+	        	argument = "./resources/json/configjeu1_mvpScom.json";
+	        	
+	        	// -------------------------------------------------------------
+	            System.out.println("Aucun argument fourni \n On lance le Jeu 1");
+	        }
 			System.out.println("Game starting...");
-			game = new Game();
+			game = new Game(argument);
 			System.out.println("Game started.");
 		} catch (Throwable th) {
 			th.printStackTrace(System.err);
@@ -59,11 +72,11 @@ public class Game {
 	int timer = 10000;
 	Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 
-	Game() throws Exception {
+	Game(String filename) throws Exception {
 		// creating a cowboy, that would be a model
 		// in an Model-View-Controller pattern (MVC)
 		// m_cowboy = new Cowboy();
-		model = new Model("./resources/json/configjeu2_mvpScom.json");
+		model = new Model(filename);
 		// creating a listener for all the events
 		// from the game canvas, that would be
 		// the controller in the MVC pattern
