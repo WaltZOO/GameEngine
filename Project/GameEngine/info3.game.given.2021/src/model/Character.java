@@ -278,7 +278,7 @@ public abstract class Character extends Entity {
 		// dessin de la reach
 		Color c = new Color(100, 0, 0, 30);
 		g.setColor(c);
-		sizex = (int) (reach * scale);
+		sizex = (int) (2*reach * scale);
 		g.drawOval(posxInWindow + offsetside - sizex / 2, posyInWindow - sizex / 2, sizex, sizex);
 		g.drawOval(posxInWindow + offsetside - sizex / 2 + 1, posyInWindow - sizex / 2 + 1, sizex - 2, sizex - 2);
 
