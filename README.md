@@ -269,7 +269,7 @@ Le Boss est attiré par le personnage le plus proche, il frappe et fait apparait
 
 ## 4. Lien vers la vidéo :
 
-https://www.youtube.com/watch?v=EuqstNzkaPg
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/EuqstNzkaPg/0.jpg)](https://www.youtube.com/watch?v=EuqstNzkaPg)
 
 ## 5. Pourcentages de participation :
 

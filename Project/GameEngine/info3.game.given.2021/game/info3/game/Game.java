@@ -48,7 +48,7 @@ public class Game {
 	        } else {
 	        	// -------------- ICI LE NOM DU FICHIER DE CONFIG--------------
 	        	
-	        	argument = "./resources/json/configjeu1_mvpScom.json";
+	        	argument = "./resources/json/configjeu2_mvpScom.json";
 	        	
 	        	// -------------------------------------------------------------
 	            System.out.println("Aucun argument fourni \n On lance le Jeu 1");
